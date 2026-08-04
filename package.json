@@ -1,0 +1,31 @@
+{
+  "name": "opencode-dispatch-plugin-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "bun run --workspaces --if-present build",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit --project tsconfig.base.json",
+    "test:unit": "bun test tests/unit --pass-with-no-tests",
+    "test:components": "bun test tests/components --pass-with-no-tests",
+    "test:integration": "bun test tests/integration --pass-with-no-tests",
+    "test:e2e": "bun test tests/e2e --pass-with-no-tests",
+    "test:security": "bun test tests/security --pass-with-no-tests",
+    "test:package": "bun test tests/package --pass-with-no-tests",
+    "test": "bun run test:unit && bun run test:components && bun run test:integration && bun run test:security && bun run test:package",
+    "audit:lighthouse": "bun run --filter @opencode-dispatch/pwa --if-present audit:lighthouse",
+    "check:loc": "bun run scripts/check-loc.ts",
+    "check": "bun run lint && bun run typecheck && bun run check:loc && bun run test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@types/bun": "1.3.14",
+    "typescript": "7.0.2"
+  }
+}

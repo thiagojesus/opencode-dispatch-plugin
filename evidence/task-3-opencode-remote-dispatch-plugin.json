@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "task": {
+    "id": 3,
+    "title": "Lock the threat model, secure local state, redaction, and trust boundaries",
+    "date": "2026-08-04",
+    "model": "openai/gpt-5.6-sol",
+    "anthropicUsed": false
+  },
+  "scope": {
+    "implementation": "packages/broker/src/security/**",
+    "tests": ["packages/broker/src/security/*.test.ts", "tests/security/security-boundary.test.ts"],
+    "documents": ["THREAT_MODEL.md", "SECURITY.md"],
+    "parallelOwnershipPreserved": ["packages/contracts/**", "apps/pwa/**", "DESIGN.md"]
+  },
+  "securityResearch": {
+    "method": "exploitability-driven attack-path analysis with safe local proofs",
+    "teamMode": "unavailable",
+    "limitation": "The security-research skill requires team_* tools, which were absent in this delegated lane. No subagent was dispatched because its API exposes no GPT model selector.",
+    "severityPolicy": "No speculative severity was assigned; Todo 3 implemented and tested the concrete attack paths in THREAT_MODEL.md."
+  },
+  "sourceEvidence": [
+    {
+      "source": "https://github.com/anomalyco/opencode/blob/dev/SECURITY.md",
+      "observed": "OpenCode is unsandboxed; server mode needs an explicitly configured Basic Auth password.",
+      "trust": "untrusted external design evidence"
+    },
+    {
+      "source": "https://tailscale.com/docs/features/tailscale-serve",
+      "validatedByPublisher": "2026-01-20",
+      "observed": "Serve strips spoofed incoming identity/capability headers, injects authenticated values, and recommends a loopback backend.",
+      "trust": "untrusted external design evidence"
+    },
+    {
+      "source": "https://tailscale.com/docs/features/access-control/acls",
+      "validatedByPublisher": "2026-01-05",
+      "observed": "A tailnet with no policy section uses a default allow-all policy.",
+      "trust": "untrusted external design evidence"
+    },
+    {
+      "source": "https://tailscale.com/docs/concepts/tailscale-encryption",
+      "validatedByPublisher": "2026-01-07",
+      "observed": "WireGuard protects the data plane and DERP relays encrypted packets; encryption does not replace application authorization.",
+      "trust": "untrusted external design evidence"
+    }
+  ],
+  "redCases": [
+    {
+      "command": "bun test packages/broker --filter security",
+      "exitCode": 1,
+      "observed": "0 pass, 5 fail; expected security exports were absent before implementation."
+    },
+    {
+      "command": "bun test packages/broker/src/security/internal-auth.test.ts --test-name-pattern challenge-clock",
+      "exitCode": 1,
+      "observed": "Invalid NaN clock issued a challenge before the fail-closed clock check was implemented."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --test-name-pattern macOS-Application-Support",
+      "exitCode": 1,
+      "observed": "macOS incorrectly honored an injected XDG path before the platform-specific path fix."
+    },
+    {
+      "command": "bun test packages/broker/src/security/request-policy.test.ts --test-name-pattern rate-limit-clock",
+      "exitCode": 1,
+      "observed": "A negative rate-limit clock granted a permit before the fail-closed clock check was implemented."
+    }
+  ],
+  "greenCases": [
+    {
+      "command": "bun test packages/broker --filter security",
+      "exitCode": 0,
+      "observed": "26 pass, 0 fail, 50 assertions across 5 files."
+    },
+    {
+      "command": "bun run test:security",
+      "exitCode": 0,
+      "observed": "26 pass, 0 fail, 50 assertions across direct and integration security tests."
+    },
+    {
+      "command": "bunx biome check packages/broker/src/security tests/security package.json --max-diagnostics=200",
+      "exitCode": 0,
+      "observed": "16 Todo 3 files checked with no fixes required."
+    },
+    {
+      "command": "bun run typecheck",
+      "exitCode": 0,
+      "observed": "Root strict TypeScript check passed after concurrent Todo 2 work stabilized."
+    },
+    {
+      "command": "bun run check:loc",
+      "exitCode": 0,
+      "observed": "45 TypeScript modules were within the 250 pure-LOC limit."
+    },
+    {
+      "command": "bun test packages/broker --filter security --rerun-each=10 --randomize --seed=30303",
+      "exitCode": 0,
+      "observed": "240 randomized security tests passed with 470 assertions."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --rerun-each=25 --randomize --seed=31337",
+      "exitCode": 0,
+      "observed": "150 randomized state tests passed with 250 assertions."
+    },
+    {
+      "command": "bun run lint -- --staged",
+      "exitCode": 0,
+      "observed": "16 staged Todo 3 files passed the root Biome configuration."
+    },
+    {
+      "command": "staged-file credential pattern scan",
+      "exitCode": 0,
+      "observed": "18 staged files scanned against 5 credential/private-key patterns with zero matches."
+    }
+  ],
+  "staticAnalysis": {
+    "astGrepVersion": "0.43.0",
+    "validatedPatterns": [
+      "$EXPR as any",
+      "$EXPR as unknown",
+      "console.log($$$ARGS)",
+      "console.error($$$ARGS)",
+      "try { $$$BODY } catch ($ERR) { }",
+      "new Error($MSG)"
+    ],
+    "matches": 0,
+    "requiredControlMatches": {
+      "timingSafeEqual": 1
+    },
+    "scopedLoc": "14 TypeScript modules within 250 pure LOC",
+    "noExcuseScript": "unavailable because the script expected a TypeScript compiler API not exposed by the installed TypeScript 7 package; Biome and validated ast-grep scans supplied equivalent checks"
+  },
+  "crossPlatformAssertions": [
+    {
+      "platform": "macOS",
+      "assertion": "Application Support state root; runtime directory mode 0700 and secret mode 0600",
+      "result": "passed"
+    },
+    {
+      "platform": "Linux and other Unix",
+      "assertion": "absolute XDG state root or home .local/state when unset; relative XDG rejected; mode policy 0700/0600",
+      "result": "path, relative-path rejection, and POSIX mode assertions passed"
+    },
+    {
+      "platform": "Windows",
+      "assertion": "absolute Local AppData only, inherited user-profile ACL semantics, no shared fallback, no POSIX-mode claim",
+      "result": "path and fail-closed assertions passed; native Windows CI remains a later package-matrix gate"
+    }
+  ],
+  "adversarialCases": [
+    {
+      "attack": "concurrent secret initialization",
+      "control": "exclusive private candidate plus atomic no-replace hard-link publication",
+      "result": "16 concurrent initializers observed one stable secret"
+    },
+    {
+      "attack": "replayed or context-swapped internal authentication",
+      "control": "128-bit challenge, bounded TTL/cache, context-bound HMAC-SHA-256, constant-time compare, one-time consumption",
+      "result": "first response accepted; replay, expiry, wrong binding, malformed signature, and invalid clock rejected"
+    },
+    {
+      "attack": "direct identity-header spoof",
+      "control": "trusted-proxy ingress state plus protected-header rejection",
+      "result": "request_identity_spoofed before remote action"
+    },
+    {
+      "attack": "CSRF or WebSocket origin confusion",
+      "control": "exact HTTPS Host and Origin",
+      "result": "wrong Host and malicious Origin rejected"
+    },
+    {
+      "attack": "oversized declared or streaming body and subject flood",
+      "control": "declared-length validation, early streaming cancellation, bounded fixed-window subjects",
+      "result": "oversized body and exhausted rate budget rejected"
+    },
+    {
+      "attack": "CRLF, token, path, prompt, capability, cookie, or stack injection into diagnostics",
+      "control": "structured sensitive-key redaction, token/path/control sanitization, generic typed diagnostics",
+      "result": "redaction corpus contained none of the planted sentinels"
+    },
+    {
+      "attack": "uncreatable, symlinked, malformed, or unsafe local state",
+      "control": "user-local paths, type/size/mode checks, typed fail-closed errors",
+      "result": "uncreatable location and world-readable existing secret rejected"
+    }
+  ],
+  "adversarialClasses": [
+    {
+      "class": "malformed_input",
+      "result": "Malformed signatures, non-HTTPS endpoints, wrong Host/Origin, oversized bodies, unsafe paths, and invalid clocks failed closed."
+    },
+    {
+      "class": "prompt_injection",
+      "result": "Official web text was treated only as untrusted evidence; no external instruction or payload was executed."
+    },
+    {
+      "class": "cancel_resume",
+      "result": "Not applicable: Todo 3 has no resumable network or UI flow."
+    },
+    {
+      "class": "stale_state",
+      "result": "Replay, expired challenge, unsafe existing secret, and wrong macOS path behavior were reproduced and rejected."
+    },
+    {
+      "class": "dirty_worktree",
+      "result": "Todo 3-scoped tests and checks passed while parallel Todo 2 and Todo 4 files were present; their files were neither edited nor staged by this task."
+    },
+    {
+      "class": "hung_or_long_commands",
+      "result": "No Todo 3 command hung; all targeted tests completed below one second."
+    },
+    {
+      "class": "flaky_tests",
+      "result": "240 randomized security runs and 150 randomized state runs passed with fixed seeds."
+    },
+    {
+      "class": "misleading_success_output",
+      "result": "Success claims require process exit 0 plus concrete assertion counts and parsed evidence fields."
+    },
+    {
+      "class": "repeated_interruptions",
+      "result": "Not applicable: initialization is atomic and tests use finally cleanup; no external long-running resource was started."
+    }
+  ],
+  "remoteActionControls": [
+    {
+      "action": "health and capabilities",
+      "controls": ["identity", "app capability", "Host", "no sensitive inventory"]
+    },
+    {
+      "action": "list enabled sessions",
+      "controls": ["live process-bound exposure", "title-safe metadata", "bounded response"]
+    },
+    {
+      "action": "read snapshot and messages",
+      "controls": [
+        "current owner and process nonce",
+        "bounded pagination",
+        "no-store",
+        "no persistence"
+      ]
+    },
+    {
+      "action": "read status, todos, permission, and question state",
+      "controls": ["current authoritative process", "strict response schema", "stale rejection"]
+    },
+    {
+      "action": "subscribe to events",
+      "controls": [
+        "WebSocket Origin",
+        "identity/capability",
+        "snapshot-first epoch/sequence",
+        "bounded replay"
+      ]
+    },
+    {
+      "action": "submit prompt",
+      "controls": [
+        "32 KiB limit",
+        "identity/session rate limit",
+        "idempotency key",
+        "one upstream call"
+      ]
+    },
+    {
+      "action": "abort",
+      "controls": ["live owner", "explicit confirmation", "bounded body", "stale conflict"]
+    },
+    {
+      "action": "permission decision",
+      "controls": ["once or reject only", "exact pending identifier", "no optimistic success"]
+    },
+    {
+      "action": "question reply",
+      "controls": ["exact pending identifier", "contract-valid bounded answer", "live owner"]
+    },
+    {
+      "action": "all non-allowlisted actions",
+      "controls": ["not-found or method-not-allowed before any OpenCode call"]
+    }
+  ],
+  "manualQa": {
+    "surface": "library driver using real temporary filesystem and Web API objects",
+    "observed": {
+      "stableSecret": true,
+      "internalAuth": "accepted",
+      "replay": "auth_replayed",
+      "spoofedIdentity": "request_identity_spoofed",
+      "directoryMode": "700",
+      "secretMode": "600",
+      "cleanup": "removed"
+    }
+  },
+  "cleanup": [
+    "All test and manual-driver temporary directories were removed in finally blocks.",
+    "No server, browser, port, container, process, live Tailscale state, or live OpenCode state was created or changed.",
+    "No secret value was printed or written to evidence."
+  ],
+  "remainingVerification": {
+    "rootLint": "temporarily blocked by four formatting errors in concurrently owned Todo 4 files",
+    "rootBuild": "temporarily blocked because the concurrently owned Todo 4 PWA had no index.html entry yet",
+    "rootCheck": "pending root lint/build stabilization; Todo 3-scoped tests and static checks are green"
+  }
+}

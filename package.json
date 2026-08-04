@@ -16,7 +16,7 @@
     "test:components": "bun test tests/components --pass-with-no-tests",
     "test:integration": "bun test tests/integration --pass-with-no-tests",
     "test:e2e": "bun test tests/e2e --pass-with-no-tests",
-    "test:security": "bun test tests/security --pass-with-no-tests",
+    "test:security": "bun test packages/broker/src/security tests/security --pass-with-no-tests",
     "test:package": "bun test tests/package --pass-with-no-tests",
     "test": "bun run test:unit && bun run test:components && bun run test:integration && bun run test:security && bun run test:package",
     "audit:lighthouse": "bun run --filter @opencode-dispatch/pwa --if-present audit:lighthouse",

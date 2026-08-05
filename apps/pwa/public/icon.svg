@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">OpenCode Dispatch</title>
+  <desc id="description">A warm continuity rail beside two bounded work surfaces.</desc>
+  <style>
+    .canvas { fill: hsl(44, 31%, 93%); }
+    .ink { fill: hsl(34, 12%, 12%); }
+    .accent { fill: hsl(14, 65%, 40%); }
+    .paper { fill: hsl(43, 47%, 97%); }
+    .sand { fill: hsl(40, 28%, 87%); }
+  </style>
+  <rect class="canvas" width="512" height="512" rx="112" />
+  <rect class="ink" x="72" y="72" width="368" height="368" rx="80" />
+  <rect class="accent" x="128" y="128" width="48" height="256" rx="24" />
+  <rect class="paper" x="208" y="136" width="176" height="80" rx="24" />
+  <rect class="sand" x="208" y="248" width="144" height="128" rx="24" />
+  <rect class="ink" x="240" y="288" width="80" height="24" rx="12" />
+</svg>

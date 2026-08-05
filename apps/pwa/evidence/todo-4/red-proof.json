@@ -1,0 +1,28 @@
+{
+  "date": "2026-08-04",
+  "model": "openai/gpt-5.6-sol",
+  "unit": {
+    "command": "bun run --cwd apps/pwa test:unit",
+    "exitCode": 1,
+    "expectedReason": "The showcase source does not exist yet, so the design-system source and required library checks fail.",
+    "observed": "1 pass, 2 fail; sources.length was 0 and no Kobalte import was present."
+  },
+  "browser": {
+    "command": "bun run --cwd apps/pwa test:e2e -- --project=375-light",
+    "exitCode": 1,
+    "expectedReason": "The production showcase entry point does not exist yet.",
+    "observed": "Vite failed with UNRESOLVED_ENTRY for index.html before Playwright could start."
+  },
+  "reviewComponent": {
+    "command": "bun run --cwd apps/pwa test:components",
+    "exitCode": 1,
+    "expectedReason": "The existing components still use toggle semantics, live regions containing actions, and an unnamed preview scroll owner.",
+    "observed": "Four focused tests failed: aria-current was absent, both recovery actions were inside live regions, and .shell-body was absent."
+  },
+  "rootComponentDispatch": {
+    "command": "bun run check",
+    "exitCode": 1,
+    "expectedReason": "The root component lane must dispatch the PWA Vitest configuration without Bun discovering the nested TSX test.",
+    "observed": "Bun discovered apps/pwa/tests/components/semantic-contract.test.tsx and failed on react/jsx-dev-runtime before the root script was narrowed to the PWA Vitest lane."
+  }
+}

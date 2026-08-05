@@ -35,5 +35,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules", "dist", "coverage", "playwright-report", "test-results"]
+  "exclude": ["apps/pwa", "node_modules", "dist", "coverage", "playwright-report", "test-results"]
 }

@@ -1,0 +1,92 @@
+@media (max-width: 47.999rem) {
+  .continuity-rail {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .continuity-rail > .action {
+    grid-column: 2;
+    inline-size: 100%;
+  }
+
+  .tool-card__summary {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .tool-card__summary > .action {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+  }
+
+  .cluster > .action:not(.action--icon),
+  .dialog-actions > .action,
+  .decision-card__footer > .action {
+    flex: 1 1 100%;
+    inline-size: 100%;
+  }
+
+  .session-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .session-row__status {
+    justify-self: start;
+  }
+
+  .scope-list > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 48rem) {
+  .content-limiter {
+    inline-size: min(100% - (var(--space-8) * 2), var(--content-max));
+  }
+
+  .showcase-header {
+    padding-block: var(--space-16) var(--space-12);
+    padding-inline: var(--space-8);
+  }
+
+  .showcase-header::before {
+    inset-block: var(--space-16) var(--space-12);
+  }
+
+  .showcase-section[data-tone="muted"] {
+    padding-inline: var(--space-6);
+  }
+
+  .split-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shell-body {
+    grid-template-columns: minmax(13rem, 38%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .app-shell__sessions {
+    overflow: auto;
+    box-shadow: inset -0.0625rem 0 0 var(--color-border-subtle);
+  }
+}
+
+@media (min-width: 64rem) {
+  .shell-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .showcase-section {
+    padding-block: var(--space-10);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root *,
+  :root *::before,
+  :root *::after {
+    scroll-behavior: auto;
+    animation-duration: 0.001s;
+    animation-iteration-count: 1;
+    transition-duration: 0.001s;
+  }
+}

@@ -1,0 +1,196 @@
+.showcase-document {
+  min-block-size: 100dvb;
+  padding-block-end: env(safe-area-inset-bottom);
+}
+
+.content-limiter {
+  inline-size: min(100% - (var(--space-4) * 2), var(--content-max));
+  margin-inline: auto;
+  min-inline-size: 0;
+}
+
+.stack {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cluster {
+  display: flex;
+  min-inline-size: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.intrinsic-grid,
+.split-grid,
+.shell-grid {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+.showcase-header {
+  position: relative;
+  padding-block: var(--space-12) var(--space-10);
+  padding-inline: var(--space-6) var(--space-4);
+}
+
+.showcase-header::before {
+  position: absolute;
+  inset-block: var(--space-12) var(--space-10);
+  inset-inline-start: 0;
+  inline-size: var(--space-1);
+  border-radius: var(--radius-round);
+  background: var(--color-action-primary);
+  content: "";
+}
+
+.showcase-kicker {
+  color: var(--color-action-primary);
+  font-size: var(--font-label);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.showcase-lead {
+  max-inline-size: 58ch;
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-lg);
+}
+
+.showcase-principles {
+  padding: 0;
+  list-style: none;
+}
+
+.showcase-principles li {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  font-size: var(--font-body-sm);
+  font-weight: 650;
+  box-shadow: var(--ring-subtle);
+}
+
+#showcase-main {
+  gap: var(--space-12);
+}
+
+.showcase-section {
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  scroll-margin-block-start: var(--space-4);
+}
+
+.showcase-section[data-tone="muted"] {
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-primary);
+  box-shadow: var(--ring-subtle);
+}
+
+.section-heading {
+  max-inline-size: var(--prose-max);
+  gap: var(--space-2);
+}
+
+.section-heading p,
+.showcase-footer {
+  color: var(--color-text-secondary);
+}
+
+.primitive-card,
+.decision-card,
+.state-panel {
+  min-inline-size: 0;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-primary);
+  box-shadow: var(--ring-subtle);
+}
+
+.continuity-matrix {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--space-3);
+}
+
+.app-shell {
+  display: grid;
+  block-size: min(38rem, 80dvb);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-primary);
+  box-shadow: var(--ring-strong);
+}
+
+.app-shell__header,
+.app-shell__dock {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-primary);
+}
+
+.app-shell__header > div {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.app-shell__header span,
+.app-shell__dock > span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-sm);
+}
+
+.shell-body {
+  display: grid;
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: var(--color-surface-inset);
+}
+
+.app-shell__sessions,
+.app-shell__transcript {
+  min-block-size: 0;
+  min-inline-size: 0;
+  padding: var(--space-3);
+}
+
+.app-shell__transcript {
+  overflow: auto;
+}
+
+.app-shell__pane-title {
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-sm);
+}
+
+.app-shell__dock {
+  justify-content: space-between;
+  padding-block-end: max(var(--space-3), env(safe-area-inset-bottom));
+}
+
+.showcase-footer {
+  padding-block: var(--space-16) var(--space-8);
+  text-align: center;
+}
+
+.stress-panel {
+  max-inline-size: 100%;
+  padding: var(--space-4);
+  overflow-wrap: anywhere;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-inset);
+  color: var(--color-text-primary);
+  font-family: var(--font-code-family);
+  box-shadow: var(--ring-strong);
+}

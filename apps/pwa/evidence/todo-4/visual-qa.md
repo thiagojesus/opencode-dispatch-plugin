@@ -38,3 +38,7 @@ Both fresh independent reviewers pass the post-remediation Todo 4 primitive show
 - Fresh captures: all six 375/768/1280 light/dark full-page PNGs regenerated after the variant implementation.
 - Visual-fidelity reviewer session `ses_018faca4affeQY6OKsY8R17OTW`: **PASS**, high confidence, no blockers.
 - The first integrity pass correctly rejected a stale targeted Playwright JSON artifact; the complete matrix was rerun without overriding the configured JSON reporter before final integrity review.
+- A later performance experiment using `content-visibility` was also rejected because full-page captures contained blank intrinsic-size placeholders.
+- Corrected final design reviewer `ses_018e2e23fffe6L1Y7ED6FX9y58`: **PASS**, high confidence, no blockers.
+- Corrected final integrity reviewer `ses_018e2e0ecffeTIrecOQfpeWI09`: **PASS**, high confidence, no blockers.
+- Both reviewers directly confirmed all six corrected captures contain every lower showcase section and all required variants without clipping or horizontal overflow.

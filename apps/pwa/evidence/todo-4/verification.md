@@ -70,3 +70,6 @@ Todo 4 satisfies its design, implementation, TDD, accessibility, responsive, vis
 - Final `bun run --cwd apps/pwa test:e2e` regenerated `playwright-results.json`: 149 passed, 19 intentional profile skips, zero failures across 168 cases.
 - Fresh full-page captures measure 375x13979, 768x8305, and 1280x7804 in both light and dark themes; every browser measurement reported `clientWidth === scrollWidth`.
 - Manual production Chrome QA checked the multiple-choice control, free-response field, and Kobalte saved toast; all worked with zero console warnings or errors.
+- A proposed `content-visibility` optimization passed functional gates but produced blank lower sections in full-page evidence and was rejected by both visual reviewers.
+- Corrected final captures restored every section. Reviewer sessions `ses_018e2e23fffe6L1Y7ED6FX9y58` and `ses_018e2e0ecffeTIrecOQfpeWI09` returned PASS with high confidence and no blockers.
+- The final Lighthouse runner warms Chrome immediately before each recorded measurement; all three mobile and three desktop runs scored 100 in every category.

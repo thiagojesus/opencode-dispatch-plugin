@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "auditedAt": "2026-08-09T15:09:39.936Z",
+  "auditedAt": "2026-08-09T15:19:59.216Z",
   "url": "http://127.0.0.1:4173/",
   "runner": "Lighthouse Node API over Chrome Stable CDP",
   "lighthouseVersion": "13.4.1",

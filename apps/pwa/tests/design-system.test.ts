@@ -122,4 +122,5 @@ test("wires component and Lighthouse verification without optional skips", async
   expect(pwaPackage.scripts["test:components"]).toContain("vitest run")
   expect(pwaPackage.scripts["audit:lighthouse"]).toContain("audit-lighthouse.ts")
   expect(auditScriptExists).toBe(true)
+  expect(await auditScript.text()).toContain("await measure(chrome.port, preset, 0)")
 })

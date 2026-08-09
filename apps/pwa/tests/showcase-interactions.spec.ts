@@ -4,6 +4,33 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/")
 })
 
+test("exposes every previously missing design-system variant", async ({ page }) => {
+  // Given
+  const expectedVariants = [
+    "question-single-choice",
+    "question-multiple-choice",
+    "question-free-response",
+    "toast-info",
+    "toast-success",
+    "toast-warning",
+    "toast-error",
+    "skeleton-session-row",
+    "skeleton-transcript-part",
+    "skeleton-tool-card",
+    "state-empty-transcript",
+  ] as const
+
+  // When
+  const visibleVariants = await page
+    .locator("[data-showcase-variant]")
+    .evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute("data-showcase-variant")),
+    )
+
+  // Then
+  expect(visibleVariants).toEqual(expect.arrayContaining([...expectedVariants]))
+})
+
 test("traps and restores focus for destructive confirmation", async ({ page }) => {
   // Given
   const trigger = page.getByRole("button", { name: "Open abort confirmation" })

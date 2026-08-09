@@ -182,6 +182,13 @@ export function ShowcaseApp(): JSX.Element {
               title="No enabled sessions"
             />
             <StatePanel
+              actionLabel="Start a message"
+              description="This enabled session has no transcript yet. Send the first message when ready."
+              kind="empty"
+              showcaseVariant="state-empty-transcript"
+              title="No transcript yet"
+            />
+            <StatePanel
               actionLabel="Try again"
               description="The current snapshot could not be loaded. No action was sent."
               kind="error"

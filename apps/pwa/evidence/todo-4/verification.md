@@ -61,3 +61,12 @@ The 19 skips are deliberate duplicate suppression: tablet-only title wrapping sk
 ## Result
 
 Todo 4 satisfies its design, implementation, TDD, accessibility, responsive, visual-QA, production-build, and evidence acceptance criteria with no unresolved blocker.
+
+## 2026-08-09 Variant Coverage Remediation
+
+- Adversarial session `ses_0309af4cfffeYO31omCARdRDyE` identified missing visible multiple-choice/free-response questions, info/warning/error toasts, transcript/tool skeletons, and empty-transcript state.
+- Red proof: `bun run --cwd apps/pwa test:e2e -- --grep "previously missing design-system variant" --project=375-light` failed because the variant marker set was empty, then passed after implementation.
+- `bun run check`, `bun run pwa:showcase`, `bun run --cwd apps/pwa test:unit`, and `bun run --cwd apps/pwa test:components` passed.
+- Final `bun run --cwd apps/pwa test:e2e` regenerated `playwright-results.json`: 149 passed, 19 intentional profile skips, zero failures across 168 cases.
+- Fresh full-page captures measure 375x13979, 768x8305, and 1280x7804 in both light and dark themes; every browser measurement reported `clientWidth === scrollWidth`.
+- Manual production Chrome QA checked the multiple-choice control, free-response field, and Kobalte saved toast; all worked with zero console warnings or errors.

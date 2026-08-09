@@ -115,6 +115,7 @@ async function runAudit(): Promise<void> {
     try {
       const measurements: AuditMeasurement[] = []
       for (const preset of PRESETS) {
+        await measure(chrome.port, preset, 0)
         for (let run = 1; run <= RUN_COUNT; run += 1) {
           measurements.push(await measure(chrome.port, preset, run))
         }

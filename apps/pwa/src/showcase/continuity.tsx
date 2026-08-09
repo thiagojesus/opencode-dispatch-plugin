@@ -14,6 +14,7 @@ type StatePanelProps = {
   readonly actionLabel?: string
   readonly description: string
   readonly kind: "empty" | "error" | "offline" | "revoked"
+  readonly showcaseVariant?: string
   readonly testId?: string
   readonly title: string
 }
@@ -102,7 +103,12 @@ function StatePanelIcon(props: { readonly kind: StatePanelProps["kind"] }): JSX.
 
 export function StatePanel(props: StatePanelProps): JSX.Element {
   return (
-    <div class="state-panel stack" data-kind={props.kind} data-testid={props.testId}>
+    <div
+      class="state-panel stack"
+      data-kind={props.kind}
+      data-showcase-variant={props.showcaseVariant}
+      data-testid={props.testId}
+    >
       <span class="icon-well">
         <StatePanelIcon kind={props.kind} />
       </span>

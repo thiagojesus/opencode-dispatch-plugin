@@ -70,10 +70,44 @@ export function SessionRow(props: SessionRowProps): JSX.Element {
 
 export function SessionSkeleton(): JSX.Element {
   return (
-    <div aria-busy="true" class="session-row session-row--skeleton" role="status">
+    <div
+      aria-busy="true"
+      class="session-row session-row--skeleton"
+      data-showcase-variant="skeleton-session-row"
+      role="status"
+    >
       <span class="visually-hidden">Loading session</span>
       <span aria-hidden="true" class="skeleton-block skeleton-block--title" />
       <span aria-hidden="true" class="skeleton-block skeleton-block--meta" />
+    </div>
+  )
+}
+
+function TranscriptSkeleton(): JSX.Element {
+  return (
+    <article
+      aria-busy="true"
+      class="transcript-part stack"
+      data-showcase-variant="skeleton-transcript-part"
+    >
+      <span class="visually-hidden">Loading transcript part</span>
+      <span aria-hidden="true" class="skeleton-block skeleton-block--meta" />
+      <span aria-hidden="true" class="skeleton-block skeleton-block--title" />
+    </article>
+  )
+}
+
+function ToolSkeleton(): JSX.Element {
+  return (
+    <div
+      aria-busy="true"
+      class="tool-card tool-card__summary"
+      data-showcase-variant="skeleton-tool-card"
+      role="status"
+    >
+      <span class="visually-hidden">Loading tool card</span>
+      <span aria-hidden="true" class="skeleton-block skeleton-block--meta" />
+      <span aria-hidden="true" class="skeleton-block skeleton-block--title" />
     </div>
   )
 }
@@ -127,6 +161,11 @@ export function SessionShowcase(): JSX.Element {
         <TranscriptPart kind="error">
           <p>The update could not be applied. No remote action was sent.</p>
         </TranscriptPart>
+      </div>
+      <div class="primitive-card stack">
+        <h3>Shape-matched loading states</h3>
+        <TranscriptSkeleton />
+        <ToolSkeleton />
       </div>
     </div>
   )

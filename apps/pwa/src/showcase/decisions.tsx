@@ -17,6 +17,7 @@ export function QuestionCard(): JSX.Element {
   return (
     <form
       class="decision-card stack"
+      data-showcase-variant="question-single-choice"
       data-testid="question-interactive"
       onSubmit={(event) => {
         event.preventDefault()
@@ -76,6 +77,57 @@ export function QuestionCard(): JSX.Element {
           Submit answer
         </ActionButton>
       </div>
+    </form>
+  )
+}
+
+function MultipleChoiceQuestion(): JSX.Element {
+  return (
+    <form class="decision-card stack" data-showcase-variant="question-multiple-choice">
+      <div class="decision-card__heading cluster">
+        <span class="icon-well">
+          <Question aria-hidden="true" size={24} weight="bold" />
+        </span>
+        <div class="stack">
+          <h3>Which checks should run next?</h3>
+          <p>Select every independent check that is safe to continue.</p>
+        </div>
+      </div>
+      <fieldset>
+        <legend>Choose one or more checks</legend>
+        <label class="choice" for="check-types">
+          <input id="check-types" name="next-checks" type="checkbox" />
+          <span>Type checks</span>
+        </label>
+        <label class="choice" for="check-tests">
+          <input id="check-tests" name="next-checks" type="checkbox" />
+          <span>Focused tests</span>
+        </label>
+      </fieldset>
+      <ActionButton type="submit" variant="primary">
+        Run selected checks
+      </ActionButton>
+    </form>
+  )
+}
+
+function FreeResponseQuestion(): JSX.Element {
+  return (
+    <form class="decision-card stack" data-showcase-variant="question-free-response">
+      <div class="decision-card__heading cluster">
+        <span class="icon-well">
+          <Question aria-hidden="true" size={24} weight="bold" />
+        </span>
+        <div class="stack">
+          <h3>What should change before continuing?</h3>
+          <p>Give the local agent one short, specific constraint.</p>
+        </div>
+      </div>
+      <label for="question-response">Required change</label>
+      <textarea id="question-response" name="question-response" rows={3} />
+      <ActionButton type="submit" variant="primary">
+        Submit response
+      </ActionButton>
     </form>
   )
 }
@@ -145,6 +197,8 @@ export function DecisionShowcase(): JSX.Element {
   return (
     <div class="split-grid">
       <QuestionCard />
+      <MultipleChoiceQuestion />
+      <FreeResponseQuestion />
       <PermissionCard />
       <article class="decision-card stack">
         <div class="decision-card__heading cluster">

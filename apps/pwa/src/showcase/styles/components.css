@@ -314,6 +314,23 @@
   box-shadow: var(--ring-strong);
 }
 
+.decision-card textarea {
+  min-block-size: calc(var(--size-target) * 2);
+  inline-size: 100%;
+  resize: vertical;
+  padding: var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  box-shadow: var(--ring-strong);
+}
+
+.decision-card textarea:focus-visible {
+  outline: 0;
+  box-shadow: var(--shadow-focus), var(--ring-strong);
+}
+
 .composer textarea:focus-visible {
   outline: 0;
   box-shadow: var(--shadow-focus), var(--ring-strong);
@@ -500,4 +517,21 @@
 .toast__copy [data-kb-toast-description] {
   color: var(--color-text-secondary);
   font-size: var(--font-body-sm);
+}
+
+.toast__copy > span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-sm);
+}
+
+.toast[data-kind="success"] > .icon-well {
+  color: var(--color-status-success);
+}
+
+.toast[data-kind="warning"] > .icon-well {
+  color: var(--color-status-warning);
+}
+
+.toast[data-kind="error"] > .icon-well {
+  color: var(--color-status-danger);
 }

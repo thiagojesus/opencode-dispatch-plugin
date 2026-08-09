@@ -171,12 +171,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2645,
+                  "duration": 4193,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:50.852Z",
+                  "startTime": "2026-08-09T15:11:20.026Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -205,12 +205,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 691,
+                  "duration": 1095,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:54.731Z",
+                  "startTime": "2026-08-09T15:11:26.387Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -239,12 +239,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 781,
+                  "duration": 1055,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:55.442Z",
+                  "startTime": "2026-08-09T15:11:27.508Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -273,12 +273,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1835,
+                  "duration": 2967,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:56.235Z",
+                  "startTime": "2026-08-09T15:11:28.598Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -307,12 +307,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 584,
+                  "duration": 894,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:58.099Z",
+                  "startTime": "2026-08-09T15:11:31.577Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,12 +341,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 4343,
+                  "duration": 4158,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:50.859Z",
+                  "startTime": "2026-08-09T15:11:20.038Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -375,12 +375,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 725,
+                  "duration": 1040,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:56.451Z",
+                  "startTime": "2026-08-09T15:11:26.350Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -409,12 +409,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 629,
+                  "duration": 1065,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:57.225Z",
+                  "startTime": "2026-08-09T15:11:27.412Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -443,12 +443,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 1482,
+                  "duration": 2967,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:57.882Z",
+                  "startTime": "2026-08-09T15:11:28.500Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -477,12 +477,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 521,
+                  "duration": 928,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:59.379Z",
+                  "startTime": "2026-08-09T15:11:31.485Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -508,15 +508,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2170,
+                  "duration": 3201,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:01.231Z",
+                  "startTime": "2026-08-09T15:11:33.870Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -542,15 +542,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1053,
+                  "duration": 1179,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:03.959Z",
+                  "startTime": "2026-08-09T15:11:38.337Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -576,15 +576,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 905,
+                  "duration": 1072,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.051Z",
+                  "startTime": "2026-08-09T15:11:39.537Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -610,15 +610,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2022,
+                  "duration": 2702,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.967Z",
+                  "startTime": "2026-08-09T15:11:40.625Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -644,15 +644,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 592,
+                  "duration": 869,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:08.008Z",
+                  "startTime": "2026-08-09T15:11:43.347Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -678,15 +678,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2611,
+                  "duration": 4674,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:09.727Z",
+                  "startTime": "2026-08-09T15:11:46.263Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -712,15 +712,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 785,
+                  "duration": 1289,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.911Z",
+                  "startTime": "2026-08-09T15:11:52.406Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -746,15 +746,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 846,
+                  "duration": 1081,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:13.707Z",
+                  "startTime": "2026-08-09T15:11:53.717Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -780,15 +780,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1541,
+                  "duration": 2597,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:14.566Z",
+                  "startTime": "2026-08-09T15:11:54.812Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -814,15 +814,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 559,
+                  "duration": 1036,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:16.124Z",
+                  "startTime": "2026-08-09T15:11:57.441Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -848,15 +848,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 2,
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 2680,
+                  "duration": 3529,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:16.882Z",
+                  "startTime": "2026-08-09T15:11:56.787Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -882,15 +882,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 2,
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 773,
+                  "duration": 965,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.145Z",
+                  "startTime": "2026-08-09T15:12:01.087Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -916,15 +916,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 2,
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 693,
+                  "duration": 1061,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.939Z",
+                  "startTime": "2026-08-09T15:12:02.073Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -950,15 +950,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 2,
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1867,
+                  "duration": 3081,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:21.653Z",
+                  "startTime": "2026-08-09T15:12:03.165Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -984,15 +984,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 2,
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 506,
+                  "duration": 1033,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:23.539Z",
+                  "startTime": "2026-08-09T15:12:06.267Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1018,15 +1018,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 15,
+                  "workerIndex": 14,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 2409,
+                  "duration": 3562,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:23.949Z",
+                  "startTime": "2026-08-09T15:12:08.531Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1052,15 +1052,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 15,
+                  "workerIndex": 14,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 787,
+                  "duration": 1024,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:26.942Z",
+                  "startTime": "2026-08-09T15:12:12.754Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1086,15 +1086,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 15,
+                  "workerIndex": 14,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 724,
+                  "duration": 1278,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:27.749Z",
+                  "startTime": "2026-08-09T15:12:13.818Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1120,15 +1120,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 15,
+                  "workerIndex": 14,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1654,
+                  "duration": 4637,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:28.488Z",
+                  "startTime": "2026-08-09T15:12:15.141Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1154,15 +1154,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 15,
+                  "workerIndex": 14,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 515,
+                  "duration": 1912,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:30.183Z",
+                  "startTime": "2026-08-09T15:12:19.823Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1184,6 +1184,40 @@
       "line": 0,
       "specs": [
         {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1757,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:11:19.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-b5788f7a66bda91f450d",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
+          "column": 1
+        },
+        {
           "title": "traps and restores focus for destructive confirmation",
           "ok": true,
           "tags": [],
@@ -1199,12 +1233,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1388,
+                  "duration": 1800,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:50.828Z",
+                  "startTime": "2026-08-09T15:11:23.952Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1214,7 +1248,7 @@
           ],
           "id": "697f34268516d970d19d-713b2895258b97e6dd5d",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -1233,12 +1267,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 760,
+                  "duration": 1004,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:53.480Z",
+                  "startTime": "2026-08-09T15:11:25.774Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1248,7 +1282,7 @@
           ],
           "id": "697f34268516d970d19d-9e7a2f5538f2022b7127",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -1267,12 +1301,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 562,
+                  "duration": 1082,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:54.274Z",
+                  "startTime": "2026-08-09T15:11:26.797Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1282,7 +1316,7 @@
           ],
           "id": "697f34268516d970d19d-68342078449630edcf8e",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -1301,12 +1335,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 583,
+                  "duration": 985,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:54.856Z",
+                  "startTime": "2026-08-09T15:11:27.897Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1316,7 +1350,7 @@
           ],
           "id": "697f34268516d970d19d-db317c04f39b69d60a0d",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -1335,12 +1369,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 691,
+                  "duration": 1174,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:55.457Z",
+                  "startTime": "2026-08-09T15:11:28.901Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1350,7 +1384,7 @@
           ],
           "id": "697f34268516d970d19d-b3c37360636b8620f381",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -1369,12 +1403,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 739,
+                  "duration": 692,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:56.163Z",
+                  "startTime": "2026-08-09T15:11:30.094Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1384,7 +1418,7 @@
           ],
           "id": "697f34268516d970d19d-33cfa584215b9b036076",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -1403,12 +1437,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 730,
+                  "duration": 811,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:56.914Z",
+                  "startTime": "2026-08-09T15:11:30.803Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1418,7 +1452,7 @@
           ],
           "id": "697f34268516d970d19d-4fb09b50d86d1b490c24",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -1437,12 +1471,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 768,
+                  "duration": 1044,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:57.666Z",
+                  "startTime": "2026-08-09T15:11:31.633Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1452,7 +1486,7 @@
           ],
           "id": "697f34268516d970d19d-8da6809e4103813db962",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -1471,12 +1505,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 712,
+                  "duration": 720,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:58.452Z",
+                  "startTime": "2026-08-09T15:11:32.690Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1486,7 +1520,7 @@
           ],
           "id": "697f34268516d970d19d-f28fe6420cabbaae8e1c",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -1505,12 +1539,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 455,
+                  "duration": 609,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:59.183Z",
+                  "startTime": "2026-08-09T15:11:33.440Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1520,7 +1554,7 @@
           ],
           "id": "697f34268516d970d19d-c16550a7d0a685225fa9",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -1539,12 +1573,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 561,
+                  "duration": 870,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:59.653Z",
+                  "startTime": "2026-08-09T15:11:34.079Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1554,7 +1588,7 @@
           ],
           "id": "697f34268516d970d19d-aa303889e5b83c5818fb",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -1570,7 +1604,7 @@
                   "description": "One mouse profile proves hover feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 163,
+                    "line": 190,
                     "column": 8
                   }
                 }
@@ -1583,19 +1617,19 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 437,
+                  "duration": 904,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:00.226Z",
+                  "startTime": "2026-08-09T15:11:34.987Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves hover feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 163,
+                        "line": 190,
                         "column": 8
                       }
                     }
@@ -1608,7 +1642,7 @@
           ],
           "id": "697f34268516d970d19d-6cd73409b3011825ba69",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -1624,7 +1658,7 @@
                   "description": "One mouse profile proves active feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 179,
+                    "line": 206,
                     "column": 8
                   }
                 }
@@ -1637,19 +1671,19 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 556,
+                  "duration": 852,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:00.683Z",
+                  "startTime": "2026-08-09T15:11:35.916Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves active feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 179,
+                        "line": 206,
                         "column": 8
                       }
                     }
@@ -1662,7 +1696,41 @@
           ],
           "id": "697f34268516d970d19d-60db9bb1f18efb277643",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:11:33.826Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-a7e43242094c4fc9a30d",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
           "column": 1
         },
         {
@@ -1678,15 +1746,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 855,
+                  "duration": 1701,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:00.313Z",
+                  "startTime": "2026-08-09T15:11:36.530Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1696,7 +1764,7 @@
           ],
           "id": "697f34268516d970d19d-109a78fd12873d26cb54",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -1712,15 +1780,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 556,
+                  "duration": 938,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:01.739Z",
+                  "startTime": "2026-08-09T15:11:38.252Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1730,7 +1798,7 @@
           ],
           "id": "697f34268516d970d19d-3636863d7f5a85187e7f",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -1746,15 +1814,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 702,
+                  "duration": 1102,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:02.321Z",
+                  "startTime": "2026-08-09T15:11:39.220Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1764,7 +1832,7 @@
           ],
           "id": "697f34268516d970d19d-698f017cc27471e8e22c",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -1780,15 +1848,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 625,
+                  "duration": 865,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:03.032Z",
+                  "startTime": "2026-08-09T15:11:40.362Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1798,7 +1866,7 @@
           ],
           "id": "697f34268516d970d19d-440a6c7df41b53112a07",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -1814,15 +1882,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 704,
+                  "duration": 755,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:03.665Z",
+                  "startTime": "2026-08-09T15:11:41.268Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1832,7 +1900,7 @@
           ],
           "id": "697f34268516d970d19d-c5d784b1909d3912daee",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -1848,15 +1916,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 856,
+                  "duration": 835,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:04.387Z",
+                  "startTime": "2026-08-09T15:11:42.053Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1866,7 +1934,7 @@
           ],
           "id": "697f34268516d970d19d-e9eaea1aefa34d8dd251",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -1882,15 +1950,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 770,
+                  "duration": 1118,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.255Z",
+                  "startTime": "2026-08-09T15:11:42.934Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1900,7 +1968,7 @@
           ],
           "id": "697f34268516d970d19d-1b89fc4fb0ff8bc47cf1",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -1916,15 +1984,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 718,
+                  "duration": 862,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:06.042Z",
+                  "startTime": "2026-08-09T15:11:44.078Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1934,7 +2002,7 @@
           ],
           "id": "697f34268516d970d19d-598d3ed7f4a65fc577b0",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -1950,15 +2018,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 689,
+                  "duration": 806,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:06.776Z",
+                  "startTime": "2026-08-09T15:11:44.958Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1968,7 +2036,7 @@
           ],
           "id": "697f34268516d970d19d-0752a408660199b5d6bc",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -1984,15 +2052,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 523,
+                  "duration": 889,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:07.483Z",
+                  "startTime": "2026-08-09T15:11:45.790Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2002,7 +2070,7 @@
           ],
           "id": "697f34268516d970d19d-1faa739f71a3bcce4fc0",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -2018,15 +2086,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 620,
+                  "duration": 1020,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:08.020Z",
+                  "startTime": "2026-08-09T15:11:46.701Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2036,7 +2104,7 @@
           ],
           "id": "697f34268516d970d19d-eeeef94aa6e16ca1ad3f",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -2052,7 +2120,7 @@
                   "description": "One mouse profile proves hover feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 163,
+                    "line": 190,
                     "column": 8
                   }
                 }
@@ -2062,22 +2130,22 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 612,
+                  "duration": 830,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:08.654Z",
+                  "startTime": "2026-08-09T15:11:47.735Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves hover feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 163,
+                        "line": 190,
                         "column": 8
                       }
                     }
@@ -2090,7 +2158,7 @@
           ],
           "id": "697f34268516d970d19d-4f1c21389e1230b619bf",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -2106,7 +2174,7 @@
                   "description": "One mouse profile proves active feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 179,
+                    "line": 206,
                     "column": 8
                   }
                 }
@@ -2116,22 +2184,22 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 0,
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 395,
+                  "duration": 2231,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:09.278Z",
+                  "startTime": "2026-08-09T15:11:48.607Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves active feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 179,
+                        "line": 206,
                         "column": 8
                       }
                     }
@@ -2144,7 +2212,41 @@
           ],
           "id": "697f34268516d970d19d-407681fa5ce0dadb8730",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1423,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:11:38.531Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-c37538aa473b730b1cbb",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
           "column": 1
         },
         {
@@ -2160,15 +2262,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1242,
+                  "duration": 944,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:03.435Z",
+                  "startTime": "2026-08-09T15:11:41.101Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2178,7 +2280,7 @@
           ],
           "id": "697f34268516d970d19d-3f1112456cbaf3c55ec8",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -2194,15 +2296,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 799,
+                  "duration": 888,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.629Z",
+                  "startTime": "2026-08-09T15:11:42.068Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2212,7 +2314,7 @@
           ],
           "id": "697f34268516d970d19d-15b6840dbc21525955d7",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -2228,15 +2330,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 821,
+                  "duration": 1050,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:06.446Z",
+                  "startTime": "2026-08-09T15:11:42.984Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2246,7 +2348,7 @@
           ],
           "id": "697f34268516d970d19d-2ea90cd5eb40c9681b6f",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -2262,15 +2364,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 567,
+                  "duration": 840,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:07.293Z",
+                  "startTime": "2026-08-09T15:11:44.055Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2280,7 +2382,7 @@
           ],
           "id": "697f34268516d970d19d-9aa7e65e30d325a0e23b",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -2296,15 +2398,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 631,
+                  "duration": 876,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:07.880Z",
+                  "startTime": "2026-08-09T15:11:44.911Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2314,7 +2416,7 @@
           ],
           "id": "697f34268516d970d19d-00b70b2a1b4a5b47986d",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -2330,15 +2432,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 751,
+                  "duration": 961,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:08.531Z",
+                  "startTime": "2026-08-09T15:11:45.803Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2348,7 +2450,7 @@
           ],
           "id": "697f34268516d970d19d-b1ccbaa057b1efbdb6dc",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -2364,15 +2466,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 652,
+                  "duration": 1004,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:09.297Z",
+                  "startTime": "2026-08-09T15:11:46.778Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2382,7 +2484,7 @@
           ],
           "id": "697f34268516d970d19d-b1b06cbf176091655c35",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -2398,15 +2500,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 717,
+                  "duration": 2129,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:09.962Z",
+                  "startTime": "2026-08-09T15:11:47.803Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2416,7 +2518,7 @@
           ],
           "id": "697f34268516d970d19d-a045243c027bf2fda4b1",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -2432,15 +2534,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 826,
+                  "duration": 1700,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:10.691Z",
+                  "startTime": "2026-08-09T15:11:49.961Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2450,7 +2552,7 @@
           ],
           "id": "697f34268516d970d19d-cc7c6b5fd025364056dd",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -2466,15 +2568,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 672,
+                  "duration": 682,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:11.532Z",
+                  "startTime": "2026-08-09T15:11:51.680Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2484,7 +2586,7 @@
           ],
           "id": "697f34268516d970d19d-53cc849f9b137b7c43a2",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -2500,15 +2602,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 713,
+                  "duration": 1175,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.229Z",
+                  "startTime": "2026-08-09T15:11:52.377Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2518,7 +2620,7 @@
           ],
           "id": "697f34268516d970d19d-40e56de68c2adad455b4",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -2534,7 +2636,7 @@
                   "description": "One mouse profile proves hover feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 163,
+                    "line": 190,
                     "column": 8
                   }
                 }
@@ -2544,22 +2646,22 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 610,
+                  "duration": 751,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.960Z",
+                  "startTime": "2026-08-09T15:11:53.569Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves hover feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 163,
+                        "line": 190,
                         "column": 8
                       }
                     }
@@ -2572,7 +2674,7 @@
           ],
           "id": "697f34268516d970d19d-b03da7197a1e10414ec2",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -2588,7 +2690,7 @@
                   "description": "One mouse profile proves active feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 179,
+                    "line": 206,
                     "column": 8
                   }
                 }
@@ -2598,22 +2700,22 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 6,
                   "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 593,
+                  "duration": 589,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:13.581Z",
+                  "startTime": "2026-08-09T15:11:54.347Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves active feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 179,
+                        "line": 206,
                         "column": 8
                       }
                     }
@@ -2626,7 +2728,41 @@
           ],
           "id": "697f34268516d970d19d-5e473deabf77af6083ea",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 1321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:11:53.010Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-1428250f05ccd3c26df8",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
           "column": 1
         },
         {
@@ -2642,15 +2778,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 1349,
+                  "duration": 762,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:10.850Z",
+                  "startTime": "2026-08-09T15:11:56.026Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2660,7 +2796,7 @@
           ],
           "id": "697f34268516d970d19d-21ec7e0eb3ff9c3ae8ef",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -2676,15 +2812,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 735,
+                  "duration": 980,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.870Z",
+                  "startTime": "2026-08-09T15:11:56.810Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2694,7 +2830,7 @@
           ],
           "id": "697f34268516d970d19d-257edd52bfbe75b1fe2e",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -2710,15 +2846,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 731,
+                  "duration": 1144,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:13.627Z",
+                  "startTime": "2026-08-09T15:11:57.827Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2728,7 +2864,7 @@
           ],
           "id": "697f34268516d970d19d-8831290d18b888744666",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -2744,15 +2880,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 593,
+                  "duration": 683,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:14.377Z",
+                  "startTime": "2026-08-09T15:11:59.005Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2762,7 +2898,7 @@
           ],
           "id": "697f34268516d970d19d-a072655839957b55e779",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -2778,15 +2914,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 608,
+                  "duration": 1079,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:14.993Z",
+                  "startTime": "2026-08-09T15:11:59.715Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2796,7 +2932,7 @@
           ],
           "id": "697f34268516d970d19d-3edaee545eadfbbcb1ed",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -2812,15 +2948,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 619,
+                  "duration": 1101,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:15.617Z",
+                  "startTime": "2026-08-09T15:12:00.816Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2830,7 +2966,7 @@
           ],
           "id": "697f34268516d970d19d-d0b2f8abb533cc27a08e",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -2846,15 +2982,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 637,
+                  "duration": 1207,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:16.250Z",
+                  "startTime": "2026-08-09T15:12:01.931Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2864,7 +3000,7 @@
           ],
           "id": "697f34268516d970d19d-b78f383daa5a5d998745",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -2880,15 +3016,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 653,
+                  "duration": 1024,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:16.902Z",
+                  "startTime": "2026-08-09T15:12:03.161Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2898,7 +3034,7 @@
           ],
           "id": "697f34268516d970d19d-a89b782c7be437767aa7",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -2914,15 +3050,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 704,
+                  "duration": 1014,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:17.568Z",
+                  "startTime": "2026-08-09T15:12:04.213Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2932,7 +3068,7 @@
           ],
           "id": "697f34268516d970d19d-941e3d97612b48114376",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -2948,15 +3084,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 847,
+                  "duration": 910,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:18.291Z",
+                  "startTime": "2026-08-09T15:12:05.242Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -2966,7 +3102,7 @@
           ],
           "id": "697f34268516d970d19d-8bcd37d06fa736c98871",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -2982,15 +3118,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 842,
+                  "duration": 1001,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:19.154Z",
+                  "startTime": "2026-08-09T15:12:06.180Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3000,7 +3136,7 @@
           ],
           "id": "697f34268516d970d19d-e4ce52d819f4001180bc",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -3016,7 +3152,7 @@
                   "description": "One mouse profile proves hover feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 163,
+                    "line": 190,
                     "column": 8
                   }
                 }
@@ -3026,22 +3162,22 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 539,
+                  "duration": 613,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.022Z",
+                  "startTime": "2026-08-09T15:12:07.201Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves hover feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 163,
+                        "line": 190,
                         "column": 8
                       }
                     }
@@ -3054,7 +3190,7 @@
           ],
           "id": "697f34268516d970d19d-e58e8527809abd84aa91",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -3070,7 +3206,7 @@
                   "description": "One mouse profile proves active feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 179,
+                    "line": 206,
                     "column": 8
                   }
                 }
@@ -3080,22 +3216,22 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 0,
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 580,
+                  "duration": 507,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.584Z",
+                  "startTime": "2026-08-09T15:12:07.841Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves active feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 179,
+                        "line": 206,
                         "column": 8
                       }
                     }
@@ -3108,7 +3244,41 @@
           ],
           "id": "697f34268516d970d19d-19e0fa3f25fbbfaf3c7b",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1164,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:12:00.013Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-1129ee6c0ae925a15644",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
           "column": 1
         },
         {
@@ -3124,15 +3294,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1212,
+                  "duration": 1060,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:18.088Z",
+                  "startTime": "2026-08-09T15:12:02.041Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3142,7 +3312,7 @@
           ],
           "id": "697f34268516d970d19d-1821a7bc0e2b3424dcc9",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -3158,15 +3328,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 727,
+                  "duration": 1003,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:19.945Z",
+                  "startTime": "2026-08-09T15:12:03.129Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3176,7 +3346,7 @@
           ],
           "id": "697f34268516d970d19d-b13b6f1a83a4293642fc",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -3192,15 +3362,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 791,
+                  "duration": 962,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.689Z",
+                  "startTime": "2026-08-09T15:12:04.161Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3210,7 +3380,7 @@
           ],
           "id": "697f34268516d970d19d-68cc014d8e62021bf4fe",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -3226,15 +3396,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 547,
+                  "duration": 967,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:21.495Z",
+                  "startTime": "2026-08-09T15:12:05.138Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3244,7 +3414,7 @@
           ],
           "id": "697f34268516d970d19d-7f75f570c6a787569244",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -3260,15 +3430,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 583,
+                  "duration": 1019,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:22.056Z",
+                  "startTime": "2026-08-09T15:12:06.128Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3278,7 +3448,7 @@
           ],
           "id": "697f34268516d970d19d-cdf8b66d3700a277a7f9",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -3294,15 +3464,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 668,
+                  "duration": 723,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:22.658Z",
+                  "startTime": "2026-08-09T15:12:07.167Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3312,7 +3482,7 @@
           ],
           "id": "697f34268516d970d19d-71e4abdd556fc2863bbd",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -3328,15 +3498,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 665,
+                  "duration": 555,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:23.346Z",
+                  "startTime": "2026-08-09T15:12:07.916Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3346,7 +3516,7 @@
           ],
           "id": "697f34268516d970d19d-9e5fdda2e0b2a015e449",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -3362,15 +3532,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 748,
+                  "duration": 808,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:24.035Z",
+                  "startTime": "2026-08-09T15:12:08.493Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3380,7 +3550,7 @@
           ],
           "id": "697f34268516d970d19d-c6febc0fad5d92144a77",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -3396,15 +3566,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 759,
+                  "duration": 968,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:24.797Z",
+                  "startTime": "2026-08-09T15:12:09.319Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3414,7 +3584,7 @@
           ],
           "id": "697f34268516d970d19d-f06e10d45702f6af02b7",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -3430,15 +3600,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 809,
+                  "duration": 857,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:25.575Z",
+                  "startTime": "2026-08-09T15:12:10.310Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3448,7 +3618,7 @@
           ],
           "id": "697f34268516d970d19d-5f56369cb7a2411d976e",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -3464,15 +3634,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 868,
+                  "duration": 1168,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:26.400Z",
+                  "startTime": "2026-08-09T15:12:11.185Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3482,7 +3652,7 @@
           ],
           "id": "697f34268516d970d19d-549bac5d18eaf8aa19d0",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -3498,15 +3668,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 839,
+                  "duration": 1042,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:27.293Z",
+                  "startTime": "2026-08-09T15:12:12.515Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3516,7 +3686,7 @@
           ],
           "id": "697f34268516d970d19d-69ae7dd87913d33b2343",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -3532,15 +3702,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 13,
-                  "parallelIndex": 3,
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 947,
+                  "duration": 1403,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:28.151Z",
+                  "startTime": "2026-08-09T15:12:13.578Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3550,7 +3720,41 @@
           ],
           "id": "697f34268516d970d19d-80fb986a9367a14cb5e2",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
+          "column": 1
+        },
+        {
+          "title": "exposes every previously missing design-system variant",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-09T15:12:09.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "697f34268516d970d19d-082da73fa998b6883829",
+          "file": "showcase-interactions.spec.ts",
+          "line": 7,
           "column": 1
         },
         {
@@ -3566,15 +3770,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 1226,
+                  "duration": 1092,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:25.092Z",
+                  "startTime": "2026-08-09T15:12:11.255Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3584,7 +3788,7 @@
           ],
           "id": "697f34268516d970d19d-452f7f065cfd13af6a33",
           "file": "showcase-interactions.spec.ts",
-          "line": 7,
+          "line": 34,
           "column": 1
         },
         {
@@ -3600,15 +3804,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 819,
+                  "duration": 1006,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:27.060Z",
+                  "startTime": "2026-08-09T15:12:12.515Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3618,7 +3822,7 @@
           ],
           "id": "697f34268516d970d19d-0deaab3f56926ef6f9d0",
           "file": "showcase-interactions.spec.ts",
-          "line": 28,
+          "line": 55,
           "column": 1
         },
         {
@@ -3634,15 +3838,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 824,
+                  "duration": 1803,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:27.900Z",
+                  "startTime": "2026-08-09T15:12:13.547Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3652,7 +3856,7 @@
           ],
           "id": "697f34268516d970d19d-43a92d3b4443a554b359",
           "file": "showcase-interactions.spec.ts",
-          "line": 42,
+          "line": 69,
           "column": 1
         },
         {
@@ -3668,15 +3872,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 679,
+                  "duration": 1568,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:28.758Z",
+                  "startTime": "2026-08-09T15:12:15.398Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3686,7 +3890,7 @@
           ],
           "id": "697f34268516d970d19d-0fb2079ed320bba49ca3",
           "file": "showcase-interactions.spec.ts",
-          "line": 55,
+          "line": 82,
           "column": 1
         },
         {
@@ -3702,15 +3906,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 529,
+                  "duration": 872,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:29.453Z",
+                  "startTime": "2026-08-09T15:12:17.005Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3720,7 +3924,7 @@
           ],
           "id": "697f34268516d970d19d-d1513305a0b5d9c8c36b",
           "file": "showcase-interactions.spec.ts",
-          "line": 68,
+          "line": 95,
           "column": 1
         },
         {
@@ -3736,15 +3940,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 556,
+                  "duration": 1418,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:29.995Z",
+                  "startTime": "2026-08-09T15:12:17.919Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3754,7 +3958,7 @@
           ],
           "id": "697f34268516d970d19d-a2682a034d8ae4aedba7",
           "file": "showcase-interactions.spec.ts",
-          "line": 80,
+          "line": 107,
           "column": 1
         },
         {
@@ -3770,15 +3974,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 510,
+                  "duration": 1423,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:30.569Z",
+                  "startTime": "2026-08-09T15:12:19.388Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3788,7 +3992,7 @@
           ],
           "id": "697f34268516d970d19d-57dfc50123c9c535a9ba",
           "file": "showcase-interactions.spec.ts",
-          "line": 93,
+          "line": 120,
           "column": 1
         },
         {
@@ -3804,15 +4008,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 415,
+                  "duration": 1736,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.098Z",
+                  "startTime": "2026-08-09T15:12:20.847Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3822,7 +4026,7 @@
           ],
           "id": "697f34268516d970d19d-75d3ee587bc41cb78b4a",
           "file": "showcase-interactions.spec.ts",
-          "line": 105,
+          "line": 132,
           "column": 1
         },
         {
@@ -3838,15 +4042,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 443,
+                  "duration": 2115,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.526Z",
+                  "startTime": "2026-08-09T15:12:22.623Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3856,7 +4060,7 @@
           ],
           "id": "697f34268516d970d19d-b745eb865822193367f5",
           "file": "showcase-interactions.spec.ts",
-          "line": 118,
+          "line": 145,
           "column": 1
         },
         {
@@ -3872,15 +4076,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 368,
+                  "duration": 1295,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.983Z",
+                  "startTime": "2026-08-09T15:12:24.787Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3890,7 +4094,7 @@
           ],
           "id": "697f34268516d970d19d-e9f8d13e31b9ffa973a4",
           "file": "showcase-interactions.spec.ts",
-          "line": 132,
+          "line": 159,
           "column": 1
         },
         {
@@ -3906,15 +4110,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 417,
+                  "duration": 1719,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:32.363Z",
+                  "startTime": "2026-08-09T15:12:26.123Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -3924,7 +4128,7 @@
           ],
           "id": "697f34268516d970d19d-7ae148b2a2543416b9b3",
           "file": "showcase-interactions.spec.ts",
-          "line": 148,
+          "line": 175,
           "column": 1
         },
         {
@@ -3940,7 +4144,7 @@
                   "description": "One mouse profile proves hover feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 163,
+                    "line": 190,
                     "column": 8
                   }
                 }
@@ -3950,22 +4154,22 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 327,
+                  "duration": 2225,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:32.792Z",
+                  "startTime": "2026-08-09T15:12:27.873Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves hover feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 163,
+                        "line": 190,
                         "column": 8
                       }
                     }
@@ -3978,7 +4182,7 @@
           ],
           "id": "697f34268516d970d19d-d392c8f67fa772d21a87",
           "file": "showcase-interactions.spec.ts",
-          "line": 162,
+          "line": 189,
           "column": 1
         },
         {
@@ -3994,7 +4198,7 @@
                   "description": "One mouse profile proves active feedback",
                   "location": {
                     "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                    "line": 179,
+                    "line": 206,
                     "column": 8
                   }
                 }
@@ -4004,22 +4208,22 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 16,
+                  "workerIndex": 15,
                   "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 356,
+                  "duration": 1806,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:33.130Z",
+                  "startTime": "2026-08-09T15:12:30.131Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "One mouse profile proves active feedback",
                       "location": {
                         "file": "/Users/thiagojesus/Projects/opencode-dispatch-plugin/apps/pwa/tests/showcase-interactions.spec.ts",
-                        "line": 179,
+                        "line": 206,
                         "column": 8
                       }
                     }
@@ -4032,7 +4236,7 @@
           ],
           "id": "697f34268516d970d19d-bccc6f488a4a130db780",
           "file": "showcase-interactions.spec.ts",
-          "line": 178,
+          "line": 205,
           "column": 1
         }
       ]
@@ -4059,12 +4263,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 1117,
+                  "duration": 1725,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:50.813Z",
+                  "startTime": "2026-08-09T15:11:19.949Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4103,12 +4307,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 594,
+                  "duration": 1158,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:53.222Z",
+                  "startTime": "2026-08-09T15:11:23.920Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -4147,12 +4351,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 738,
+                  "duration": 865,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:53.838Z",
+                  "startTime": "2026-08-09T15:11:25.110Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4181,12 +4385,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 605,
+                  "duration": 960,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:54.594Z",
+                  "startTime": "2026-08-09T15:11:26.004Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4215,12 +4419,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 646,
+                  "duration": 978,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:55.217Z",
+                  "startTime": "2026-08-09T15:11:26.992Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4249,12 +4453,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 672,
+                  "duration": 941,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:55.887Z",
+                  "startTime": "2026-08-09T15:11:27.994Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4283,12 +4487,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 951,
+                  "duration": 1031,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:56.575Z",
+                  "startTime": "2026-08-09T15:11:28.962Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4317,12 +4521,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 809,
+                  "duration": 1035,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:57.546Z",
+                  "startTime": "2026-08-09T15:11:30.018Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4351,12 +4555,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 758,
+                  "duration": 1135,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:42:58.373Z",
+                  "startTime": "2026-08-09T15:11:31.066Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4382,15 +4586,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 741,
+                  "duration": 666,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:00.304Z",
+                  "startTime": "2026-08-09T15:11:32.444Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4426,15 +4630,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 538,
+                  "duration": 675,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:01.616Z",
+                  "startTime": "2026-08-09T15:11:33.135Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -4470,15 +4674,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 779,
+                  "duration": 1193,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:02.170Z",
+                  "startTime": "2026-08-09T15:11:33.833Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4504,15 +4708,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 704,
+                  "duration": 1281,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:02.964Z",
+                  "startTime": "2026-08-09T15:11:35.050Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4538,15 +4742,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 664,
+                  "duration": 878,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:03.685Z",
+                  "startTime": "2026-08-09T15:11:36.355Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4572,15 +4776,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 791,
+                  "duration": 615,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:04.359Z",
+                  "startTime": "2026-08-09T15:11:37.248Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4606,15 +4810,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 761,
+                  "duration": 774,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.166Z",
+                  "startTime": "2026-08-09T15:11:37.889Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4640,15 +4844,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 895,
+                  "duration": 1450,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:05.946Z",
+                  "startTime": "2026-08-09T15:11:38.682Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4684,15 +4888,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 523,
+                  "duration": 772,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:06.854Z",
+                  "startTime": "2026-08-09T15:11:40.157Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -4728,15 +4932,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 711,
+                  "duration": 1375,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:08.608Z",
+                  "startTime": "2026-08-09T15:11:42.363Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4762,15 +4966,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 544,
+                  "duration": 739,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:09.873Z",
+                  "startTime": "2026-08-09T15:11:44.851Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4796,15 +5000,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 785,
+                  "duration": 1010,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:10.453Z",
+                  "startTime": "2026-08-09T15:11:45.606Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4830,15 +5034,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 906,
+                  "duration": 1197,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:11.264Z",
+                  "startTime": "2026-08-09T15:11:46.643Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4864,15 +5068,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 712,
+                  "duration": 1494,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.196Z",
+                  "startTime": "2026-08-09T15:11:47.860Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4898,15 +5102,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 725,
+                  "duration": 2006,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:12.928Z",
+                  "startTime": "2026-08-09T15:11:49.384Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4932,15 +5136,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 698,
+                  "duration": 894,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:13.668Z",
+                  "startTime": "2026-08-09T15:11:51.405Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -4966,15 +5170,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 755,
+                  "duration": 1545,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:14.385Z",
+                  "startTime": "2026-08-09T15:11:52.307Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5010,15 +5214,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 486,
+                  "duration": 871,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:15.155Z",
+                  "startTime": "2026-08-09T15:11:53.888Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -5054,15 +5258,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 809,
+                  "duration": 1384,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:15.378Z",
+                  "startTime": "2026-08-09T15:11:56.592Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5088,15 +5292,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 669,
+                  "duration": 635,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:16.799Z",
+                  "startTime": "2026-08-09T15:11:58.819Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5122,15 +5326,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 664,
+                  "duration": 1225,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:17.478Z",
+                  "startTime": "2026-08-09T15:11:59.490Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5156,15 +5360,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 998,
+                  "duration": 1063,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:18.155Z",
+                  "startTime": "2026-08-09T15:12:00.733Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5190,15 +5394,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 803,
+                  "duration": 1178,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:19.169Z",
+                  "startTime": "2026-08-09T15:12:01.820Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5224,15 +5428,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 621,
+                  "duration": 927,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:19.997Z",
+                  "startTime": "2026-08-09T15:12:03.020Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5258,15 +5462,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 793,
+                  "duration": 1066,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:20.636Z",
+                  "startTime": "2026-08-09T15:12:03.967Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5292,15 +5496,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 769,
+                  "duration": 1086,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:21.444Z",
+                  "startTime": "2026-08-09T15:12:05.059Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5336,15 +5540,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 1,
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 453,
+                  "duration": 806,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:22.234Z",
+                  "startTime": "2026-08-09T15:12:06.164Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -5380,15 +5584,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 657,
+                  "duration": 1219,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:22.298Z",
+                  "startTime": "2026-08-09T15:12:08.398Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5424,15 +5628,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 480,
+                  "duration": 809,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:23.580Z",
+                  "startTime": "2026-08-09T15:12:10.250Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -5468,15 +5672,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 837,
+                  "duration": 1216,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:24.079Z",
+                  "startTime": "2026-08-09T15:12:11.103Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5502,15 +5706,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 797,
+                  "duration": 1225,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:24.934Z",
+                  "startTime": "2026-08-09T15:12:12.345Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5536,15 +5740,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 886,
+                  "duration": 960,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:25.757Z",
+                  "startTime": "2026-08-09T15:12:13.591Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5570,15 +5774,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 562,
+                  "duration": 1564,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:26.659Z",
+                  "startTime": "2026-08-09T15:12:14.581Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5604,15 +5808,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 901,
+                  "duration": 1321,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:27.245Z",
+                  "startTime": "2026-08-09T15:12:16.201Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5638,15 +5842,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 962,
+                  "duration": 1570,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:28.159Z",
+                  "startTime": "2026-08-09T15:12:17.544Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5682,15 +5886,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 0,
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 506,
+                  "duration": 1069,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:29.136Z",
+                  "startTime": "2026-08-09T15:12:19.167Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -5726,15 +5930,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 627,
+                  "duration": 2817,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:30.013Z",
+                  "startTime": "2026-08-09T15:12:17.538Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5770,15 +5974,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 295,
+                  "duration": 1428,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.125Z",
+                  "startTime": "2026-08-09T15:12:22.576Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -5814,15 +6018,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 417,
+                  "duration": 2126,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.432Z",
+                  "startTime": "2026-08-09T15:12:24.054Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5848,15 +6052,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 443,
+                  "duration": 2415,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:31.864Z",
+                  "startTime": "2026-08-09T15:12:26.221Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5882,15 +6086,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 384,
+                  "duration": 2525,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:32.325Z",
+                  "startTime": "2026-08-09T15:12:28.688Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5916,15 +6120,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 355,
+                  "duration": 1236,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:32.722Z",
+                  "startTime": "2026-08-09T15:12:31.254Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5950,15 +6154,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 429,
+                  "duration": 1820,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:33.095Z",
+                  "startTime": "2026-08-09T15:12:32.560Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -5984,15 +6188,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 438,
+                  "duration": 1581,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:33.538Z",
+                  "startTime": "2026-08-09T15:12:34.407Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -6028,15 +6232,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 17,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 233,
+                  "duration": 973,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-05T00:43:33.989Z",
+                  "startTime": "2026-08-09T15:12:36.016Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -6064,9 +6268,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-05T00:42:47.545Z",
-    "duration": 46886.495,
-    "expected": 143,
+    "startTime": "2026-08-09T15:11:15.513Z",
+    "duration": 82250.30200000001,
+    "expected": 149,
     "skipped": 19,
     "unexpected": 0,
     "flaky": 0

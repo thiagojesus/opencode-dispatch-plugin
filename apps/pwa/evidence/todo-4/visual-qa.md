@@ -32,3 +32,9 @@ Contract: `DESIGN.md` and Todo 4 of `opencode-remote-dispatch-plugin.md`
 ## Final Verdict
 
 Both fresh independent reviewers pass the post-remediation Todo 4 primitive showcase with high confidence. No blocking visual, responsive, functional, or accessibility finding remains.
+
+## 2026-08-09 Variant Coverage Review
+
+- Fresh captures: all six 375/768/1280 light/dark full-page PNGs regenerated after the variant implementation.
+- Visual-fidelity reviewer session `ses_018faca4affeQY6OKsY8R17OTW`: **PASS**, high confidence, no blockers.
+- The first integrity pass correctly rejected a stale targeted Playwright JSON artifact; the complete matrix was rerun without overriding the configured JSON reporter before final integrity review.

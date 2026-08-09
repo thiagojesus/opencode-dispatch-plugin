@@ -8,6 +8,10 @@ import {
   verifyRemoteRequest,
 } from "./index.ts"
 
+function throwUnknown(value: unknown): never {
+  throw value
+}
+
 describe("security request policy", () => {
   test("accepts exact Host and Origin only through the trusted proxy boundary", () => {
     const endpoint = createTrustedBrowserEndpoint("https://workstation.example.ts.net")
@@ -90,6 +94,20 @@ describe("security request policy", () => {
   test("stops reading a body as soon as the configured byte limit is exceeded", async () => {
     const request = new Request("https://workstation.example.ts.net/api/v1/action", {
       body: new Uint8Array(9),
+      method: "POST",
+    })
+
+    const decision = await readBodyWithinLimit(request, 8)
+
+    expect(decision).toMatchObject({ ok: false, error: { code: "request_body_rejected" } })
+  })
+
+  test("rejects a body stream that fails with a non-Error value", async () => {
+    const body = new ReadableStream<Uint8Array>({
+      pull: () => throwUnknown("RAW_NON_ERROR_SENTINEL"),
+    })
+    const request = new Request("https://workstation.example.ts.net/api/v1/action", {
+      body,
       method: "POST",
     })
 

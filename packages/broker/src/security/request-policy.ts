@@ -132,11 +132,8 @@ export async function readBodyWithinLimit(
       }
       chunks.push(result.value)
     }
-  } catch (error) {
-    if (error instanceof Error) {
-      return securityDenied("request_body_rejected", "read_request_body")
-    }
-    throw error
+  } catch {
+    return securityDenied("request_body_rejected", "read_request_body")
   } finally {
     reader.releaseLock()
   }

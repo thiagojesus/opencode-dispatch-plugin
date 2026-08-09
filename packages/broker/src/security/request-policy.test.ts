@@ -116,6 +116,31 @@ describe("security request policy", () => {
     expect(decision).toMatchObject({ ok: false, error: { code: "request_body_rejected" } })
   })
 
+  test("cancels and releases a body reader after an asynchronous read failure", async () => {
+    let cancelCalls = 0
+    let releaseCalls = 0
+    const request = {
+      body: {
+        getReader: () => ({
+          cancel: async () => {
+            cancelCalls += 1
+          },
+          read: () => Promise.reject("RAW_NON_ERROR_SENTINEL"),
+          releaseLock: () => {
+            releaseCalls += 1
+          },
+        }),
+      },
+      headers: new Headers(),
+    }
+
+    const decision: unknown = await Reflect.apply(readBodyWithinLimit, undefined, [request, 8])
+
+    expect(decision).toMatchObject({ ok: false, error: { code: "request_body_rejected" } })
+    expect(cancelCalls).toBe(1)
+    expect(releaseCalls).toBe(1)
+  })
+
   test("fails closed after the per-subject rate budget is exhausted", () => {
     const limiter = new FixedWindowRateLimiter({
       limit: 2,

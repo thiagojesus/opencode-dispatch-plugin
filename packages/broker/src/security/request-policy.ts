@@ -133,7 +133,13 @@ export async function readBodyWithinLimit(
       chunks.push(result.value)
     }
   } catch {
-    return securityDenied("request_body_rejected", "read_request_body")
+    const decision = securityDenied("request_body_rejected", "read_request_body")
+    try {
+      await reader.cancel()
+    } catch {
+      return decision
+    }
+    return decision
   } finally {
     reader.releaseLock()
   }

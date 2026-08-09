@@ -32,6 +32,30 @@ function isValidBinding(binding: string): boolean {
   return BINDING_PATTERN.test(binding)
 }
 
+function parseInternalAuthResponse(value: unknown): InternalAuthResponse | undefined {
+  try {
+    if (
+      typeof value !== "object" ||
+      value === null ||
+      !("issuedAtMs" in value) ||
+      typeof value.issuedAtMs !== "number" ||
+      !("nonce" in value) ||
+      typeof value.nonce !== "string" ||
+      !("signature" in value) ||
+      typeof value.signature !== "string"
+    ) {
+      return undefined
+    }
+    return {
+      issuedAtMs: value.issuedAtMs,
+      nonce: value.nonce,
+      signature: value.signature,
+    }
+  } catch {
+    return undefined
+  }
+}
+
 function canonicalChallenge(challenge: InternalAuthChallenge, binding: string): string {
   return `v1\n${challenge.issuedAtMs}\n${challenge.nonce}\n${binding}`
 }
@@ -87,34 +111,41 @@ export class InternalAuthVerifier {
     return challenge
   }
 
-  verify(response: InternalAuthResponse, binding: string): SecurityDecision<AuthenticatedControl> {
+  verify(response: unknown, binding: string): SecurityDecision<AuthenticatedControl> {
     const now = this.#policy.now()
     if (!Number.isSafeInteger(now) || now < 0) {
       return securityDenied("configuration_invalid", "verify_internal_auth")
     }
+    const parsedResponse = parseInternalAuthResponse(response)
+    if (parsedResponse === undefined) {
+      return securityDenied("auth_malformed", "verify_internal_auth")
+    }
     if (
-      !Number.isSafeInteger(response.issuedAtMs) ||
-      response.nonce.length !== NONCE_LENGTH ||
-      !BASE64URL_PATTERN.test(response.nonce) ||
-      response.signature.length !== SIGNATURE_LENGTH ||
-      !BASE64URL_PATTERN.test(response.signature) ||
+      !Number.isSafeInteger(parsedResponse.issuedAtMs) ||
+      parsedResponse.nonce.length !== NONCE_LENGTH ||
+      !BASE64URL_PATTERN.test(parsedResponse.nonce) ||
+      parsedResponse.signature.length !== SIGNATURE_LENGTH ||
+      !BASE64URL_PATTERN.test(parsedResponse.signature) ||
       !isValidBinding(binding)
     ) {
       return securityDenied("auth_malformed", "verify_internal_auth")
     }
-    const received = Buffer.from(response.signature, "base64url")
-    if (received.toString("base64url") !== response.signature) {
+    const received = Buffer.from(parsedResponse.signature, "base64url")
+    if (received.toString("base64url") !== parsedResponse.signature) {
       return securityDenied("auth_malformed", "verify_internal_auth")
     }
-    if (this.#used.has(response.nonce)) {
+    if (this.#used.has(parsedResponse.nonce)) {
       return securityDenied("auth_replayed", "verify_internal_auth")
     }
-    const challenge = this.#pending.get(response.nonce)
-    if (challenge === undefined || challenge.issuedAtMs !== response.issuedAtMs) {
+    const challenge = this.#pending.get(parsedResponse.nonce)
+    if (challenge === undefined || challenge.issuedAtMs !== parsedResponse.issuedAtMs) {
       return securityDenied("auth_invalid", "verify_internal_auth")
     }
-    if (now < response.issuedAtMs || now - response.issuedAtMs > this.#policy.challengeTtlMs) {
-      this.#pending.delete(response.nonce)
+    if (
+      now < parsedResponse.issuedAtMs ||
+      now - parsedResponse.issuedAtMs > this.#policy.challengeTtlMs
+    ) {
+      this.#pending.delete(parsedResponse.nonce)
       return securityDenied("auth_expired", "verify_internal_auth")
     }
     const expected = this.#secret.authenticate(canonicalChallenge(challenge, binding))
@@ -125,8 +156,8 @@ export class InternalAuthVerifier {
     if (!matches) {
       return securityDenied("auth_invalid", "verify_internal_auth")
     }
-    this.#pending.delete(response.nonce)
-    this.#used.set(response.nonce, response.issuedAtMs + this.#policy.challengeTtlMs)
+    this.#pending.delete(parsedResponse.nonce)
+    this.#used.set(parsedResponse.nonce, parsedResponse.issuedAtMs + this.#policy.challengeTtlMs)
     return securityAllowed({ kind: "authenticated" })
   }
 

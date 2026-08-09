@@ -15,6 +15,10 @@ function createVerifier(now: () => number): InternalAuthVerifier {
   })
 }
 
+function throwUnknown(value: unknown): never {
+  throw value
+}
+
 describe("security internal authentication", () => {
   test("accepts one HMAC response bound to the issued challenge context", () => {
     const secret = HostSecret.generate()
@@ -92,6 +96,21 @@ describe("security internal authentication", () => {
     }
 
     const decision = verifier.verify(malformedResponse, "cluster.register:v1")
+
+    expect(decision).toMatchObject({ ok: false, error: { code: "auth_malformed" } })
+  })
+
+  test.each([
+    null,
+    { issuedAtMs: 1_000_000, nonce: null, signature: null },
+    new Proxy({}, { get: () => throwUnknown("RAW_NON_ERROR_SENTINEL") }),
+  ])("rejects malformed runtime auth response %# without throwing", (response) => {
+    const verifier = createVerifier(() => 1_000_000)
+
+    const decision: unknown = Reflect.apply(verifier.verify, verifier, [
+      response,
+      "cluster.register:v1",
+    ])
 
     expect(decision).toMatchObject({ ok: false, error: { code: "auth_malformed" } })
   })

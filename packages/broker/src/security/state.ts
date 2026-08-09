@@ -10,6 +10,7 @@ const HOST_SECRET_FILE_NAME = "host-secret"
 const POSIX_DIRECTORY_MODE = 0o700
 const POSIX_FILE_MODE = 0o600
 const MAX_SECRET_FILE_BYTES = 128
+const WINDOWS_DRIVE_ROOT_PATTERN = /^[A-Za-z]:\\/u
 
 type StatePathEnvironment = {
   readonly localAppData?: string
@@ -48,8 +49,23 @@ function enforcesPosixModes(paths: SecurityStatePaths): boolean {
 }
 
 function resolveWindowsStatePaths(input: StatePathInput): SecurityStatePaths {
-  const root = input.environment.localAppData
-  if (root === undefined || !win32.isAbsolute(root)) {
+  const configuredRoot = input.environment.localAppData
+  if (configuredRoot === undefined) {
+    throw new SecurityError("state_path_unavailable", "resolve_state_path")
+  }
+  const root = win32.normalize(configuredRoot)
+  const homeDirectory = win32.normalize(input.homeDirectory)
+  const relativeToHome = win32.relative(homeDirectory, root)
+  const isWithinHome =
+    relativeToHome === "" ||
+    (!win32.isAbsolute(relativeToHome) &&
+      relativeToHome !== ".." &&
+      !relativeToHome.startsWith(`..${win32.sep}`))
+  if (
+    !WINDOWS_DRIVE_ROOT_PATTERN.test(root) ||
+    !WINDOWS_DRIVE_ROOT_PATTERN.test(homeDirectory) ||
+    !isWithinHome
+  ) {
     throw new SecurityError("state_path_unavailable", "resolve_state_path")
   }
   const stateDirectory = win32.join(root, STATE_DIRECTORY_NAME)

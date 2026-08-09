@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { chmod, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises"
+import { chmod, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join, posix, win32 } from "node:path"
 import {
@@ -56,6 +56,24 @@ describe("security state", () => {
       stateDirectory: win32.join(localAppData, "opencode-dispatch-plugin"),
       hostSecretFile: win32.join(localAppData, "opencode-dispatch-plugin", "host-secret"),
     })
+  })
+
+  test.each([
+    "\\\\server\\share\\alice\\AppData\\Local",
+    "\\\\?\\UNC\\server\\share\\alice\\AppData\\Local",
+    "\\\\?\\C:\\Users\\alice\\AppData\\Local",
+    "\\\\.\\C:\\Users\\alice\\AppData\\Local",
+    "C:\\ProgramData",
+  ])("rejects non-user-local Windows state root %s", (localAppData) => {
+    const resolveUnsafeRoot = () =>
+      resolveSecurityStatePaths({
+        platform: "win32",
+        homeDirectory: "C:\\Users\\alice",
+        environment: { localAppData },
+      })
+
+    expect(resolveUnsafeRoot).toThrow(SecurityError)
+    expect(resolveUnsafeRoot).toThrow(expect.objectContaining({ code: "state_path_unavailable" }))
   })
 
   test("uses macOS Application Support instead of an injected XDG path", () => {
@@ -143,6 +161,84 @@ describe("security state", () => {
       await rm(fixtureDirectory, { force: true, recursive: true })
     }
   })
+
+  test("fails closed when atomic publication collides with an invalid host-secret path", async () => {
+    const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-security-collision-"))
+    const paths = temporaryStatePaths(fixtureDirectory)
+    await mkdir(paths.hostSecretFile, { recursive: true })
+
+    try {
+      await expect(initializeHostSecret(paths)).rejects.toMatchObject({
+        code: "secret_invalid",
+      })
+    } finally {
+      await rm(fixtureDirectory, { force: true, recursive: true })
+    }
+  })
+
+  test("rejects a malformed existing host secret", async () => {
+    const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-security-malformed-"))
+    const paths = temporaryStatePaths(fixtureDirectory)
+    await mkdir(paths.stateDirectory, { recursive: true })
+    await writeFile(paths.hostSecretFile, "malformed", { mode: 0o600 })
+
+    try {
+      await expect(initializeHostSecret(paths)).rejects.toMatchObject({
+        code: "secret_invalid",
+      })
+    } finally {
+      await rm(fixtureDirectory, { force: true, recursive: true })
+    }
+  })
+
+  test.skipIf(process.platform !== "win32")(
+    "inherits no broad read principal for a Windows user-local host secret",
+    async () => {
+      const { LOCALAPPDATA: localAppData } = process.env
+      expect(localAppData).toBeDefined()
+      if (localAppData === undefined) {
+        return
+      }
+      const fixtureDirectory = await mkdtemp(join(localAppData, "dispatch-security-acl-"))
+      const paths = temporaryStatePaths(fixtureDirectory)
+
+      try {
+        await initializeHostSecret(paths)
+        const inspection = Bun.spawn(
+          [
+            "powershell.exe",
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            [
+              "$blocked = @('S-1-1-0', 'S-1-5-11', 'S-1-5-32-545')",
+              "$unsafe = (Get-Acl -LiteralPath $env:DISPATCH_ACL_TARGET).Access | Where-Object {",
+              "  $_.AccessControlType -eq 'Allow' -and",
+              "  $blocked -contains $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value",
+              "}",
+              "if ($null -ne $unsafe) { exit 1 }",
+            ].join("\n"),
+          ],
+          {
+            env: { ...process.env, DISPATCH_ACL_TARGET: paths.hostSecretFile },
+            stderr: "pipe",
+            stdout: "pipe",
+          },
+        )
+        const [stdout, stderr, exitCode] = await Promise.all([
+          new Response(inspection.stdout).text(),
+          new Response(inspection.stderr).text(),
+          inspection.exited,
+        ])
+        expect(stdout).toBe("")
+        expect(stderr).toBe("")
+        expect(exitCode).toBe(0)
+      } finally {
+        await rm(fixtureDirectory, { force: true, recursive: true })
+      }
+    },
+  )
 
   test.skipIf(process.platform === "win32")(
     "rejects an existing host secret with world-readable permissions",

@@ -1,6 +1,10 @@
 import { describe, expect, test } from "bun:test"
 import { redactStructured, toSecurityDiagnostic } from "./index.ts"
 
+function throwUnknown(value: unknown): never {
+  throw value
+}
+
 describe("security redaction", () => {
   test("removes credentials, capability headers, prompts, paths, and raw stacks", () => {
     const leakedError = new Error("token=TOKEN_SENTINEL\r\nforged=true")
@@ -64,5 +68,34 @@ describe("security redaction", () => {
     expect(serialized).not.toContain("/Users/alice")
     expect(serialized).not.toContain("\r")
     expect(serialized).not.toContain("\n")
+  })
+
+  test.each([
+    "/opt/ORG_SENTINEL/private.ts",
+    "/workspace/ORG_SENTINEL/private.ts",
+    "/mnt/ORG_SENTINEL/private.ts",
+    "/srv/ORG_SENTINEL/private.ts",
+    "/Volumes/ORG_SENTINEL/private.ts",
+  ])("redacts arbitrary absolute POSIX path %s", (absolutePath) => {
+    const serialized = JSON.stringify(
+      redactStructured({ detail: `operation failed at ${absolutePath}` }),
+    )
+
+    expect(serialized).toContain("[PATH]")
+    expect(serialized).not.toContain("ORG_SENTINEL")
+    expect(serialized).not.toContain(absolutePath)
+  })
+
+  test("returns unavailable when an object boundary throws a non-Error value", () => {
+    const untrusted = new Proxy(
+      {},
+      {
+        ownKeys: () => throwUnknown("RAW_NON_ERROR_SENTINEL"),
+      },
+    )
+
+    const redacted = redactStructured(untrusted)
+
+    expect(redacted).toBe("[UNAVAILABLE]")
   })
 })

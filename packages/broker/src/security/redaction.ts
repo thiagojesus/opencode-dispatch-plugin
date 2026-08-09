@@ -55,7 +55,7 @@ export function sanitizeDiagnosticText(value: string): string {
     .replace(/\bgh[pousr]_[A-Za-z0-9_]{20,}\b/gu, REDACTED)
     .replace(/\b(?:api[-_]?key|password|secret|token)\s*[:=]\s*[^\s,;]+/giu, REDACTED)
     .replace(/\b[A-Za-z]:\\(?:[^\\\s"'<>]+\\)*[^\\\s"'<>]*/gu, "[PATH]")
-    .replace(/\/(?:Users|home|private|root|tmp|var)\/[^\s"'<>]*/gu, "[PATH]")
+    .replace(/\/[^\s"'<>]*/gu, "[PATH]")
     .slice(0, MAX_STRING_LENGTH)
 }
 
@@ -105,10 +105,7 @@ function redactValue(value: unknown, depth: number, seen: WeakSet<object>): Reda
 export function redactStructured(value: unknown): RedactedValue {
   try {
     return redactValue(value, 0, new WeakSet())
-  } catch (error) {
-    if (error instanceof Error) {
-      return UNAVAILABLE
-    }
-    throw error
+  } catch {
+    return UNAVAILABLE
   }
 }

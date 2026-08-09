@@ -86,6 +86,21 @@ describe("security redaction", () => {
     expect(serialized).not.toContain(absolutePath)
   })
 
+  test.each([
+    "\\\\server\\share\\ORG_SENTINEL\\private.ts",
+    "\\\\?\\C:\\ORG_SENTINEL\\private.ts",
+    "\\\\.\\pipe\\ORG_SENTINEL",
+    "C:relative\\ORG_SENTINEL\\private.ts",
+  ])("redacts Windows path shape %s", (windowsPath) => {
+    const serialized = JSON.stringify(
+      redactStructured({ detail: `operation failed at ${windowsPath}` }),
+    )
+
+    expect(serialized).toContain("[PATH]")
+    expect(serialized).not.toContain("ORG_SENTINEL")
+    expect(serialized).not.toContain(windowsPath)
+  })
+
   test("returns unavailable when an object boundary throws a non-Error value", () => {
     const untrusted = new Proxy(
       {},

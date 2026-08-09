@@ -54,7 +54,8 @@ export function sanitizeDiagnosticText(value: string): string {
     .replace(/\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b/gu, REDACTED)
     .replace(/\bgh[pousr]_[A-Za-z0-9_]{20,}\b/gu, REDACTED)
     .replace(/\b(?:api[-_]?key|password|secret|token)\s*[:=]\s*[^\s,;]+/giu, REDACTED)
-    .replace(/\b[A-Za-z]:\\(?:[^\\\s"'<>]+\\)*[^\\\s"'<>]*/gu, "[PATH]")
+    .replace(/\b[A-Za-z]:[^\s"'<>]*/gu, "[PATH]")
+    .replace(/\\[^\s"'<>]*/gu, "[PATH]")
     .replace(/\/[^\s"'<>]*/gu, "[PATH]")
     .slice(0, MAX_STRING_LENGTH)
 }

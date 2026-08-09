@@ -58,11 +58,11 @@ State is user-local and has no insecure fallback:
 | --- | --- | --- |
 | macOS | `~/Library/Application Support/opencode-dispatch-plugin` | Directory `0700`; files `0600`. |
 | Linux/Unix | Absolute `$XDG_STATE_HOME/opencode-dispatch-plugin`, or `~/.local/state/opencode-dispatch-plugin` when XDG state is unset | Directory `0700`; files `0600`; a relative XDG root fails closed. |
-| Windows | `%LOCALAPPDATA%\opencode-dispatch-plugin` | Inherited user-profile Local AppData ACL; no POSIX-mode claim. |
+| Windows | `%LOCALAPPDATA%\opencode-dispatch-plugin` | Drive-absolute path contained by the current user profile; UNC/device/outside-profile roots fail closed; inherited ACL excludes broad read principals; no POSIX-mode claim. |
 
-Missing, relative, symlinked, wrong-type, oversized, malformed, or unsafely permissioned security
-state fails closed. Windows does not fall back to a shared temp directory or current working
-directory when Local AppData is unavailable.
+Missing, relative, network/device, outside-profile, symlinked, wrong-type, oversized, malformed, or
+unsafely permissioned security state fails closed. Windows does not fall back to a shared temp
+directory or current working directory when Local AppData is unavailable.
 
 The host secret is generated with the operating-system CSPRNG. Concurrent initialization uses an
 exclusive private candidate and atomic no-replace publication, so all successful processes observe

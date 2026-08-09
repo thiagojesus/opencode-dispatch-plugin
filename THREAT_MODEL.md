@@ -86,7 +86,8 @@ The system does not claim to:
    validated loopback URL. The broker is not a generic proxy and never reads OpenCode storage.
 5. **Process to local state.** The plugin stores only security/configuration and minimal
    process-bound metadata. Unix uses a mode-0700 directory and mode-0600 files. Windows requires
-   the user's Local AppData and inherited user-profile ACL; no POSIX-mode claim is made.
+   drive-absolute Local AppData contained by the current user profile, rejects UNC/device roots,
+   and relies on inherited user-profile ACLs; no POSIX-mode claim is made.
 6. **Source to packaged artifact.** Build inputs and package contents are untrusted until later
    dependency, secret, artifact, and provenance gates pass.
 
@@ -146,13 +147,14 @@ are never published and are removed on failure.
 - macOS: `~/Library/Application Support/opencode-dispatch-plugin`
 - Linux and other Unix: `$XDG_STATE_HOME/opencode-dispatch-plugin` when the variable is absolute,
   or `~/.local/state/opencode-dispatch-plugin` when it is unset; a relative value fails closed
-- Windows: `%LOCALAPPDATA%\opencode-dispatch-plugin`; missing or non-absolute Local AppData fails
-  closed, with no temp/current-directory fallback
+- Windows: `%LOCALAPPDATA%\opencode-dispatch-plugin`; missing, non-drive-absolute, UNC/device, or
+  outside-profile Local AppData fails closed, with no temp/current-directory fallback
 
 On Unix the state directory is enforced and verified as `0700`; the host-secret file is verified
 as a regular, non-symlink `0600` file with a bounded canonical value. An existing unsafe secret
 file is rejected rather than silently reused. On Windows the implementation relies on the user
-profile's Local AppData ACL and does not represent `0600`/`0700` as meaningful Windows security.
+profile's Local AppData ACL, verifies that broad principals cannot read the secret in native CI,
+and does not represent `0600`/`0700` as meaningful Windows security.
 
 The host secret is not a remote credential. It must not enter environment examples, URLs, QR
 codes, logs, diagnostic JSON, screenshots, or evidence artifacts.
@@ -171,15 +173,16 @@ codes, logs, diagnostic JSON, screenshots, or evidence artifacts.
 
 ## Security Verification Baseline
 
-Todo 3 tests cover concurrent atomic initialization, Unix modes, Windows path fail-closed behavior,
-uncreatable state, unsafe existing secret mode, challenge expiry and replay, binding/signature
-tampering, constant-time comparison path, spoofed identity headers, wrong Host/Origin, non-HTTPS
-endpoint configuration, streaming body limits, bounded rate limits, CSP/no-store headers, and
-credential/prompt/path/stack/control-character redaction.
+Todo 3 tests cover concurrent atomic initialization, Unix modes, Windows root and ACL fail-closed
+behavior, publication collision, malformed state, challenge expiry and replay, canonical signature
+encoding, constant-time comparison, spoofed identity headers, wrong Host/Origin, non-HTTPS endpoint
+configuration, streaming body limits, bounded rate limits, CSP/no-store headers, and arbitrary
+project-path, credential, prompt, stack, control-character, and non-Error boundary redaction.
 
-Later todos must add live Tailscale proxy fixtures, route allowlist tests, OpenCode ownership tests,
-mobile sanitizer tests, revocation tests, and cross-platform CI. A platform is not claimed as
-verified until its CI job executes these assertions.
+The checked-in security matrix executes this suite on macOS, Linux, and Windows. Later todos must
+add live Tailscale proxy fixtures, route allowlist tests, OpenCode ownership tests, mobile sanitizer
+tests, and revocation tests. A platform is not claimed as verified until its CI job executes these
+assertions.
 
 ## Evidence Sources
 

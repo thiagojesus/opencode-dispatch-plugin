@@ -71,6 +71,11 @@
       "command": "bun test packages/broker/src/security/state.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts packages/broker/src/security/internal-auth.test.ts",
       "exitCode": 1,
       "observed": "26 passed and 13 failed for the intended AV-3-001 through AV-3-004 reasons: five unsafe Windows roots, five arbitrary POSIX roots, two non-Error boundaries, and one non-canonical Base64URL alias."
+    },
+    {
+      "command": "bun test packages/broker/src/security/internal-auth.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts",
+      "exitCode": 1,
+      "observed": "26 passed and 7 failed for the post-review findings: three malformed runtime auth responses threw, three Windows path classes leaked, and failed body reads did not attempt cancellation."
     }
   ],
   "greenCases": [
@@ -173,6 +178,31 @@
       "command": "JSON.parse evidence plus Ruby YAML.load_file workflow validation",
       "exitCode": 0,
       "observed": "The updated evidence JSON and security workflow YAML parsed successfully."
+    },
+    {
+      "command": "bun test packages/broker/src/security/internal-auth.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts",
+      "exitCode": 0,
+      "observed": "33 passed, 0 failed, 71 assertions after post-review remediation."
+    },
+    {
+      "command": "bun run test:security",
+      "exitCode": 0,
+      "observed": "49 passed, 1 native-Windows-only ACL test skipped on macOS, 0 failed, 100 assertions."
+    },
+    {
+      "command": "bun test packages/broker/src/security tests/security --rerun-each=10 --randomize --seed=30909",
+      "exitCode": 0,
+      "observed": "490 passed, 10 native-Windows-only skips, 0 failed, 1000 assertions."
+    },
+    {
+      "command": "bun run check",
+      "exitCode": 0,
+      "observed": "Fresh root lint, strict typecheck, LOC, unit, component, security, and empty future lanes passed after post-review remediation."
+    },
+    {
+      "command": "post-review inline library driver",
+      "exitCode": 0,
+      "observed": "Null auth input returned auth_malformed, UNC diagnostic input became [PATH], and a rejected body read attempted cancel once, released once, and returned request_body_rejected."
     }
   ],
   "staticAnalysis": {
@@ -202,6 +232,33 @@
     "scopedLoc": "13 direct security TypeScript modules plus 1 integration security test within 250 pure LOC",
     "noExcuseScript": "unavailable because the script expected a TypeScript compiler API not exposed by the installed TypeScript 7 package; Biome and validated ast-grep scans supplied equivalent checks"
   },
+  "verifierFindings": [
+    {
+      "id": "AV-3-001",
+      "status": "implementation_remediated_native_verification_pending",
+      "evidence": "Windows UNC, device-namespace, and outside-profile state roots are rejected; native Windows ACL and publication execution remains pending."
+    },
+    {
+      "id": "AV-3-002",
+      "status": "remediated",
+      "evidence": "Diagnostic redaction covers arbitrary POSIX roots plus Windows UNC, device, drive-absolute, and drive-relative path shapes under non-sensitive keys."
+    },
+    {
+      "id": "AV-3-003",
+      "status": "remediated",
+      "evidence": "Error and non-Error structured boundaries return unavailable; failed body reads attempt cancellation, release the reader, and return request_body_rejected."
+    },
+    {
+      "id": "AV-3-004",
+      "status": "remediated",
+      "evidence": "Runtime auth responses are shape-parsed without throwing and decoded signatures must re-encode to identical canonical Base64URL text."
+    },
+    {
+      "id": "AV-3-005",
+      "status": "remediated",
+      "evidence": "The zero-match ast-grep claim is explicitly production-only, while two intentional new Error test-fixture matches are separately recorded."
+    }
+  ],
   "crossPlatformAssertions": [
     {
       "platform": "macOS",
@@ -230,6 +287,23 @@
     "status": "not_executed",
     "reason": "The remediation remains local and unpushed; no remote write was requested, so native CI results cannot be claimed.",
     "completionGate": "Todo 3 remains unchecked until the committed workflow executes successfully on all three native runners and independent re-verification confirms the results."
+  },
+  "postImplementationReview": {
+    "initialVerdicts": {
+      "goal": "FAIL: native CI not executed; AV-3-001 through AV-3-005 otherwise passed",
+      "qa": "FAIL: all local QA passed but native Linux/Windows execution remained pending",
+      "quality": "FAIL: malformed runtime auth response could throw; workflow filters omitted shared checker/config changes",
+      "security": "PASS with medium residuals: Windows diagnostic path bypasses and missing failed-stream cancellation",
+      "context": "FAIL: native and independent gates pending; AV-3-005 mapping was implicit"
+    },
+    "resolvedFindings": [
+      "Runtime auth input is parsed from unknown and malformed or trap-throwing values return auth_malformed.",
+      "Windows UNC, device, drive-absolute, and drive-relative diagnostic path shapes are redacted.",
+      "Failed body reads attempt cancellation before releasing the reader and returning a typed denial.",
+      "Security workflow path filters include biome.json and scripts/check-loc.ts.",
+      "AV-3-001 through AV-3-005 are explicitly mapped in this evidence."
+    ],
+    "remainingGate": "Native security workflow execution is still not claimed; fresh independent review follows this local remediation."
   },
   "adversarialCases": [
     {

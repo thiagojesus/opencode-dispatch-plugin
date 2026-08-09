@@ -102,6 +102,10 @@ export class InternalAuthVerifier {
     ) {
       return securityDenied("auth_malformed", "verify_internal_auth")
     }
+    const received = Buffer.from(response.signature, "base64url")
+    if (received.toString("base64url") !== response.signature) {
+      return securityDenied("auth_malformed", "verify_internal_auth")
+    }
     if (this.#used.has(response.nonce)) {
       return securityDenied("auth_replayed", "verify_internal_auth")
     }
@@ -114,7 +118,6 @@ export class InternalAuthVerifier {
       return securityDenied("auth_expired", "verify_internal_auth")
     }
     const expected = this.#secret.authenticate(canonicalChallenge(challenge, binding))
-    const received = Buffer.from(response.signature, "base64url")
     const comparable =
       received.byteLength === expected.byteLength ? received : Buffer.alloc(expected.byteLength)
     const matches =

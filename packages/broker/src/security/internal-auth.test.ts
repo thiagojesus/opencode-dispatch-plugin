@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test"
+import { Buffer } from "node:buffer"
 import {
   createInternalAuthResponse,
   HostSecret,
@@ -91,6 +92,28 @@ describe("security internal authentication", () => {
     }
 
     const decision = verifier.verify(malformedResponse, "cluster.register:v1")
+
+    expect(decision).toMatchObject({ ok: false, error: { code: "auth_malformed" } })
+  })
+
+  test("rejects a non-canonical Base64URL signature alias", () => {
+    const secret = HostSecret.generate()
+    const verifier = new InternalAuthVerifier(secret, {
+      challengeTtlMs: 30_000,
+      maxChallenges: 8,
+      now: () => 1_000_000,
+    })
+    const challenge = verifier.issueChallenge()
+    const response = createInternalAuthResponse(secret, challenge, "cluster.register:v1")
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    const finalIndex = alphabet.indexOf(response.signature.slice(-1))
+    const signature = `${response.signature.slice(0, -1)}${alphabet.charAt(finalIndex + 1)}`
+    expect(signature).not.toBe(response.signature)
+    expect(Buffer.from(signature, "base64url")).toEqual(
+      Buffer.from(response.signature, "base64url"),
+    )
+
+    const decision = verifier.verify({ ...response, signature }, "cluster.register:v1")
 
     expect(decision).toMatchObject({ ok: false, error: { code: "auth_malformed" } })
   })

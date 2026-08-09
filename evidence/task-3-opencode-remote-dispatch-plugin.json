@@ -4,6 +4,7 @@
     "id": 3,
     "title": "Lock the threat model, secure local state, redaction, and trust boundaries",
     "date": "2026-08-04",
+    "remediatedDate": "2026-08-09",
     "model": "openai/gpt-5.6-sol",
     "anthropicUsed": false
   },
@@ -11,6 +12,7 @@
     "implementation": "packages/broker/src/security/**",
     "tests": ["packages/broker/src/security/*.test.ts", "tests/security/security-boundary.test.ts"],
     "documents": ["THREAT_MODEL.md", "SECURITY.md"],
+    "ci": [".github/workflows/security.yml"],
     "parallelOwnershipPreserved": ["packages/contracts/**", "apps/pwa/**", "DESIGN.md"]
   },
   "securityResearch": {
@@ -64,6 +66,11 @@
       "command": "bun test packages/broker/src/security/request-policy.test.ts --test-name-pattern rate-limit-clock",
       "exitCode": 1,
       "observed": "A negative rate-limit clock granted a permit before the fail-closed clock check was implemented."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts packages/broker/src/security/internal-auth.test.ts",
+      "exitCode": 1,
+      "observed": "26 passed and 13 failed for the intended AV-3-001 through AV-3-004 reasons: five unsafe Windows roots, five arbitrary POSIX roots, two non-Error boundaries, and one non-canonical Base64URL alias."
     }
   ],
   "greenCases": [
@@ -111,6 +118,61 @@
       "command": "staged-file credential pattern scan",
       "exitCode": 0,
       "observed": "18 staged files scanned against 5 credential/private-key patterns with zero matches."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts packages/broker/src/security/internal-auth.test.ts",
+      "exitCode": 0,
+      "observed": "39 passed, 0 failed, 77 assertions after AV-3-001 through AV-3-004 remediation."
+    },
+    {
+      "command": "bun run test:security",
+      "exitCode": 0,
+      "observed": "41 passed, 1 native-Windows-only ACL test skipped on macOS, 0 failed, 82 assertions across 5 files."
+    },
+    {
+      "command": "bun run typecheck",
+      "exitCode": 0,
+      "observed": "Strict root and PWA TypeScript checks passed after remediation."
+    },
+    {
+      "command": "bun run check:loc",
+      "exitCode": 0,
+      "observed": "58 TypeScript modules were within the 250 pure-LOC limit."
+    },
+    {
+      "command": "bunx biome check packages/broker/src/security tests/security package.json",
+      "exitCode": 0,
+      "observed": "15 security source/test/config files passed without fixes."
+    },
+    {
+      "command": "bun install --frozen-lockfile",
+      "exitCode": 0,
+      "observed": "Bun 1.3.14 checked 578 installs across 670 packages with no changes."
+    },
+    {
+      "command": "bun run check",
+      "exitCode": 0,
+      "observed": "Root lint, strict typecheck, LOC, 3 unit tests, 4 component tests, 41 security tests, and empty future integration/package lanes all passed."
+    },
+    {
+      "command": "bun run build",
+      "exitCode": 0,
+      "observed": "All present workspace builds completed; the PWA production build transformed 976 modules and generated its service worker."
+    },
+    {
+      "command": "bun test packages/broker/src/security tests/security --rerun-each=10 --randomize --seed=30809",
+      "exitCode": 0,
+      "observed": "410 passed, 10 native-Windows-only skips, 0 failed, 820 assertions."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --rerun-each=25 --randomize --seed=31809",
+      "exitCode": 0,
+      "observed": "375 passed, 25 native-Windows-only skips, 0 failed, 625 assertions."
+    },
+    {
+      "command": "JSON.parse evidence plus Ruby YAML.load_file workflow validation",
+      "exitCode": 0,
+      "observed": "The updated evidence JSON and security workflow YAML parsed successfully."
     }
   ],
   "staticAnalysis": {
@@ -123,30 +185,52 @@
       "try { $$$BODY } catch ($ERR) { }",
       "new Error($MSG)"
     ],
+    "scope": "Production TypeScript under packages/broker/src/security excluding *.test.ts",
     "matches": 0,
+    "testFixtureMatches": {
+      "pattern": "new Error($MSG)",
+      "count": 2,
+      "locations": [
+        "packages/broker/src/security/redaction.test.ts:9",
+        "packages/broker/src/security/redaction.test.ts:53"
+      ],
+      "disposition": "Intentional Error redaction fixtures; excluded from the zero-match production claim."
+    },
     "requiredControlMatches": {
       "timingSafeEqual": 1
     },
-    "scopedLoc": "14 TypeScript modules within 250 pure LOC",
+    "scopedLoc": "13 direct security TypeScript modules plus 1 integration security test within 250 pure LOC",
     "noExcuseScript": "unavailable because the script expected a TypeScript compiler API not exposed by the installed TypeScript 7 package; Biome and validated ast-grep scans supplied equivalent checks"
   },
   "crossPlatformAssertions": [
     {
       "platform": "macOS",
       "assertion": "Application Support state root; runtime directory mode 0700 and secret mode 0600",
-      "result": "passed"
+      "result": "passed locally on darwin arm64 with Bun 1.3.14"
     },
     {
-      "platform": "Linux and other Unix",
+      "platform": "Linux",
       "assertion": "absolute XDG state root or home .local/state when unset; relative XDG rejected; mode policy 0700/0600",
-      "result": "path, relative-path rejection, and POSIX mode assertions passed"
+      "result": "portable assertions passed locally; native ubuntu-latest job is checked in but has not executed for this unpushed remediation"
     },
     {
       "platform": "Windows",
-      "assertion": "absolute Local AppData only, inherited user-profile ACL semantics, no shared fallback, no POSIX-mode claim",
-      "result": "path and fail-closed assertions passed; native Windows CI remains a later package-matrix gate"
+      "assertion": "drive-absolute Local AppData contained by the current user profile; UNC/device/outside-profile roots rejected; atomic publication, malformed state, and broad-principal ACL checks; no POSIX-mode claim",
+      "result": "portable root assertions passed locally; native windows-latest ACL/publication job is checked in but has not executed for this unpushed remediation"
     }
   ],
+  "nativeCi": {
+    "workflow": ".github/workflows/security.yml",
+    "matrix": ["macos-latest", "ubuntu-latest", "windows-latest"],
+    "bunVersion": "1.3.14",
+    "pinnedActions": {
+      "actions/checkout@v7.0.1": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "oven-sh/setup-bun@v2.2.0": "0c5077e51419868618aeaa5fe8019c62421857d6"
+    },
+    "status": "not_executed",
+    "reason": "The remediation remains local and unpushed; no remote write was requested, so native CI results cannot be claimed.",
+    "completionGate": "Todo 3 remains unchecked until the committed workflow executes successfully on all three native runners and independent re-verification confirms the results."
+  },
   "adversarialCases": [
     {
       "attack": "concurrent secret initialization",
@@ -156,7 +240,7 @@
     {
       "attack": "replayed or context-swapped internal authentication",
       "control": "128-bit challenge, bounded TTL/cache, context-bound HMAC-SHA-256, constant-time compare, one-time consumption",
-      "result": "first response accepted; replay, expiry, wrong binding, malformed signature, and invalid clock rejected"
+      "result": "first response accepted; replay, expiry, wrong binding, malformed/non-canonical signature, and invalid clock rejected"
     },
     {
       "attack": "direct identity-header spoof",
@@ -176,7 +260,7 @@
     {
       "attack": "CRLF, token, path, prompt, capability, cookie, or stack injection into diagnostics",
       "control": "structured sensitive-key redaction, token/path/control sanitization, generic typed diagnostics",
-      "result": "redaction corpus contained none of the planted sentinels"
+      "result": "arbitrary POSIX roots and planted credential/content sentinels were removed; Error and non-Error boundary failures returned typed unavailable diagnostics"
     },
     {
       "attack": "uncreatable, symlinked, malformed, or unsafe local state",
@@ -187,7 +271,7 @@
   "adversarialClasses": [
     {
       "class": "malformed_input",
-      "result": "Malformed signatures, non-HTTPS endpoints, wrong Host/Origin, oversized bodies, unsafe paths, and invalid clocks failed closed."
+      "result": "Malformed and non-canonical signatures, non-HTTPS endpoints, wrong Host/Origin, oversized bodies, unsafe Windows roots, and invalid clocks failed closed."
     },
     {
       "class": "prompt_injection",
@@ -286,6 +370,11 @@
       "internalAuth": "accepted",
       "replay": "auth_replayed",
       "spoofedIdentity": "request_identity_spoofed",
+      "unsafeWindowsRoot": "state_path_unavailable",
+      "arbitraryPosixPath": "removed",
+      "nonErrorStructuredBoundary": "[UNAVAILABLE]",
+      "nonErrorBodyStream": "request_body_rejected",
+      "nonCanonicalSignature": "auth_malformed",
       "directoryMode": "700",
       "secretMode": "600",
       "cleanup": "removed"
@@ -297,8 +386,8 @@
     "No secret value was printed or written to evidence."
   ],
   "remainingVerification": {
-    "rootLint": "temporarily blocked by four formatting errors in concurrently owned Todo 4 files",
-    "rootBuild": "temporarily blocked because the concurrently owned Todo 4 PWA had no index.html entry yet",
-    "rootCheck": "pending root lint/build stabilization; Todo 3-scoped tests and static checks are green"
+    "nativeCi": "pending execution on macos-latest, ubuntu-latest, and windows-latest after an explicitly authorized remote update",
+    "independentReview": "pending adversarial re-verification of AV-3-001 through AV-3-005",
+    "todoState": "Todo 3 remains unchecked until both gates pass"
   }
 }

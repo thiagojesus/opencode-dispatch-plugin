@@ -1,0 +1,56 @@
+name: Security matrix
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/security.yml"
+      - "packages/broker/src/security/**"
+      - "tests/security/**"
+      - "SECURITY.md"
+      - "THREAT_MODEL.md"
+      - "package.json"
+      - "bun.lock"
+      - "tsconfig.base.json"
+  push:
+    paths:
+      - ".github/workflows/security.yml"
+      - "packages/broker/src/security/**"
+      - "tests/security/**"
+      - "SECURITY.md"
+      - "THREAT_MODEL.md"
+      - "package.json"
+      - "bun.lock"
+      - "tsconfig.base.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Security (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Install Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.14
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Run security tests
+        run: bun run test:security
+      - name: Run strict typecheck
+        run: bun run typecheck
+      - name: Enforce source limits
+        run: bun run check:loc
+      - name: Check security source formatting
+        run: bunx biome check packages/broker/src/security tests/security package.json

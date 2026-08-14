@@ -4,7 +4,7 @@ import lighthouse, { type Config, desktopConfig, type RunnerResult } from "light
 import { preview } from "vite"
 
 const APP_ROOT = resolve(import.meta.dir, "..")
-const AUDIT_URL = "http://127.0.0.1:4173/"
+const AUDIT_URL = "http://127.0.0.1:4173/sessions"
 const CATEGORY_IDS = ["performance", "accessibility", "best-practices", "seo"] as const
 const PRESETS = ["mobile", "desktop"] as const
 const RUN_COUNT = 3
@@ -146,7 +146,7 @@ async function runAudit(): Promise<void> {
       }
 
       await Bun.write(
-        resolve(APP_ROOT, "evidence", "todo-4", "lighthouse-results.json"),
+        resolve(APP_ROOT, "evidence", "todo-11", "lighthouse-results.json"),
         `${JSON.stringify(report, null, 2)}\n`,
       )
       if (!allPassed) {

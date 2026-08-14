@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/showcase")
 })
 
 test("has no detectable accessibility violations in every viewport and theme", async ({ page }) => {

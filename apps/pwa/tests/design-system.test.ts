@@ -3,9 +3,9 @@ import { join } from "node:path"
 
 const appRoot = join(import.meta.dir, "..")
 const projectRoot = join(appRoot, "..", "..")
-const sourceGlob = new Bun.Glob("src/showcase/**/*.{css,ts,tsx}")
+const sourceGlob = new Bun.Glob("src/**/*.{css,ts,tsx}")
 
-async function readShowcaseSources(): Promise<
+async function readPwaSources(): Promise<
   readonly { readonly path: string; readonly text: string }[]
 > {
   const sources: { path: string; text: string }[] = []
@@ -29,7 +29,7 @@ test("defines the complete design contract before showcase implementation", asyn
 
 test("keeps visual source colors behind semantic tokens", async () => {
   // Given
-  const sources = await readShowcaseSources()
+  const sources = await readPwaSources()
 
   // When
   const rawColorFindings = sources.flatMap(({ path, text }) =>
@@ -49,6 +49,19 @@ test("keeps visual source colors behind semantic tokens", async () => {
   expect(sources.length).toBeGreaterThan(0)
   expect(rawColorFindings).toEqual([])
   expect(orphanOklch).toEqual([])
+})
+
+test("keeps browser evidence free of local home paths", async () => {
+  // Given
+  const report = await Bun.file(
+    join(appRoot, "evidence", "todo-11", "playwright-results.json"),
+  ).text()
+
+  // When
+  const localPathFindings = report.match(/(?:\/Users\/|[A-Z]:\\Users\\)/gu) ?? []
+
+  // Then
+  expect(localPathFindings).toEqual([])
 })
 
 test("keeps the install icon inside the asset generator color subset", async () => {
@@ -96,7 +109,7 @@ test("publishes a valid crawler policy for the authenticated surface", async () 
 
 test("uses the required accessible primitive and icon libraries", async () => {
   // Given
-  const sources = await readShowcaseSources()
+  const sources = await readPwaSources()
 
   // When
   const sourceText = sources.map(({ text }) => text).join("\n")
@@ -105,6 +118,28 @@ test("uses the required accessible primitive and icon libraries", async () => {
   expect(sourceText).toContain('from "@kobalte/core/')
   expect(sourceText).toContain('from "phosphor-solid"')
   expect(sourceText).not.toMatch(/[\u{1F300}-\u{1FAFF}]/u)
+})
+
+test("keeps production shell mechanics on named tokenized layout contracts", async () => {
+  // Given
+  const productStyles = await Bun.file(join(appRoot, "src", "product", "product.css")).text()
+
+  // When
+  const requiredMechanics = [
+    "block-size: 100dvb",
+    "grid-template-rows: auto auto minmax(0, 1fr) auto",
+    "min-block-size: 0",
+    "overflow: auto",
+    "env(safe-area-inset-top)",
+    "env(safe-area-inset-bottom)",
+  ] as const
+
+  // Then
+  for (const mechanic of requiredMechanics) {
+    expect(productStyles).toContain(mechanic)
+  }
+  expect(productStyles).not.toContain("100vh")
+  expect(productStyles).not.toMatch(/#[\da-f]{3,8}\b|\b(?:rgb|hsl)a?\(/iu)
 })
 
 test("wires component and Lighthouse verification without optional skips", async () => {
@@ -123,4 +158,16 @@ test("wires component and Lighthouse verification without optional skips", async
   expect(pwaPackage.scripts["audit:lighthouse"]).toContain("audit-lighthouse.ts")
   expect(auditScriptExists).toBe(true)
   expect(await auditScript.text()).toContain("await measure(chrome.port, preset, 0)")
+})
+
+test("targets production session routing and Todo 11 evidence in Lighthouse audits", async () => {
+  // Given
+  const auditScript = Bun.file(join(appRoot, "scripts", "audit-lighthouse.ts"))
+
+  // When
+  const source = await auditScript.text()
+
+  // Then
+  expect(source).toContain('const AUDIT_URL = "http://127.0.0.1:4173/sessions"')
+  expect(source).toContain('"evidence", "todo-11", "lighthouse-results.json"')
 })

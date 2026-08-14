@@ -1,34 +1,10 @@
 import { Button } from "@kobalte/core/button"
-import { ArrowClockwise, CircleDashed } from "phosphor-solid"
+import { ArrowClockwise } from "phosphor-solid"
 import type { JSX } from "solid-js"
 
-type ActionVariant = "danger" | "ghost" | "primary" | "secondary"
+import { ActionButton } from "../ui/action-button"
 
-type ActionButtonProps = {
-  readonly ariaLabel?: string
-  readonly busy?: boolean
-  readonly children: JSX.Element
-  readonly disabled?: boolean
-  readonly onClick?: () => void
-  readonly type?: "button" | "submit"
-  readonly variant?: ActionVariant
-}
-
-export function ActionButton(props: ActionButtonProps): JSX.Element {
-  return (
-    <Button
-      aria-busy={props.busy}
-      aria-label={props.ariaLabel}
-      class={`action action--${props.variant ?? "secondary"}`}
-      disabled={props.disabled === true || props.busy === true}
-      onClick={props.onClick}
-      type={props.type ?? "button"}
-    >
-      {props.busy === true ? <CircleDashed aria-hidden="true" size={20} weight="bold" /> : null}
-      <span>{props.children}</span>
-    </Button>
-  )
-}
+export { ActionButton } from "../ui/action-button"
 
 export function ActionShowcase(): JSX.Element {
   return (

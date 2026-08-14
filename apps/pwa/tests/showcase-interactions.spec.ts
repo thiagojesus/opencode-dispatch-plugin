@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/showcase")
 })
 
 test("exposes every previously missing design-system variant", async ({ page }) => {

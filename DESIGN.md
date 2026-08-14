@@ -137,8 +137,8 @@ All spacing intent derives from a 4px base. CSS uses these custom properties, no
 ### Named Layout Primitives And Scroll Ownership
 
 - `showcase-document`: the browser document is the only showcase-page scroll owner.
-- `app-shell`: grid rows `auto minmax(0, 1fr) auto`, bounded by `100dvb`; header and composer/action dock remain fixed within the shell.
-- `shell-body`: the only app-shell vertical scroll owner; always has `min-block-size: 0`, `min-inline-size: 0`, and `overflow: auto`.
+- `app-shell`: grid rows `auto minmax(0, 1fr) auto`, bounded by `100dvb`; header and composer/action dock remain fixed within the shell until browser or text zoom would hide the workspace, then the bounded shell becomes the single scroll owner so every region remains reachable.
+- `shell-body`: the standard app-shell vertical scroll owner; always has `min-block-size: 0`, `min-inline-size: 0`, and `overflow: auto`, and yields overflow ownership to `app-shell` only during the measured zoom reflow.
 - `list-detail`: at 768px and wider, session list and transcript can sit side by side; each pane may own vertical scroll only when rendered in the bounded app shell and each owner is named.
 - `stack`: vertical rhythm through tokenized `gap`.
 - `cluster`: wrapping row for actions; wraps before overflow and keeps at least `--space-2` between touch targets.
@@ -248,6 +248,7 @@ Every primitive is implemented as live semantic DOM. Showcase fixtures are clear
 - **Variants**: info, success, warning, error.
 - **States**: entering, visible, focus-visible, paused, dismissed.
 - **Accessibility**: polite live region for routine outcomes, assertive only for actionable failure; never steals focus; critical recovery remains inline instead.
+- **Update notice**: a waiting service worker uses a persistent informational toast with an explicit update action and a later dismissal; activation reloads only after user choice.
 
 ### Skeleton
 

@@ -1,4 +1,5 @@
 import { cleanup, render } from "@solidjs/testing-library"
+import { createSignal } from "solid-js"
 import { afterEach, expect, test } from "vitest"
 
 import { AppShellPreview } from "../../src/showcase/app-shell"
@@ -25,7 +26,13 @@ test("exposes the current session without toggle-button semantics", () => {
 
 test("keeps continuity recovery actions outside the live region", () => {
   // Given
-  const rendered = render(() => <ContinuityRail kind="offline" testId="offline-rail" />)
+  const rendered = render(() => (
+    <ContinuityRail
+      kind="offline"
+      recovery={{ label: "Retry", onAction: () => undefined }}
+      testId="offline-rail"
+    />
+  ))
 
   // When
   const liveRegion = rendered.getByRole("status")
@@ -34,6 +41,19 @@ test("keeps continuity recovery actions outside the live region", () => {
   // Then
   expect(liveRegion.contains(retry)).toBe(false)
   expect(liveRegion.textContent).toContain("Updates are paused")
+})
+
+test("updates continuity text when the lifecycle signal changes", async () => {
+  // Given
+  const [kind, setKind] = createSignal<"enabled" | "offline">("enabled")
+  const rendered = render(() => <ContinuityRail kind={kind()} testId="reactive-rail" />)
+
+  // When
+  setKind("offline")
+
+  // Then
+  expect(await rendered.findByText("Offline")).toBeDefined()
+  expect(rendered.getByTestId("reactive-rail").textContent).not.toContain("Enabled")
 })
 
 test("keeps state-panel recovery actions outside the alert", () => {

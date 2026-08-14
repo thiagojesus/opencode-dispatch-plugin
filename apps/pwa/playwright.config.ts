@@ -11,10 +11,10 @@ const themes = ["light", "dark"] as const
 const playwrightConfig = defineConfig({
   testDir: "./tests",
   testMatch: "**/*.spec.ts",
-  outputDir: "evidence/todo-4/test-results",
+  outputDir: "evidence/todo-11/test-results",
   fullyParallel: false,
   retries: 0,
-  reporter: [["list"], ["json", { outputFile: "evidence/todo-4/playwright-results.json" }]],
+  reporter: [["list"], ["json", { outputFile: "evidence/todo-11/playwright-results.json" }]],
   use: {
     baseURL: "http://127.0.0.1:4173",
     browserName: "chromium",

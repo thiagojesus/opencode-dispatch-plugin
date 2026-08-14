@@ -68,7 +68,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     color-scheme: dark;
     --color-canvas: oklch(20.5% 0.01 74);
     --color-surface-primary: oklch(26.2% 0.012 72);
@@ -91,4 +91,28 @@
     --color-status-info: oklch(78.5% 0.084 249);
     --color-scrim: oklch(12% 0.008 72 / 72%);
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-canvas: oklch(20.5% 0.01 74);
+  --color-surface-primary: oklch(26.2% 0.012 72);
+  --color-surface-secondary: oklch(32% 0.018 67);
+  --color-surface-elevated: oklch(36.8% 0.02 68);
+  --color-surface-inset: oklch(18.2% 0.01 72);
+  --color-text-primary: oklch(95.3% 0.014 78);
+  --color-text-secondary: oklch(78.7% 0.023 73);
+  --color-text-disabled: oklch(62.4% 0.024 70);
+  --color-border-subtle: oklch(40.8% 0.022 67);
+  --color-border-strong: oklch(50.7% 0.027 68);
+  --color-action-primary: oklch(72.1% 0.132 42);
+  --color-action-hover: oklch(76.5% 0.128 43);
+  --color-action-active: oklch(63.2% 0.121 41);
+  --color-on-action: oklch(25.5% 0.046 42);
+  --color-focus-ring: oklch(77.6% 0.103 250);
+  --color-status-success: oklch(79.4% 0.091 151);
+  --color-status-warning: oklch(82% 0.111 80);
+  --color-status-danger: oklch(74.9% 0.111 27);
+  --color-status-info: oklch(78.5% 0.084 249);
+  --color-scrim: oklch(12% 0.008 72 / 72%);
 }

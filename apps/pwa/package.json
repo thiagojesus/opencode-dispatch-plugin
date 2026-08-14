@@ -11,10 +11,12 @@
     "test": "bun run test:unit && bun run test:components && bun run test:e2e",
     "test:components": "vitest run --config vitest.config.ts",
     "test:unit": "bun test tests/*.test.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test && bun run scripts/sanitize-playwright-report.ts"
   },
   "dependencies": {
     "@kobalte/core": "0.13.12",
+    "@opencode-dispatch/contracts": "workspace:*",
+    "@solidjs/router": "1.0.0",
     "phosphor-solid": "1.1.5",
     "solid-js": "1.9.14"
   },

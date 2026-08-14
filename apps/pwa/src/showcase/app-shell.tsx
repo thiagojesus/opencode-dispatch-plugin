@@ -33,7 +33,16 @@ export function AppShellPreview(props: AppShellPreviewProps): JSX.Element {
           <span>{copy.label}</span>
         </div>
       </header>
-      <ContinuityRail kind={copy.continuity} />
+      <ContinuityRail
+        kind={copy.continuity}
+        recovery={
+          copy.continuity === "offline"
+            ? { label: "Retry", onAction: () => undefined }
+            : copy.continuity === "revoked"
+              ? { label: "Learn why", onAction: () => undefined, variant: "secondary" }
+              : undefined
+        }
+      />
       <div class="app-shell__body shell-body">
         <aside aria-label={`${copy.label} example sessions`} class="app-shell__sessions stack">
           <div class="cluster app-shell__pane-title">

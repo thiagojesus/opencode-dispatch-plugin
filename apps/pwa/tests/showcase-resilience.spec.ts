@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/")
+  await page.goto("/showcase")
 })
 
 test("reflows without primary horizontal scrolling", async ({ page }) => {
@@ -41,7 +41,7 @@ test("keeps tablet session titles to natural two-line wrapping", async ({ page }
 
 test("contains long and unbroken stress content inside its owner", async ({ page }) => {
   // Given
-  await page.goto("/?stress=long")
+  await page.goto("/showcase?stress=long")
   const stressContent = page.getByTestId("stress-string")
 
   // When
@@ -60,7 +60,7 @@ test("contains long and unbroken stress content inside its owner", async ({ page
 
 test("keeps RTL-like stress content inside the primary viewport", async ({ page }) => {
   // Given
-  await page.goto("/?stress=rtl")
+  await page.goto("/showcase?stress=rtl")
   const stressContent = page.getByTestId("stress-rtl")
 
   // When
@@ -124,7 +124,7 @@ test("removes non-essential transition time for reduced motion", async ({ page }
 
 test("renders explicit error and offline recovery states", async ({ page }) => {
   // Given
-  await page.goto("/?stress=offline")
+  await page.goto("/showcase?stress=offline")
 
   // When
   const offline = page.getByTestId("stress-offline")
@@ -134,7 +134,7 @@ test("renders explicit error and offline recovery states", async ({ page }) => {
   await expect(offline.getByRole("button", { name: "Retry connection" })).toBeVisible()
 
   // When
-  await page.goto("/?stress=error")
+  await page.goto("/showcase?stress=error")
 
   // Then
   const error = page.getByTestId("stress-error")

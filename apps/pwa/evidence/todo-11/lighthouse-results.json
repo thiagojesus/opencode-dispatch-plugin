@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-08-09T17:31:38.207Z",
+  "url": "http://127.0.0.1:4173/sessions",
+  "runner": "Lighthouse Node API over Chrome Stable CDP",
+  "lighthouseVersion": "13.4.1",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+  "threshold": 100,
+  "runs": [
+    {
+      "preset": "mobile",
+      "run": 1,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    },
+    {
+      "preset": "mobile",
+      "run": 2,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    },
+    {
+      "preset": "mobile",
+      "run": 3,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    },
+    {
+      "preset": "desktop",
+      "run": 1,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    },
+    {
+      "preset": "desktop",
+      "run": 2,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    },
+    {
+      "preset": "desktop",
+      "run": 3,
+      "scores": {
+        "accessibility": 100,
+        "best-practices": 100,
+        "performance": 100,
+        "seo": 100
+      }
+    }
+  ],
+  "medians": {
+    "mobile": {
+      "accessibility": 100,
+      "best-practices": 100,
+      "performance": 100,
+      "seo": 100
+    },
+    "desktop": {
+      "accessibility": 100,
+      "best-practices": 100,
+      "performance": 100,
+      "seo": 100
+    }
+  },
+  "allPassed": true
+}

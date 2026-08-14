@@ -39,6 +39,7 @@ export function ShowcaseApp(): JSX.Element {
   const focusMain = (): void => document.getElementById("showcase-main")?.focus()
 
   onMount(() => {
+    document.title = "OpenCode Dispatch Design System"
     window.addEventListener("online", markOnline)
     window.addEventListener("offline", markOffline)
   })
@@ -121,8 +122,20 @@ export function ShowcaseApp(): JSX.Element {
             <ContinuityRail kind="enabled" />
             <ContinuityRail kind="connected" testId="continuity-connected" />
             <ContinuityRail kind="reconnecting" />
-            <ContinuityRail kind="offline" testId="continuity-offline" />
-            <ContinuityRail kind="revoked" testId="continuity-revoked" />
+            <ContinuityRail
+              kind="offline"
+              recovery={{ label: "Retry", onAction: () => undefined }}
+              testId="continuity-offline"
+            />
+            <ContinuityRail
+              kind="revoked"
+              recovery={{
+                label: "Learn why",
+                onAction: () => undefined,
+                variant: "secondary",
+              }}
+              testId="continuity-revoked"
+            />
           </div>
         </ShowcaseSection>
 

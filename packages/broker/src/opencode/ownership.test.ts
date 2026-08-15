@@ -76,3 +76,67 @@ test("does not fall back to an older claim after the current owner unregisters",
     await Promise.all([first.stop(), second.stop()])
   }
 })
+
+test("preserves live ownership chronology when an older claim replays later", async () => {
+  expect(await implementation.exists()).toBe(true)
+  const { createOpenCodeStatusSeed, OpenCodeAdapter } = await import("./index.ts")
+  const olderNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000101")
+  const newerNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000102")
+  const adapter = new OpenCodeAdapter()
+
+  adapter.registerProcess({ processNonce: olderNonce, serverUrl: "http://127.0.0.1:41001" })
+  adapter.registerProcess({ processNonce: newerNonce, serverUrl: "http://127.0.0.1:41002" })
+  adapter.observe(newerNonce, {
+    ...createOpenCodeStatusSeed("ses-replay-order", 5_002),
+    source: "live",
+  })
+
+  adapter.observe(olderNonce, {
+    ...createOpenCodeStatusSeed("ses-replay-order", 5_001),
+    source: "live",
+  })
+
+  expect(adapter.resolveOwner("ses-replay-order")).toBe(newerNonce)
+})
+
+test("fails closed when two live claims have equal chronology", async () => {
+  expect(await implementation.exists()).toBe(true)
+  const { createOpenCodeStatusSeed, OpenCodeAdapter } = await import("./index.ts")
+  const firstNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000103")
+  const secondNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000104")
+  const adapter = new OpenCodeAdapter()
+
+  adapter.registerProcess({ processNonce: firstNonce, serverUrl: "http://127.0.0.1:41003" })
+  adapter.registerProcess({ processNonce: secondNonce, serverUrl: "http://127.0.0.1:41004" })
+  adapter.observe(firstNonce, {
+    ...createOpenCodeStatusSeed("ses-equal-chronology", 6_000),
+    source: "live",
+  })
+  adapter.observe(secondNonce, {
+    ...createOpenCodeStatusSeed("ses-equal-chronology", 6_000),
+    source: "live",
+  })
+
+  expect(() => adapter.resolveOwner("ses-equal-chronology")).toThrow(
+    expect.objectContaining({ code: "ownership_ambiguous" }),
+  )
+})
+
+test("rejects a live claim with missing chronology without installing ownership", async () => {
+  expect(await implementation.exists()).toBe(true)
+  const { OpenCodeAdapter } = await import("./index.ts")
+  const processNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000105")
+  const adapter = new OpenCodeAdapter()
+  adapter.registerProcess({ processNonce, serverUrl: "http://127.0.0.1:41005" })
+
+  expect(() =>
+    adapter.observe(processNonce, {
+      eventType: "session.idle",
+      sessionId: "ses-missing-chronology",
+      source: "live",
+    }),
+  ).toThrow()
+  expect(() => adapter.resolveOwner("ses-missing-chronology")).toThrow(
+    expect.objectContaining({ code: "ownership_missing" }),
+  )
+})

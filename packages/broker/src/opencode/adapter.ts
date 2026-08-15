@@ -107,9 +107,11 @@ export class OpenCodeAdapter {
     )
     const live = claims.filter((claim) => claim.signal.source === "live")
     if (live.length > 0) {
-      live.sort((left, right) => right.sequence - left.sequence)
-      const owner = live[0]
-      if (owner === undefined) throw new OpenCodeAdapterError("ownership_missing")
+      const latestObservedAt = Math.max(...live.map((claim) => claim.signal.observedAt))
+      const latest = live.filter((claim) => claim.signal.observedAt === latestObservedAt)
+      if (latest.length !== 1) throw new OpenCodeAdapterError("ownership_ambiguous")
+      const owner = latest[0]
+      if (owner === undefined) throw new OpenCodeAdapterError("ownership_ambiguous")
       return owner.processNonce
     }
     if (claims.length === 1) {

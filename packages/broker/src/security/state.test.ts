@@ -18,6 +18,17 @@ function temporaryStatePaths(directory: string): SecurityStatePaths {
   }
 }
 
+const windowsAclInspectionScript = [
+  "$blocked = @('S-1-1-0', 'S-1-5-11', 'S-1-5-32-545')",
+  "$securityModule = Join-Path $PSHOME 'Modules\\Microsoft.PowerShell.Security\\Microsoft.PowerShell.Security.psd1'",
+  "Import-Module -Name $securityModule -ErrorAction Stop",
+  "$unsafe = (Microsoft.PowerShell.Security\\Get-Acl -LiteralPath $env:DISPATCH_ACL_TARGET).Access | Where-Object {",
+  "  $_.AccessControlType -eq 'Allow' -and",
+  "  $blocked -contains $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value",
+  "}",
+  "if ($null -ne $unsafe) { exit 1 }",
+].join("\n")
+
 describe("security state", () => {
   test("publishes one stable owner-only host secret during concurrent initialization", async () => {
     const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-security-state-"))
@@ -191,6 +202,16 @@ describe("security state", () => {
     }
   })
 
+  test("inspects Windows ACLs without relying on PowerShell module autoload", () => {
+    expect(windowsAclInspectionScript).toContain(
+      "Join-Path $PSHOME 'Modules\\Microsoft.PowerShell.Security\\Microsoft.PowerShell.Security.psd1'",
+    )
+    expect(windowsAclInspectionScript).toContain(
+      "Import-Module -Name $securityModule -ErrorAction Stop",
+    )
+    expect(windowsAclInspectionScript).toContain("Microsoft.PowerShell.Security\\Get-Acl")
+  })
+
   test.skipIf(process.platform !== "win32")(
     "inherits no broad read principal for a Windows user-local host secret",
     async () => {
@@ -211,14 +232,7 @@ describe("security state", () => {
             "-NoProfile",
             "-NonInteractive",
             "-Command",
-            [
-              "$blocked = @('S-1-1-0', 'S-1-5-11', 'S-1-5-32-545')",
-              "$unsafe = (Get-Acl -LiteralPath $env:DISPATCH_ACL_TARGET).Access | Where-Object {",
-              "  $_.AccessControlType -eq 'Allow' -and",
-              "  $blocked -contains $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value",
-              "}",
-              "if ($null -ne $unsafe) { exit 1 }",
-            ].join("\n"),
+            windowsAclInspectionScript,
           ],
           {
             env: { ...process.env, DISPATCH_ACL_TARGET: paths.hostSecretFile },

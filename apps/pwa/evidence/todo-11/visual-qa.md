@@ -1,6 +1,6 @@
 # Todo 11 Visual QA
 
-Date: 2026-08-14 UTC
+Date: 2026-08-15 UTC
 Contract: `DESIGN.md` and Todo 11 of `opencode-remote-dispatch-plugin.md`
 
 ## Verdict
@@ -21,6 +21,9 @@ Contract: `DESIGN.md` and Todo 11 of `opencode-remote-dispatch-plugin.md`
 - `product-error-375-light.png`
 - `product-not-found-375-light.png`
 - `product-focus-375-light.png`
+- `update-toast-375-normal.png`
+- `update-toast-375-zoom-200.png`
+- `update-toast-375-text-320.png`
 
 All captures were regenerated from the final production build. Dimensions are exactly 375x812, 768x1024, or 1280x900 as named.
 
@@ -35,6 +38,8 @@ All captures were regenerated from the final production build. Dimensions are ex
 - No black compositor region, missing surface, clipped baseline, malformed layout, one-character orphan, or product-data leakage was observed.
 - Fresh zoom behavior transfers overflow ownership to the bounded shell only when required; all six Playwright profiles prove workspace and dock reachability at 200% browser zoom and 320% text zoom.
 - The token-driven PWA update notice is persistent, keyboard reachable, keeps its action outside the live-status text, and was exercised against a real changed same-scope service worker without console or page errors.
+- Verifier `ses_ffd4ba73cffesjjviurYSq55t8` found that the original three-column update toast collapsed its status to zero width and overlaid both actions at 375px/200% zoom. Red real-worker geometry tests reproduced the zero-width status at 200% and 320% before the responsive repair.
+- The repaired mobile toast uses bounded rows for icon, scrollable status copy, and actions. The primary action occupies its own row; the icon-only dismiss action remains content-sized and right-aligned. At 320% text zoom, enlarged status copy scrolls inside its positive bounded region while both actions remain visible.
 
 ## Fresh Sol Verdicts
 
@@ -52,10 +57,19 @@ All captures were regenerated from the final production build. Dimensions are ex
 | `product-error-375-light.png` | PASS | Safe failure copy is complete, contains no raw exception, and preserves a return path. |
 | `product-not-found-375-light.png` | PASS | Unknown-route message and primary return action are fully visible. |
 | `product-focus-375-light.png` | PASS | Settled skip-link focus surface and complete 3px blue outer ring remain inside the viewport. |
+| `update-toast-375-normal.png` | PASS | Waiting-worker notice is complete; status and vertically stacked actions are distinct and unobscured. |
+| `update-toast-375-zoom-200.png` | PASS | Enlarged icon, full status copy, primary action, and dismiss target remain separated inside 375x812. |
+| `update-toast-375-text-320.png` | PASS | Bounded enlarged copy and stacked controls remain positive, reachable, and non-overlapping; copy scrolls independently when needed. |
+
+## Fresh Dual Sol Review
+
+- **Pass A - design-system and functional integrity: PASS.** The live DOM uses existing toast/action tokens and a real changed same-scope worker. `action--icon` now represents the dismiss control explicitly, `Update now` still calls the updater with `true`, and the three browser cases prove positive in-viewport rectangles with no status/action or update/dismiss intersection. The 320% case also scrolls the status region to its real maximum and proves a positive scroll offset before restoring the evidence frame.
+- **Pass B - visual fidelity and low-vision precision: PASS.** Direct full-resolution inspection of all three fresh 375x812 PNGs found no malformed compositing, black regions, clipped controls, or overlapping text/actions. Normal and 200% retain complete visible copy; 320% preserves large text in a bounded scroll region while keeping both actions visible and spatially distinct.
+- Both passes ran under the active `openai/gpt-5.6-sol` executor. No unpinned reviewer was dispatched because this remediation explicitly forbids non-Sol execution.
 
 ## Automated Corroboration
 
-- Playwright final matrix: 275 passed, 19 intentional conditional skips, zero failures.
+- Playwright final matrix: 278 passed, 34 intentional conditional skips, zero failures across 312 cases.
 - Axe passes the production shell in every viewport/theme project.
 - Tests pass 200% browser zoom, 320% text zoom, reduced motion, long/unbroken content, keyboard focus, 44px targets, and lifecycle transitions.
 - Lighthouse final matrix: all three mobile and all three desktop runs scored 100 in all four categories.
@@ -63,7 +77,7 @@ All captures were regenerated from the final production build. Dimensions are ex
 
 ## Review Method
 
-The final approving pass directly opened all 12 current PNGs with GPT-5.6 Sol after confirming that each capture is newer than the rendered source. The capture set was checked page-by-page rather than sampled. File signatures and dimensions were independently verified with `file` and `sips`; all are valid RGB PNGs at their named viewport sizes. No non-Sol reviewer was dispatched because the available reviewer tool cannot pin its runtime model.
+The final approving passes directly opened the 12 shell PNGs plus all three current waiting-worker PNGs with GPT-5.6 Sol after confirming the new captures came from the final full matrix. The capture set was checked page-by-page rather than sampled. File signatures and dimensions were independently verified with `file` and `sips`; all update-toast artifacts are valid 375x812 RGB PNGs. No non-Sol reviewer was dispatched because the available reviewer tool cannot pin its runtime model.
 
 ## Blocking Findings
 

@@ -1,6 +1,6 @@
 # Todo 11 Verification
 
-Date: 2026-08-14
+Date: 2026-08-15
 Model: `openai/gpt-5.6-sol`
 Scope: production PWA shell, shared design-system primitives, product routes, tests, and Todo 11 evidence.
 
@@ -21,6 +21,8 @@ Scope: production PWA shell, shared design-system primitives, product routes, te
 - A first focus screenshot caught the skip link mid-transition. A viewport-bound Playwright assertion and settled capture timing now prove the complete blue focus ring remains visible.
 - The original zoom checks asserted only DOM visibility. Fresh geometry showed the 200% shell at `0..1270` inside a `0..635` viewport and 320% fixed chrome ending at `694.984`; red tests then required one named owner to reveal workspace and dock without document scrolling.
 - Prompt-mode service-worker registration originally exposed no `onNeedRefresh` action. A red component regression now drives a waiting-worker callback and proves the accessible `Update now` control calls the returned updater with `true` while remaining outside the live-status node.
+- Independent verifier `ses_ffd4ba73cffesjjviurYSq55t8` reproduced a remaining update-toast defect: at 375px/200% zoom the status measured zero width while the full-width primary and dismiss controls overlaid its copy. The first corrected regression run also reproduced the same zero-width status at 320% text zoom.
+- The green repair gives the dismiss control the existing icon-only primitive state, stacks mobile actions below status, bounds oversized copy in its own scroll row, and caps the decorative icon against the dynamic viewport. Real-worker tests now prove positive viewport-contained bounds and no status/actions or update/dismiss intersection at normal, 200%, and 320%.
 
 ## Final Quality Gates
 
@@ -29,14 +31,14 @@ Scope: production PWA shell, shared design-system primitives, product routes, te
 - `bun run --cwd apps/pwa test:components`: 6 passed, zero failed.
 - `bun run typecheck`: root and strict PWA TypeScript projects passed.
 - `bunx biome check apps/pwa/src apps/pwa/tests apps/pwa/scripts apps/pwa/index.html apps/pwa/package.json apps/pwa/playwright.config.ts`: 43 files checked, no findings.
-- `bun run check:loc`: 98 TypeScript modules passed the 250-pure-LOC ceiling.
+- `bun run check:loc`: 99 TypeScript modules passed the 250-pure-LOC ceiling.
 - Isolated TypeScript 5.9 no-excuse scan: 34 PWA source/test/script files passed with no violations.
 - `bun run check`: root lint, typecheck, LOC, 3 root unit tests, 6 PWA component tests, 17 fixture tests, and 49 security tests passed; one Windows-only security case skipped as designed.
-- `bun run --cwd apps/pwa build`: 1007 modules transformed; product JS 172.32 kB, showcase JS 52.65 kB, CSS 27.61 kB, and service-worker generation passed.
-- `bun run --cwd apps/pwa test:e2e`: 275 passed, 19 intentional profile skips, zero failures across 294 cases.
+- `bun run --cwd apps/pwa build`: 1007 modules transformed; product JS 172.39 kB, showcase JS 52.65 kB, CSS 28.18 kB, and service-worker generation passed.
+- `bun run --cwd apps/pwa test:e2e`: 278 passed, 34 intentional profile skips, zero failures across 312 cases.
 - The E2E command deterministically sanitizes generated Playwright JSON; a red-green unit regression confirms no macOS or Windows home path remains in committed browser evidence.
 
-The 19 skips are conditional duplicate suppression inherited from the showcase matrix: tablet-only wrapping, desktop-pointer hover/press, and one service-worker offline case run only on their applicable profiles.
+The 34 skips are conditional duplicate suppression: the existing tablet-only wrapping, desktop-pointer hover/press, and service-worker offline cases remain profile-specific, while the three update-toast geometry cases intentionally run only in the 375-light project and skip their other five profiles.
 
 ## Production Browser Coverage
 
@@ -45,6 +47,7 @@ The 19 skips are conditional duplicate suppression inherited from the showcase m
 - One fresh 375-light capture records the settled, unclipped keyboard focus ring on the skip link.
 - Playwright verifies one bounded scroll owner, mobile stacking, wider list-detail composition, no primary horizontal overflow under long content, actual workspace/dock reachability at 200% browser zoom and 320% text zoom, reduced motion, system theme resolution, explicit online/offline events, 44px targets, skip-link focus transfer, axe, and zero `/api/` requests.
 - A live production-browser service-worker exercise installed changed same-scope worker bytes, displayed the persistent update notice with no console/page errors, kept its action outside `role="status"`, and exercised the updater-backed activation path.
+- Three final 375-light waiting-worker captures cover normal layout, 200% browser-equivalent zoom, and 320% text zoom. Their paired assertions require positive toast/status/action/control rectangles, viewport containment, zero status/action or control/control intersection, and actual scroll reachability for the enlarged 320% status copy.
 - Every capture has a valid PNG payload and exact requested viewport dimensions. No preview process remained on port 4173 after capture.
 
 ## Lighthouse
@@ -61,6 +64,7 @@ The 19 skips are conditional duplicate suppression inherited from the showcase m
 - The final images show complete header, continuity rail, named workspace, and footer regions; coherent light/dark token usage; readable mobile stacking; tablet/desktop list-detail composition; complete lifecycle copy; and no clipping, malformed compositing, horizontal overflow, or orphaned single-character lines.
 - A fresh GPT-5.6 Sol pass directly opened all 12 current PNGs at full resolution and found no product or evidence defect.
 - The final pass used no reviewer subagent because the reviewer tool cannot pin its runtime model and this task requires GPT Sol only. `file` and `sips` independently confirmed valid PNG payloads and exact named viewport dimensions.
+- Two fresh Sol review charters inspected the same current waiting-worker build: functional/design-system integrity passed, and direct visual/low-vision precision passed for all three new captures.
 
 ## Tooling And Scope Constraints
 
@@ -70,4 +74,4 @@ The 19 skips are conditional duplicate suppression inherited from the showcase m
 
 ## Result
 
-Todo 11 acceptance is **PASS**: implementation, component/routes, responsive behavior, accessibility, bundle, stale-worker activation, production browser matrix, fresh GPT-5.6 Sol visual inspection, and Lighthouse gates are green. No known product or evidence defect remains.
+Todo 11 acceptance is **PASS** after verifier remediation: implementation, update-toast reflow, component/routes, responsive behavior, accessibility, bundle, stale-worker activation, production browser matrix, fresh dual GPT-5.6 Sol visual inspection, and Lighthouse gates are green. No known product or evidence defect remains.

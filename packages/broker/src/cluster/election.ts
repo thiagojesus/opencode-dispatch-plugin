@@ -33,24 +33,28 @@ function isAddressInUse(error: unknown): boolean {
 }
 
 async function probeHealth(options: ElectionOptions): Promise<ClusterHealth> {
+  let response: Response
   try {
-    const response = await fetch(
-      `${options.brokerUrl}/.well-known/opencode-dispatch/cluster/health`,
-      {
-        signal: AbortSignal.timeout(Math.min(options.config.registration.ttlMs, 5_000)),
-      },
-    )
-    const parsed = ClusterHealthSchema.safeParse(await response.json())
-    if (!response.ok || !parsed.success) {
-      throw new ClusterError("foreign_listener")
-    }
-    return parsed.data
-  } catch (error) {
-    if (error instanceof ClusterError) {
-      throw error
-    }
+    response = await fetch(`${options.brokerUrl}/.well-known/opencode-dispatch/cluster/health`, {
+      signal: AbortSignal.timeout(Math.min(options.config.registration.ttlMs, 5_000)),
+    })
+  } catch {
     throw new ClusterError("internal_failure")
   }
+  if (!response.ok) {
+    throw new ClusterError("foreign_listener")
+  }
+  let value: unknown
+  try {
+    value = await response.json()
+  } catch {
+    throw new ClusterError("foreign_listener")
+  }
+  const parsed = ClusterHealthSchema.safeParse(value)
+  if (!parsed.success) {
+    throw new ClusterError("foreign_listener")
+  }
+  return parsed.data
 }
 
 export async function electOrDiscover(options: ElectionOptions): Promise<ElectionResult> {

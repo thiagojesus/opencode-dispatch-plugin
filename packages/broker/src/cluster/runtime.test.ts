@@ -52,7 +52,7 @@ describe("loopback broker runtime", () => {
   })
 
   test("fails closed without replacing or killing a foreign fixed-port listener", async () => {
-    const { ClusterError, startClusterMember } = await clusterModule()
+    const { startClusterMember } = await clusterModule()
     const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-cluster-runtime-"))
     const foreign = Bun.serve({
       hostname: "127.0.0.1",
@@ -67,7 +67,7 @@ describe("loopback broker runtime", () => {
           serverUrl: "http://127.0.0.1:41002",
           statePaths: temporaryStatePaths(fixtureDirectory),
         }),
-      ).rejects.toBeInstanceOf(ClusterError)
+      ).rejects.toMatchObject({ code: "foreign_listener" })
       await expect(fetch(BROKER_ORIGIN).then((response) => response.text())).resolves.toBe(
         "foreign-listener",
       )

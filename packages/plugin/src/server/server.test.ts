@@ -146,3 +146,52 @@ test("unregisters when status seeding fails", async () => {
   ).rejects.toThrow("fixture status failure")
   expect(disposals).toBe(1)
 })
+
+test("forwards documented compacted and diff events across the broker boundary", async () => {
+  expect(await pluginImplementation.exists()).toBe(true)
+  const { startOpenCodeServerPlugin } = await import("./plugin.ts")
+  const published: unknown[] = []
+  const hooks = await startOpenCodeServerPlugin(
+    { serverUrl: new URL("http://127.0.0.1:40997") },
+    {
+      createProcessClient: () => ({ statuses: async () => ({}) }),
+      env: {},
+      now: (() => {
+        let current = 4_000
+        return () => current++
+      })(),
+      startMember: async () => ({
+        dispose: async () => {},
+        publishOpenCodeSignal: async (signal) => {
+          published.push(signal)
+        },
+      }),
+    },
+  )
+
+  await hooks.event?.({
+    event: { type: "session.compacted", properties: { sessionID: "ses-document-events" } },
+  })
+  await hooks.event?.({
+    event: {
+      type: "session.diff",
+      properties: { sessionID: "ses-document-events", diff: [] },
+    },
+  })
+
+  expect(published).toEqual([
+    {
+      eventType: "session.compacted",
+      observedAt: 4_000,
+      sessionId: "ses-document-events",
+      source: "live",
+    },
+    {
+      eventType: "session.diff",
+      observedAt: 4_001,
+      sessionId: "ses-document-events",
+      source: "live",
+    },
+  ])
+  await hooks.dispose?.()
+})

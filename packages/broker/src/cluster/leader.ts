@@ -1,6 +1,6 @@
 import type { DispatchConfig, ProcessInstanceNonce } from "@opencode-dispatch/contracts"
 import { assertNever, PROTOCOL_VERSION } from "@opencode-dispatch/contracts"
-
+import { OpenCodeAdapter } from "../opencode/index.ts"
 import { type HostSecret, InternalAuthVerifier } from "../security/index.ts"
 import { ClusterError, toClusterError } from "./errors.ts"
 import {
@@ -30,6 +30,7 @@ type LeaderServerOptions = {
 }
 
 export class LeaderServer {
+  readonly openCode = new OpenCodeAdapter()
   readonly #authVerifier: InternalAuthVerifier
   readonly #onFailure: (error: ClusterError) => void
   readonly #onSnapshot: (snapshot: ClusterRegistrySnapshot) => void
@@ -79,6 +80,7 @@ export class LeaderServer {
     this.#stopping = true
     clearInterval(this.#sweepTimer)
     await this.#server.stop(true)
+    this.openCode.dispose()
   }
 
   #fetch(request: Request, server: Bun.Server<LeaderSocketData>): Response | undefined {
@@ -156,6 +158,14 @@ export class LeaderServer {
             throw new ClusterError("protocol_incompatible")
           }
           this.#registry.register(frame.lifecycle, frame.exposures)
+          this.openCode.registerProcess({
+            processNonce: frame.lifecycle.processNonce,
+            serverUrl: frame.lifecycle.serverUrl,
+            ...(frame.authorization === undefined ? {} : { authorization: frame.authorization }),
+          })
+          for (const signal of frame.signals) {
+            this.openCode.observe(frame.lifecycle.processNonce, signal)
+          }
           socket.data.processNonce = frame.lifecycle.processNonce
           await this.#persist()
           sendServerFrame(socket, {
@@ -184,12 +194,18 @@ export class LeaderServer {
           await this.#persist()
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
           return
+        case "opencode.event":
+          this.#requireOwner(socket, frame.processNonce)
+          this.openCode.observe(frame.processNonce, frame.signal)
+          sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
+          return
         case "member.unregister":
           this.#requireOwner(socket, frame.lifecycle.processNonce)
           if (frame.lifecycle.type !== "process.unregister") {
             throw new ClusterError("protocol_incompatible")
           }
           this.#registry.unregister(frame.lifecycle)
+          this.openCode.unregisterProcess(frame.lifecycle.processNonce)
           delete socket.data.processNonce
           await this.#persist()
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
@@ -198,7 +214,7 @@ export class LeaderServer {
           return assertNever(frame)
       }
     } catch (error) {
-      const clusterError = toClusterError(error)
+      const clusterError = error instanceof ClusterError ? error : toClusterError(error)
       sendClusterError(socket, this.#registry.snapshot().brokerEpoch, clusterError.code, requestId)
     }
   }
@@ -208,6 +224,7 @@ export class LeaderServer {
       return
     }
     this.#registry.remove(socket.data.processNonce)
+    this.openCode.unregisterProcess(socket.data.processNonce)
     await this.#persist()
   }
 
@@ -233,7 +250,11 @@ export class LeaderServer {
   }
 
   async #sweep(): Promise<void> {
-    if (this.#registry.expire().length > 0) {
+    const expired = this.#registry.expire()
+    for (const processNonce of expired) {
+      this.openCode.unregisterProcess(processNonce)
+    }
+    if (expired.length > 0) {
       await this.#persist()
     }
   }

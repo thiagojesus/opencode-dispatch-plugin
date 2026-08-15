@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./cluster": "./src/cluster/index.ts",
+    "./opencode": "./src/opencode/index.ts"
+  },
   "dependencies": {
+    "@opencode-ai/sdk": "1.18.3",
     "@opencode-dispatch/contracts": "workspace:*",
     "zod": "4.4.3"
   }

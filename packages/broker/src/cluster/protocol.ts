@@ -10,7 +10,7 @@ import {
   UnixEpochMsSchema,
 } from "@opencode-dispatch/contracts"
 import { z } from "zod"
-
+import { BasicAuthorizationSchema, OpenCodeSessionSignalSchema } from "../opencode/index.ts"
 import { SECURITY_ERROR_CODES } from "../security/index.ts"
 import { CLUSTER_ERROR_CODES } from "./errors.ts"
 
@@ -55,6 +55,8 @@ const RegisterFrameSchema = z.strictObject({
   ...ClusterFramePosition,
   lifecycle: ProcessLifecycleMessageSchema,
   exposures: z.array(ProcessExposureSchema).max(256).readonly(),
+  authorization: BasicAuthorizationSchema.optional(),
+  signals: z.array(OpenCodeSessionSignalSchema).max(256).readonly().default([]),
 })
 const HeartbeatFrameSchema = z.strictObject({
   type: z.literal("member.heartbeat"),
@@ -81,6 +83,13 @@ const UnregisterFrameSchema = z.strictObject({
   requestId: IdempotencyKeySchema,
   lifecycle: ProcessLifecycleMessageSchema,
 })
+const OpenCodeEventFrameSchema = z.strictObject({
+  type: z.literal("opencode.event"),
+  ...ClusterFramePosition,
+  requestId: IdempotencyKeySchema,
+  processNonce: ProcessInstanceNonceSchema,
+  signal: OpenCodeSessionSignalSchema,
+})
 
 export const ClusterClientFrameSchema = z
   .discriminatedUnion("type", [
@@ -89,6 +98,7 @@ export const ClusterClientFrameSchema = z
     HeartbeatFrameSchema,
     ExposureEnableFrameSchema,
     ExposureDisableFrameSchema,
+    OpenCodeEventFrameSchema,
     UnregisterFrameSchema,
   ])
   .readonly()

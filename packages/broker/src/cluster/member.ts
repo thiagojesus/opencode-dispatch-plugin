@@ -1,27 +1,29 @@
 import {
   type DispatchConfig,
   type LoopbackServerUrlSchema,
-  ProcessExposureSchema,
   type ProcessIdSchema,
   type ProcessInstanceNonce,
   ProcessLifecycleMessageSchema,
-  SessionIdSchema,
   type UnixEpochMsSchema,
 } from "@opencode-dispatch/contracts"
 
+import type { BasicAuthorization, OpenCodeAdapter } from "../opencode/index.ts"
 import type { HostSecret } from "../security/index.ts"
 import { ClusterConnection } from "./connection.ts"
 import { electOrDiscover } from "./election.ts"
 import { ClusterError, toClusterError } from "./errors.ts"
 import type { LeaderServer } from "./leader.ts"
 import { createUnregisterMessage } from "./member-lifecycle.ts"
+import { MemberOperations } from "./member-operations.ts"
 import { type ClusterMemberStatus, MemberState } from "./member-state.ts"
 import type { ClusterStateStore } from "./state-store.ts"
 
 export class ClusterMember {
   readonly brokerUrl: string
   readonly #config: DispatchConfig
+  readonly #authorization: BasicAuthorization | undefined
   readonly #hostSecret: HostSecret
+  readonly #operations: MemberOperations
   readonly #pid: ReturnType<typeof ProcessIdSchema.parse>
   readonly #processNonce: ProcessInstanceNonce
   readonly #serverUrl: ReturnType<typeof LoopbackServerUrlSchema.parse>
@@ -35,6 +37,7 @@ export class ClusterMember {
   #reconnectTask: Promise<void> | undefined
 
   constructor(input: {
+    readonly authorization?: BasicAuthorization
     readonly config: DispatchConfig
     readonly hostSecret: HostSecret
     readonly pid: ReturnType<typeof ProcessIdSchema.parse>
@@ -43,6 +46,7 @@ export class ClusterMember {
     readonly startedAt: ReturnType<typeof UnixEpochMsSchema.parse>
     readonly stateStore: ClusterStateStore
   }) {
+    this.#authorization = input.authorization
     this.#config = input.config
     this.#hostSecret = input.hostSecret
     this.#pid = input.pid
@@ -51,6 +55,12 @@ export class ClusterMember {
     this.#startedAt = input.startedAt
     this.#state = new MemberState(input.processNonce)
     this.#stateStore = input.stateStore
+    this.#operations = new MemberOperations({
+      connection: () => this.#requireConnection(),
+      leader: () => this.#leader,
+      processNonce: input.processNonce,
+      state: this.#state,
+    })
     this.brokerUrl = `http://${input.config.broker.host}:${input.config.broker.port}`
   }
 
@@ -58,9 +68,7 @@ export class ClusterMember {
     await this.#establish()
   }
 
-  status(): ClusterMemberStatus {
-    return this.#state.status()
-  }
+  readonly status = (): ClusterMemberStatus => this.#state.status()
 
   subscribe(listener: (status: ClusterMemberStatus) => void): () => void {
     return this.#state.subscribe(listener)
@@ -71,27 +79,19 @@ export class ClusterMember {
     readonly sessionId: unknown
     readonly title: unknown
   }): Promise<void> {
-    const connection = this.#requireConnection()
-    const exposure = ProcessExposureSchema.parse({
-      version: 1,
-      processNonce: this.#processNonce,
-      sessionId: input.sessionId,
-      title: input.title,
-      enabledAt: input.enabledAt,
-    })
-    this.#state.addExposure(exposure)
-    try {
-      await connection.enable(exposure)
-    } catch (error) {
-      this.#state.removeExposure(exposure.sessionId)
-      throw toClusterError(error)
-    }
+    await this.#operations.enableExposure(input)
   }
 
   async disableExposure(sessionId: unknown): Promise<void> {
-    const parsedSessionId = SessionIdSchema.parse(sessionId)
-    await this.#requireConnection().disable(this.#processNonce, parsedSessionId, Date.now())
-    this.#state.removeExposure(parsedSessionId)
+    await this.#operations.disableExposure(sessionId)
+  }
+
+  async publishOpenCodeSignal(signal: unknown): Promise<void> {
+    await this.#operations.publishOpenCodeSignal(signal)
+  }
+
+  authoritativeOpenCode(): OpenCodeAdapter | undefined {
+    return this.#operations.authoritativeOpenCode()
   }
 
   async dispose(): Promise<void> {
@@ -132,7 +132,7 @@ export class ClusterMember {
         await this.#connectOnce()
         return
       } catch (error) {
-        failure = toClusterError(error)
+        failure = error instanceof ClusterError ? error : toClusterError(error)
         await this.#leader?.stop()
         this.#leader = undefined
         if (this.#disposed) {
@@ -172,7 +172,9 @@ export class ClusterMember {
       hostSecret: this.#hostSecret,
       onClose: () => this.#scheduleReconnect(),
       registration,
+      signals: this.#state.signals(),
       timeoutMs: Math.min(this.#config.registration.ttlMs, 5_000),
+      ...(this.#authorization === undefined ? {} : { authorization: this.#authorization }),
     })
     this.#connection = connection
     this.#state.connected(this.#leader === undefined ? "follower" : "leader", health.brokerEpoch)
@@ -211,7 +213,7 @@ export class ClusterMember {
       try {
         this.#connection?.heartbeat(heartbeat)
       } catch (error) {
-        this.#scheduleReconnect(toClusterError(error))
+        this.#scheduleReconnect(error instanceof ClusterError ? error : toClusterError(error))
       }
     }, this.#config.registration.heartbeatIntervalMs)
   }

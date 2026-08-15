@@ -9,7 +9,7 @@ import {
   type ProcessLifecycleMessage,
   type SessionId,
 } from "@opencode-dispatch/contracts"
-
+import type { BasicAuthorization, OpenCodeSessionSignal } from "../opencode/index.ts"
 import { createInternalAuthResponse, type HostSecret } from "../security/index.ts"
 import { ClusterError } from "./errors.ts"
 import { clusterAuthBinding } from "./protocol.ts"
@@ -20,11 +20,13 @@ type HeartbeatMessage = Extract<ProcessLifecycleMessage, { readonly type: "proce
 type UnregisterMessage = Extract<ProcessLifecycleMessage, { readonly type: "process.unregister" }>
 
 type ClusterConnectionOptions = {
+  readonly authorization?: BasicAuthorization
   readonly brokerEpoch: BrokerEpoch
   readonly exposures: readonly ProcessExposure[]
   readonly hostSecret: HostSecret
   readonly onClose: () => void
   readonly registration: RegistrationMessage
+  readonly signals: readonly OpenCodeSessionSignal[]
   readonly timeoutMs: number
 }
 
@@ -70,6 +72,8 @@ export class ClusterConnection {
       brokerEpoch: options.brokerEpoch,
       lifecycle: options.registration,
       exposures: options.exposures,
+      signals: options.signals,
+      ...(options.authorization === undefined ? {} : { authorization: options.authorization }),
     })
     if ((await registered).type !== "member.registered") {
       channel.close()
@@ -108,6 +112,21 @@ export class ClusterConnection {
       processNonce,
       sessionId,
       sentAt,
+    })
+  }
+
+  publishOpenCodeSignal(
+    processNonce: ProcessInstanceNonce,
+    signal: OpenCodeSessionSignal,
+  ): Promise<void> {
+    const requestId = IdempotencyKeySchema.parse(randomUUID())
+    return this.#channel.request(requestId, {
+      type: "opencode.event",
+      version: PROTOCOL_VERSION,
+      brokerEpoch: this.#brokerEpoch,
+      requestId,
+      processNonce,
+      signal,
     })
   }
 

@@ -4,7 +4,7 @@ import type {
   ProcessInstanceNonce,
   SessionId,
 } from "@opencode-dispatch/contracts"
-
+import type { OpenCodeSessionSignal } from "../opencode/index.ts"
 import type { ClusterErrorCode } from "./errors.ts"
 import type { ClusterRegistrySnapshot } from "./registry.ts"
 
@@ -22,6 +22,7 @@ type StatusListener = (status: ClusterMemberStatus) => void
 export class MemberState {
   readonly #exposures = new Map<SessionId, ProcessExposure>()
   readonly #listeners = new Set<StatusListener>()
+  readonly #signals = new Map<SessionId, OpenCodeSessionSignal>()
   readonly #processNonce: ProcessInstanceNonce
   #brokerEpoch: BrokerEpoch | undefined
   #connected = false
@@ -52,6 +53,14 @@ export class MemberState {
 
   exposures(): readonly ProcessExposure[] {
     return [...this.#exposures.values()]
+  }
+
+  signals(): readonly OpenCodeSessionSignal[] {
+    return [...this.#signals.values()]
+  }
+
+  setSignal(signal: OpenCodeSessionSignal): void {
+    this.#signals.set(signal.sessionId, signal)
   }
 
   addExposure(exposure: ProcessExposure): void {

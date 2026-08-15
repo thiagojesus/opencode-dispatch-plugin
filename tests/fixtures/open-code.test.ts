@@ -82,6 +82,45 @@ test("records documented prompt, abort, permission, and question actions", async
   }
 })
 
+test("requires the configured upstream Basic authorization without echoing it", async () => {
+  const { startOpenCodeFixture } = await import("./open-code.ts")
+  const authorization = "Basic Zml4dHVyZS11c2VyOmZpeHR1cmUtcGFzc3dvcmQ="
+  const fixture = await startOpenCodeFixture({
+    compatibility: "1.18.3",
+    authorization,
+  })
+
+  try {
+    const denied = await fetch(new URL(fixture.routes.health, fixture.origin))
+    const accepted = await fetch(new URL(fixture.routes.health, fixture.origin), {
+      headers: { authorization },
+    })
+
+    expect(denied.status).toBe(401)
+    expect(await denied.text()).not.toContain(authorization)
+    expect(accepted.status).toBe(200)
+  } finally {
+    await fixture.stop()
+  }
+})
+
+test("returns configured upstream HTTP failures on one documented operation", async () => {
+  const { startOpenCodeFixture } = await import("./open-code.ts")
+  const fixture = await startOpenCodeFixture({
+    compatibility: "latest-compatible",
+    failure: { operation: "session", status: 500 },
+  })
+
+  try {
+    const response = await fetch(new URL(fixture.routes.session, fixture.origin))
+
+    expect(response.status).toBe(500)
+    expect(await response.json()).toEqual({ error: "fixture_upstream_failure" })
+  } finally {
+    await fixture.stop()
+  }
+})
+
 test("fails an undocumented route instead of returning permissive success", async () => {
   expect(await implementation.exists()).toBe(true)
   const { startOpenCodeFixture } = await import("./open-code.ts")

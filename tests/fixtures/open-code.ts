@@ -68,8 +68,13 @@ export type OpenCodeFixture = {
 }
 
 export type OpenCodeFixtureOptions = {
+  readonly authorization?: string
   readonly compatibility: OpenCodeCompatibility
   readonly eventFault?: OpenCodeEventFault
+  readonly failure?: {
+    readonly operation: OpenCodeOperation
+    readonly status: 401 | 404 | 500
+  }
 }
 
 function createRoutes(
@@ -147,9 +152,21 @@ export async function startOpenCodeFixture(
     hostname: "127.0.0.1",
     port: 0,
     async fetch(request) {
+      if (
+        options.authorization !== undefined &&
+        request.headers.get("authorization") !== options.authorization
+      ) {
+        return Response.json({ error: "fixture_unauthorized" }, { status: 401 })
+      }
       const operation = matchOperation(request, routes)
       if (operation === null) {
         return Response.json({ error: "fixture_route_not_found" }, { status: 404 })
+      }
+      if (options.failure?.operation === operation) {
+        return Response.json(
+          { error: "fixture_upstream_failure" },
+          { status: options.failure.status },
+        )
       }
       switch (operation) {
         case "health":

@@ -8,7 +8,7 @@ import {
   ProcessInstanceNonceSchema,
   UnixEpochMsSchema,
 } from "@opencode-dispatch/contracts"
-
+import { BasicAuthorizationSchema } from "../opencode/index.ts"
 import {
   initializeHostSecret,
   resolveCurrentSecurityStatePaths,
@@ -19,6 +19,7 @@ import { ClusterMember } from "./member.ts"
 import { ClusterStateStore } from "./state-store.ts"
 
 export type StartClusterMemberInput = {
+  readonly authorization?: unknown
   readonly config?: unknown
   readonly pid?: unknown
   readonly processNonce?: unknown
@@ -33,6 +34,10 @@ export async function startClusterMember(input: StartClusterMemberInput): Promis
     throw new ClusterError("configuration_invalid")
   }
   const statePaths = input.statePaths ?? resolveCurrentSecurityStatePaths()
+  const authorization =
+    input.authorization === undefined
+      ? undefined
+      : BasicAuthorizationSchema.parse(input.authorization)
   const member = new ClusterMember({
     config,
     hostSecret: await initializeHostSecret(statePaths),
@@ -41,6 +46,7 @@ export async function startClusterMember(input: StartClusterMemberInput): Promis
     serverUrl: LoopbackServerUrlSchema.parse(input.serverUrl),
     startedAt: UnixEpochMsSchema.parse(input.startedAt ?? Date.now()),
     stateStore: new ClusterStateStore(statePaths),
+    ...(authorization === undefined ? {} : { authorization }),
   })
   await member.start()
   return member

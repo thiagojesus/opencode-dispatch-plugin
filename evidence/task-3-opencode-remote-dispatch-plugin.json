@@ -76,6 +76,21 @@
       "command": "bun test packages/broker/src/security/internal-auth.test.ts packages/broker/src/security/redaction.test.ts packages/broker/src/security/request-policy.test.ts",
       "exitCode": 1,
       "observed": "26 passed and 7 failed for the post-review findings: three malformed runtime auth responses threw, three Windows path classes leaked, and failed body reads did not attempt cancellation."
+    },
+    {
+      "command": "GitHub Actions run 31856837768, Windows job 94943099234",
+      "exitCode": 1,
+      "observed": "48 passed, 1 skipped, and 1 failed because implicit Get-Acl discovery reported CouldNotAutoloadMatchingModule for Microsoft.PowerShell.Security before the host-secret ACL was evaluated."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --test-name-pattern without-relying-on-PowerShell-module-autoload",
+      "exitCode": 1,
+      "observed": "The extracted ACL script lacked an explicit $PSHOME Microsoft.PowerShell.Security manifest import and module-qualified Get-Acl invocation; 0 passed and 1 failed."
+    },
+    {
+      "command": "GitHub Actions run 31857254474, Windows job 94944273946",
+      "exitCode": 1,
+      "observed": "The repaired Windows ACL test, strict typecheck, and LOC gate passed; the final Biome step exposed CRLF checkout conversion across all 15 checked security files."
     }
   ],
   "greenCases": [
@@ -203,6 +218,31 @@
       "command": "post-review inline library driver",
       "exitCode": 0,
       "observed": "Null auth input returned auth_malformed, UNC diagnostic input became [PATH], and a rejected body read attempted cancel once, released once, and returned request_body_rejected."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --test-name-pattern without-relying-on-PowerShell-module-autoload",
+      "exitCode": 0,
+      "observed": "1 passed, 0 failed, and 3 assertions after resolving the in-box security-module manifest from $PSHOME and using module-qualified Get-Acl."
+    },
+    {
+      "command": "bun run test:security",
+      "exitCode": 0,
+      "observed": "50 passed, 1 native-Windows-only skip, 0 failed, and 103 assertions after the ACL autoload regression fix."
+    },
+    {
+      "command": "bun test packages/broker/src/security/state.test.ts --rerun-each=10 --randomize --seed=31856",
+      "exitCode": 0,
+      "observed": "160 passed, 10 native-Windows-only skips, 0 failed, and 280 assertions."
+    },
+    {
+      "command": "bun run check",
+      "exitCode": 0,
+      "observed": "Root lint, strict typecheck, 99-module LOC, unit, component, fixture, security, and empty future lanes passed after the ACL fix."
+    },
+    {
+      "command": "GitHub Actions run 31857384402",
+      "exitCode": 0,
+      "observed": "The security matrix passed on macos-latest, ubuntu-latest, and windows-latest at commit 595fee8141b5cb43a58e8d4b32271a30f50ded3a. Windows passed 50 tests, skipped the POSIX-only mode test, failed 0, and completed the live broad-principal ACL assertion, strict typecheck, 99-module LOC gate, and 15-file Biome check."
     }
   ],
   "staticAnalysis": {
@@ -235,8 +275,8 @@
   "verifierFindings": [
     {
       "id": "AV-3-001",
-      "status": "implementation_remediated_native_verification_pending",
-      "evidence": "Windows UNC, device-namespace, and outside-profile state roots are rejected; native Windows ACL and publication execution remains pending."
+      "status": "remediated_native_verified",
+      "evidence": "Windows UNC, device-namespace, and outside-profile state roots are rejected. Run 31857384402 passed atomic publication and the live broad-principal ACL assertion on windows-latest."
     },
     {
       "id": "AV-3-002",
@@ -268,12 +308,12 @@
     {
       "platform": "Linux",
       "assertion": "absolute XDG state root or home .local/state when unset; relative XDG rejected; mode policy 0700/0600",
-      "result": "portable assertions passed locally; native ubuntu-latest job is checked in but has not executed for this unpushed remediation"
+      "result": "passed locally and in native ubuntu-latest job 94944608009 of run 31857384402"
     },
     {
       "platform": "Windows",
       "assertion": "drive-absolute Local AppData contained by the current user profile; UNC/device/outside-profile roots rejected; atomic publication, malformed state, and broad-principal ACL checks; no POSIX-mode claim",
-      "result": "portable root assertions passed locally; native windows-latest ACL/publication job is checked in but has not executed for this unpushed remediation"
+      "result": "passed in native windows-latest job 94944608086 of run 31857384402; the live ACL check found no broad read principal"
     }
   ],
   "nativeCi": {
@@ -284,9 +324,29 @@
       "actions/checkout@v7.0.1": "3d3c42e5aac5ba805825da76410c181273ba90b1",
       "oven-sh/setup-bun@v2.2.0": "0c5077e51419868618aeaa5fe8019c62421857d6"
     },
-    "status": "not_executed",
-    "reason": "The remediation remains local and unpushed; no remote write was requested, so native CI results cannot be claimed.",
-    "completionGate": "Todo 3 remains unchecked until the committed workflow executes successfully on all three native runners and independent re-verification confirms the results."
+    "status": "passed",
+    "runId": 31857384402,
+    "url": "https://github.com/thiagojesus/opencode-dispatch-plugin/actions/runs/31857384402",
+    "headSha": "595fee8141b5cb43a58e8d4b32271a30f50ded3a",
+    "jobs": {
+      "macos-latest": { "id": 94944608047, "conclusion": "success" },
+      "ubuntu-latest": { "id": 94944608009, "conclusion": "success" },
+      "windows-latest": { "id": 94944608086, "conclusion": "success" }
+    },
+    "precedingFailures": [
+      {
+        "runId": 31856837768,
+        "headSha": "7642a972b3eca79dcbeac2e26b7a7b573574dc5f",
+        "failure": "Windows implicit Get-Acl module autoload failed before ACL evaluation."
+      },
+      {
+        "runId": 31857254474,
+        "headSha": "a3a8ff7228a5b2481a0f71aece358ffbbd774757",
+        "failure": "The Windows ACL test passed, then Biome exposed CRLF checkout conversion."
+      }
+    ],
+    "reason": "Fresh native execution passed every security, typecheck, LOC, and Biome step on all three runners.",
+    "completionGate": "Cleared by run 31857384402."
   },
   "postImplementationReview": {
     "initialVerdicts": {
@@ -321,7 +381,7 @@
       "The quality reviewer noted that one Proxy regression does not itself trigger a property trap; the security reviewer independently exercised trap-throwing input successfully.",
       "A non-Web-API custom reader whose releaseLock method throws could escape the finally block; production ReadableStreamDefaultReader behavior does not expose this path."
     ],
-    "remainingGate": "Native security workflow execution is still not claimed. After it passes, perform the final native-backed independent verification before checking Todo 3."
+    "remainingGate": "Cleared: run 31857384402 passed all native jobs, resolving the sole blocker recorded by the five fresh local PASS reviews."
   },
   "adversarialCases": [
     {
@@ -456,7 +516,7 @@
     }
   ],
   "manualQa": {
-    "surface": "library driver using real temporary filesystem and Web API objects",
+    "surface": "library driver using real temporary filesystem and Web API objects plus native GitHub Actions execution",
     "observed": {
       "stableSecret": true,
       "internalAuth": "accepted",
@@ -469,7 +529,8 @@
       "nonCanonicalSignature": "auth_malformed",
       "directoryMode": "700",
       "secretMode": "600",
-      "cleanup": "removed"
+      "cleanup": "removed",
+      "windowsAcl": "no broad read principal; native job 94944608086 passed"
     }
   },
   "cleanup": [
@@ -478,8 +539,8 @@
     "No secret value was printed or written to evidence."
   ],
   "remainingVerification": {
-    "nativeCi": "pending execution on macos-latest, ubuntu-latest, and windows-latest after an explicitly authorized remote update",
-    "independentReview": "fresh five-lane local review passed; final native-backed re-verification remains pending after CI",
-    "todoState": "Todo 3 remains unchecked until native CI and the final native-backed review pass"
+    "nativeCi": "passed on macos-latest, ubuntu-latest, and windows-latest in run 31857384402",
+    "independentReview": "the fresh five-lane local review passed and identified native CI as its sole remaining blocker; that blocker is now cleared",
+    "todoState": "Todo 3 acceptance gates are satisfied"
   }
 }

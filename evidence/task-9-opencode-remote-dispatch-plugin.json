@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "task": {
+    "id": 9,
+    "title": "Implement Tailscale Serve setup, verified identity/grants, and fail-closed transport middleware",
+    "date": "2026-08-14",
+    "model": "openai/gpt-5.6-sol",
+    "anthropicUsed": false
+  },
+  "scope": {
+    "implementation": "packages/broker/src/transport/tailscale/**",
+    "tests": [
+      "packages/broker/src/transport/tailscale/*.test.ts",
+      "tests/fixtures/trusted-proxy.test.ts"
+    ],
+    "fixture": "tests/fixtures/trusted-proxy.ts",
+    "dependencies": ["@opencode-dispatch/contracts", "zod"],
+    "parallelOwnershipPreserved": ["packages/broker/src/cluster/**"]
+  },
+  "sourceEvidence": [
+    {
+      "source": "https://tailscale.com/docs/features/tailscale-serve",
+      "observed": "Serve removes spoofable incoming Tailscale identity headers before adding authenticated identity and app-capability headers; the backend should remain loopback-only."
+    },
+    {
+      "source": "https://tailscale.com/docs/reference/tailscale-cli/serve",
+      "observed": "Persistent Serve configuration uses --bg and is explicitly disabled with tailscale serve off."
+    },
+    {
+      "source": "https://tailscale.com/docs/features/access-control/grants/grants-app-capabilities",
+      "observed": "App capabilities are requester-specific authorization data delivered to the application per request."
+    },
+    {
+      "source": "https://tailscale.com/docs/features/access-control/acls",
+      "observed": "Default tailnet reachability is not application authorization; the transport requires the exact control app capability."
+    },
+    {
+      "source": "https://tailscale.com/docs/how-to/set-up-https-certificates",
+      "observed": "Enabling HTTPS publishes the machine name through certificate transparency, so setup reports a non-sensitive-name warning before enablement."
+    }
+  ],
+  "redCases": [
+    {
+      "command": "bun test packages/broker/src/transport/tailscale tests/fixtures/trusted-proxy.test.ts",
+      "exitCode": 1,
+      "observed": "The initial red suite failed because the Tailscale transport module and strict forwarded Host behavior did not exist."
+    },
+    {
+      "command": "bun test packages/broker/src/transport/tailscale/diagnostics.test.ts packages/broker/src/transport/tailscale/diagnostic-states.test.ts",
+      "exitCode": 1,
+      "observed": "10 passed and 2 intentionally failed because setup readiness trusted requester-specific control data in local Self.CapMap and did not expose per-request grant verification."
+    }
+  ],
+  "greenCases": [
+    {
+      "command": "bun test packages/broker --filter tailscale",
+      "exitCode": 0,
+      "observed": "105 passed, 1 native-only skip, 0 failed, and 212 assertions across 14 files."
+    },
+    {
+      "command": "bun test packages/broker/src/transport/tailscale tests/fixtures/trusted-proxy.test.ts --rerun-each=10 --randomize --seed=90814",
+      "exitCode": 0,
+      "observed": "350 randomized passes, 0 failures, and 540 assertions across 7 files after the grant-readiness remediation."
+    },
+    {
+      "command": "bun test packages/broker/src/transport/tailscale/diagnostics.test.ts packages/broker/src/transport/tailscale/diagnostic-states.test.ts",
+      "exitCode": 0,
+      "observed": "12 passed, 0 failed, and 18 assertions after moving grant authority to the per-request boundary."
+    },
+    {
+      "command": "bun run test:fixtures",
+      "exitCode": 0,
+      "observed": "17 passed, 0 failed, and 73 assertions."
+    },
+    {
+      "command": "bun run test:security",
+      "exitCode": 0,
+      "observed": "50 passed, 1 native-only skip, 0 failed, and 103 assertions."
+    },
+    {
+      "command": "scoped strict bunx tsc over packages/broker/src/transport/tailscale/*.ts and trusted-proxy fixture files",
+      "exitCode": 0,
+      "observed": "Strict TypeScript completed with no diagnostics."
+    },
+    {
+      "command": "bunx biome check packages/broker/src/transport/tailscale tests/fixtures/trusted-proxy.ts tests/fixtures/trusted-proxy.test.ts",
+      "exitCode": 0,
+      "observed": "16 files checked with no fixes required."
+    },
+    {
+      "command": "bun run scripts/check-loc.ts packages/broker/src/transport/tailscale tests/fixtures/trusted-proxy.ts tests/fixtures/trusted-proxy.test.ts",
+      "exitCode": 0,
+      "observed": "All 16 scoped TypeScript modules are within 250 pure LOC."
+    },
+    {
+      "command": "bun install --frozen-lockfile",
+      "exitCode": 0,
+      "observed": "Bun checked 581 installs across 672 packages with no changes."
+    },
+    {
+      "command": "bun run build",
+      "exitCode": 0,
+      "observed": "All present workspace builds completed and the production PWA/service worker were generated."
+    },
+    {
+      "command": "bun run test",
+      "exitCode": 0,
+      "observed": "Root unit, component, fixture, integration, security, and package lanes completed without failure."
+    },
+    {
+      "command": "GIT_MASTER=1 git diff --check",
+      "exitCode": 0,
+      "observed": "No whitespace errors were found."
+    }
+  ],
+  "setupControls": {
+    "minimumVersion": "1.92.0",
+    "readOnlyCommands": [
+      "tailscale version",
+      "tailscale status --json",
+      "tailscale serve status --json"
+    ],
+    "confirmedStartCommand": "tailscale serve --bg --accept-app-caps=opencode-dispatch-plugin/cap/control 43110",
+    "confirmedStopCommand": "tailscale serve off",
+    "stableEndpoint": "derived from the local running node DNSName as an exact HTTPS origin",
+    "grantPolicy": {
+      "src": "derived local Tailscale login",
+      "dst": ["autogroup:self"],
+      "ip": ["tcp:443"],
+      "appCapability": "opencode-dispatch-plugin/cap/control",
+      "parameters": [{}]
+    },
+    "grantVerification": "per_request",
+    "reason": "Self.CapMap is local-node state, not authoritative requester-specific grant evidence. The exact Serve-injected app-capability header is parsed and authorized on every request."
+  },
+  "transportControls": [
+    "The backend origin must parse as the exact loopback broker endpoint.",
+    "Direct ingress and direct Tailscale identity-header spoof attempts fail closed.",
+    "Tailscale login must parse exactly and match the login derived from local status.",
+    "The app-capability header must contain exactly the control capability with one empty parameter object and no unrelated capabilities.",
+    "Host and required Origin must match the stable Serve HTTPS origin.",
+    "The same requiresOrigin guard applies to browser API and WebSocket upgrade requests.",
+    "No Basic, JWT, local-browser credential, default-allow network, or malformed-state fallback exists."
+  ],
+  "securityReview": {
+    "advisorySession": "ses_ffcc5e88fffeLu53RFasfhOFHr",
+    "modelVisibility": "The subagent tool did not expose a model identifier; the active GPT-5.6 Sol executor performed the remediation and final verification directly.",
+    "initialVerdict": "No Critical or High findings; one Medium Self.CapMap authority finding and one Low integration-wiring residual.",
+    "resolvedFindings": [
+      "Removed requester grant readiness checks from Self.CapMap.",
+      "Added grantVerification=per_request to ready setup state.",
+      "Added a red-green regression proving forged or non-empty control data in Self.CapMap cannot establish or deny requester authorization.",
+      "Retained strict exact capability parsing at the trusted per-request boundary."
+    ],
+    "remainingFinding": "Low: Todo 10 must bind trusted_proxy ingress metadata to the actual Serve-only listener/path; a future integration must not label arbitrary direct traffic trusted.",
+    "finalVerdict": "No unresolved Critical, High, or Medium Todo 9 finding."
+  },
+  "manualQa": {
+    "surface": "library drivers plus ephemeral loopback trusted-proxy and backend servers",
+    "observed": {
+      "cliReady": true,
+      "missingExecutable": "cli_missing",
+      "generatedCommandsRequireConfirmation": true,
+      "allowedProxyResponse": 204,
+      "wrongOriginResponse": 403,
+      "directFallbackResponse": 401,
+      "allowedUpstreamCalls": 1,
+      "forgedSelfCapMap": "ignored for requester authorization",
+      "nonEmptyRequestCapability": "capability_denied",
+      "cleanup": "ephemeral executable and loopback servers removed"
+    }
+  },
+  "workspaceGates": {
+    "passed": ["build", "full test", "root LOC", "frozen install", "diff check"],
+    "concurrentFailures": [
+      "Root lint reports only packages/broker/src/cluster/** and tests/fixtures/cluster-worker.ts diagnostics owned by concurrent work.",
+      "Root typecheck reports only unused declarations in packages/broker/src/cluster/leader.ts and member.ts owned by concurrent work."
+    ],
+    "dependencyAudit": "bun audit reports two pre-existing high advisories through PWA tooling: nanoid via vite and sharp via @vite-pwa/assets-generator. Todo 9 does not alter those dependency chains."
+  },
+  "cleanup": [
+    "No Tailscale installation, login, Serve mutation, Funnel, firewall, NAT, public bind, or live tailnet policy change was performed.",
+    "No secret, token, credential, raw transcript, or user-home path is stored in this evidence.",
+    "No Todo 9 server, executable, browser, or background process remains running."
+  ],
+  "completion": {
+    "plannedCommit": "feat(transport): secure access with tailscale serve",
+    "todo9LocalGates": "passed",
+    "remainingExternalDependency": "Todo 10 integration must bind the trusted ingress marker to the real Serve-only request path."
+  }
+}

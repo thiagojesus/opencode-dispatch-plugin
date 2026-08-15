@@ -10,6 +10,7 @@ test("strips spoofed Tailscale headers before injecting trusted identity and cap
   const { startTrustedProxyFixture } = await import("./trusted-proxy.ts")
   const upstream = await startOpenCodeFixture({ compatibility: "1.18.3" })
   const proxy = await startTrustedProxyFixture({
+    forwardedHost: "workstation.example.ts.net",
     identity: {
       login: "fixture-user@example.test",
       name: "Fixture User",
@@ -32,6 +33,7 @@ test("strips spoofed Tailscale headers before injecting trusted identity and cap
     expect(response.status).toBe(200)
     expect(forwarded?.headers.get("tailscale-user-login")).toBe("fixture-user@example.test")
     expect(forwarded?.headers.get("tailscale-user-name")).toBe("Fixture User")
+    expect(forwarded?.headers.get("host")).toBe("workstation.example.ts.net")
     expect(forwarded?.headers.get("tailscale-app-capabilities")).toBe(
       JSON.stringify({ [CONTROL_CAPABILITY]: [{}] }),
     )

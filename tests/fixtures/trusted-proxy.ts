@@ -17,6 +17,7 @@ export type TrustedProxyIdentity = {
 export type TrustedProxyOptions = {
   readonly targetOrigin: string
   readonly identity: TrustedProxyIdentity
+  readonly forwardedHost?: string
 }
 
 export type ForwardedProxyRequest = {
@@ -50,6 +51,9 @@ export async function startTrustedProxyFixture(
         headers.delete(header)
       }
       headers.delete("host")
+      if (options.forwardedHost !== undefined) {
+        headers.set("host", options.forwardedHost)
+      }
       headers.set("tailscale-user-login", options.identity.login)
       headers.set("tailscale-user-name", options.identity.name)
       if (options.identity.profilePicture !== undefined) {

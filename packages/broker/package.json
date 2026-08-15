@@ -2,5 +2,9 @@
   "name": "@opencode-dispatch/broker",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@opencode-dispatch/contracts": "workspace:*",
+    "zod": "4.4.3"
+  }
 }

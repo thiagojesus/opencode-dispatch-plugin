@@ -9,6 +9,7 @@ type ActionButtonProps = {
   readonly busy?: boolean
   readonly children: JSX.Element
   readonly disabled?: boolean
+  readonly iconOnly?: boolean
   readonly onClick?: (() => void) | undefined
   readonly testId?: string
   readonly type?: "button" | "submit"
@@ -21,6 +22,7 @@ export function ActionButton(props: ActionButtonProps): JSX.Element {
       aria-busy={props.busy}
       aria-label={props.ariaLabel}
       class={`action action--${props.variant ?? "secondary"}`}
+      classList={{ "action--icon": props.iconOnly === true }}
       data-testid={props.testId}
       disabled={props.disabled === true || props.busy === true}
       onClick={props.onClick}

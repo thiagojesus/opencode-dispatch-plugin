@@ -31,9 +31,11 @@ test("activates a waiting service worker when the update action is chosen", asyn
   announceUpdate()
   const status = await rendered.findByRole("status")
   const updateAction = await rendered.findByRole("button", { name: "Update now" })
+  const dismissAction = await rendered.findByRole("button", { name: "Remind me later" })
   updateAction.click()
 
   // Then
   expect(status.contains(updateAction)).toBe(false)
+  expect(dismissAction.classList.contains("action--icon")).toBe(true)
   expect(reloadRequests).toEqual([true])
 })

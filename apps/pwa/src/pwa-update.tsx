@@ -55,6 +55,7 @@ export function PwaUpdatePrompt(props: PwaUpdatePromptProps): JSX.Element {
               </ActionButton>
               <ActionButton
                 ariaLabel="Remind me later"
+                iconOnly={true}
                 onClick={() => {
                   setUpdateAvailable(false)
                 }}

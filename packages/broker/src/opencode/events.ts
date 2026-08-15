@@ -22,6 +22,8 @@ export const OPEN_CODE_SESSION_EVENT_TYPES = [
   "todo.updated",
   "session.status",
   "session.idle",
+  "session.compacted",
+  "session.diff",
   "session.error",
 ] as const
 
@@ -106,6 +108,8 @@ export function parseOpenCodeSessionSignal(
     case "todo.updated":
     case "session.status":
     case "session.idle":
+    case "session.compacted":
+    case "session.diff":
     case "session.error":
       return signal(type, sessionDirect(properties), observedAt)
     default:

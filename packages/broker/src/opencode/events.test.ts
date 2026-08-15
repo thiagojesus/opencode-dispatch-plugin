@@ -50,3 +50,26 @@ test("creates a status seed without treating it as a live event", async () => {
   expect(String(seed.sessionId)).toBe("ses-seed")
   expect(seed.source).toBe("seed")
 })
+
+test("extracts ownership signals from documented compacted and diff events", async () => {
+  expect(await implementation.exists()).toBe(true)
+  const { parseOpenCodeSessionSignal } = await import("./index.ts")
+
+  const compacted = parseOpenCodeSessionSignal(
+    { type: "session.compacted", properties: { sessionID: "ses-document-events" } },
+    401,
+  )
+  const diff = parseOpenCodeSessionSignal(
+    { type: "session.diff", properties: { sessionID: "ses-document-events", diff: [] } },
+    402,
+  )
+
+  expect(compacted?.eventType).toBe("session.compacted")
+  expect(Number(compacted?.observedAt)).toBe(401)
+  expect(String(compacted?.sessionId)).toBe("ses-document-events")
+  expect(compacted?.source).toBe("live")
+  expect(diff?.eventType).toBe("session.diff")
+  expect(Number(diff?.observedAt)).toBe(402)
+  expect(String(diff?.sessionId)).toBe("ses-document-events")
+  expect(diff?.source).toBe("live")
+})

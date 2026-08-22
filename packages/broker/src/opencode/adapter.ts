@@ -123,6 +123,10 @@ export class OpenCodeAdapter {
     throw new OpenCodeAdapterError("ownership_missing")
   }
 
+  sessionIds(): readonly SessionId[] {
+    return [...this.#claims.keys()].sort()
+  }
+
   get(sessionId: unknown) {
     return this.#clientFor(sessionId).get(SessionIdSchema.parse(sessionId))
   }

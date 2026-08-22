@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     "./cluster": "./src/cluster/index.ts",
-    "./opencode": "./src/opencode/index.ts"
+    "./opencode": "./src/opencode/index.ts",
+    "./security": "./src/security/index.ts"
   },
   "dependencies": {
     "@opencode-ai/sdk": "1.18.3",

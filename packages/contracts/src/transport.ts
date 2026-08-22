@@ -17,6 +17,15 @@ export const TransportIdentitySchema = z
   .readonly()
 export type TransportIdentity = z.infer<typeof TransportIdentitySchema>
 
+export const HealthResponseSchema = z
+  .strictObject({
+    type: z.literal("health"),
+    version: z.literal(PROTOCOL_VERSION),
+    status: z.literal("ok"),
+  })
+  .readonly()
+export type HealthResponse = z.infer<typeof HealthResponseSchema>
+
 export const CONTROL_ACTIONS = [
   "session_list",
   "session_snapshot",

@@ -74,6 +74,22 @@ export const SessionSnapshotSchema = SessionSnapshotObjectSchema.refine(
 ).readonly()
 export type SessionSnapshot = z.infer<typeof SessionSnapshotSchema>
 
+const SessionMessagesResponseObjectSchema = z.strictObject({
+  type: z.literal("session_messages"),
+  version: z.literal(PROTOCOL_VERSION),
+  brokerEpoch: BrokerEpochSchema,
+  sequence: MonotonicSequenceSchema,
+  sessionId: SessionIdSchema,
+  timeline: z.array(TimelineItemSchema).max(MAX_TIMELINE_ITEMS).readonly(),
+  nextCursor: PaginationCursorSchema.optional(),
+})
+
+export const SessionMessagesResponseSchema = SessionMessagesResponseObjectSchema.refine(
+  isWithinPublicPayloadLimit,
+  "Session messages response exceeds the 1 MiB public payload limit",
+).readonly()
+export type SessionMessagesResponse = z.infer<typeof SessionMessagesResponseSchema>
+
 const SessionPositionShape = {
   version: z.literal(PROTOCOL_VERSION),
   brokerEpoch: BrokerEpochSchema,

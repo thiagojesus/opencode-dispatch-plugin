@@ -5,16 +5,19 @@ import { isWithinPublicPayloadLimit } from "./bounds.ts"
 import { PublicErrorEnvelopeSchema } from "./errors.ts"
 import {
   SessionListResponseSchema,
+  SessionMessagesResponseSchema,
   SessionPendingActionsResponseSchema,
   SessionSnapshotSchema,
   SessionStatusResponseSchema,
   SessionTodosResponseSchema,
 } from "./session.ts"
-import { CapabilitiesResponseSchema } from "./transport.ts"
+import { CapabilitiesResponseSchema, HealthResponseSchema } from "./transport.ts"
 
 const PublicResponseUnionSchema = z.union([
   CapabilitiesResponseSchema,
+  HealthResponseSchema,
   SessionListResponseSchema,
+  SessionMessagesResponseSchema,
   SessionSnapshotSchema,
   SessionStatusResponseSchema,
   SessionTodosResponseSchema,

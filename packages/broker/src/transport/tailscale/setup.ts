@@ -1,6 +1,8 @@
 import { assertNever, CONTROL_CAPABILITY, type TailscaleLogin } from "@opencode-dispatch/contracts"
 import { z } from "zod"
 
+import { TAILSCALE_SERVE_TARGET_PORT } from "./constants.ts"
+
 const EmptyControlParametersSchema = z.tuple([z.strictObject({})]).readonly()
 
 export const TailscaleGrantPolicySchema = z
@@ -54,7 +56,13 @@ export function createTailscaleServeCommand(
     case "start":
       return {
         ok: true,
-        argv: ["tailscale", "serve", "--bg", `--accept-app-caps=${CONTROL_CAPABILITY}`, "43110"],
+        argv: [
+          "tailscale",
+          "serve",
+          "--bg",
+          `--accept-app-caps=${CONTROL_CAPABILITY}`,
+          String(TAILSCALE_SERVE_TARGET_PORT),
+        ],
       }
     case "stop":
       return { ok: true, argv: ["tailscale", "serve", "off"] }

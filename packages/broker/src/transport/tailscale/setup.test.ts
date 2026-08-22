@@ -32,7 +32,7 @@ describe("Tailscale setup artifacts", () => {
 
     expect(command).toEqual({
       ok: true,
-      argv: ["tailscale", "serve", "--bg", `--accept-app-caps=${CONTROL_CAPABILITY}`, "43110"],
+      argv: ["tailscale", "serve", "--bg", `--accept-app-caps=${CONTROL_CAPABILITY}`, "43111"],
     })
   })
 

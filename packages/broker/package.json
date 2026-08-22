@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./api": "./src/api/index.ts",
     "./cluster": "./src/cluster/index.ts",
     "./opencode": "./src/opencode/index.ts",
     "./security": "./src/security/index.ts"

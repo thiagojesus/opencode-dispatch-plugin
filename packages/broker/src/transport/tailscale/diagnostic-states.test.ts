@@ -89,7 +89,7 @@ describe("Tailscale setup blocker states", () => {
         ...READY_SERVE_CONFIG,
         Web: {
           "workstation.example.ts.net:443": {
-            Handlers: { "/": { Proxy: "http://127.0.0.1:43110" } },
+            Handlers: { "/": { Proxy: "http://127.0.0.1:43111" } },
           },
         },
       }),

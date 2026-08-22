@@ -32,7 +32,7 @@ export const READY_SERVE_CONFIG = {
       Handlers: {
         "/": {
           AcceptAppCaps: [CONTROL_CAPABILITY],
-          Proxy: "http://127.0.0.1:43110",
+          Proxy: "http://127.0.0.1:43111",
         },
       },
     },

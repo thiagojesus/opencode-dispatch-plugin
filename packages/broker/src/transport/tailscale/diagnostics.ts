@@ -2,6 +2,7 @@ import { CONTROL_CAPABILITY, TailscaleLoginSchema } from "@opencode-dispatch/con
 import { z } from "zod"
 
 import { createTrustedBrowserEndpoint } from "../../security/index.ts"
+import { TAILSCALE_SERVE_TARGET_ORIGIN } from "./constants.ts"
 import type {
   TailscaleCliResult,
   TailscaleCommandRunner,
@@ -12,7 +13,6 @@ import type {
 
 const MINIMUM_VERSION = [1, 92, 0] as const
 const HTTPS_CAPABILITY = "https"
-const BROKER_TARGET = "http://127.0.0.1:43110"
 const BaseStatusSchema = z.object({ BackendState: z.string() })
 const RunningStatusSchema = BaseStatusSchema.extend({
   CertDomains: z.array(z.string()).nullable().optional(),
@@ -206,7 +206,7 @@ export async function inspectTailscaleSetup(
   if (serve.data.TCP?.["443"]?.HTTPS !== true || handler === undefined) {
     return serveMisconfigured(allowedLogin, stableUrl, "https_mapping_missing")
   }
-  if (handler.Proxy !== BROKER_TARGET) {
+  if (handler.Proxy !== TAILSCALE_SERVE_TARGET_ORIGIN) {
     return serveMisconfigured(allowedLogin, stableUrl, "target_invalid")
   }
   if (handler.AcceptAppCaps?.length !== 1 || handler.AcceptAppCaps[0] !== CONTROL_CAPABILITY) {

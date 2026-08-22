@@ -32,6 +32,7 @@ export {
 } from "./redaction.ts"
 export {
   createTrustedBrowserEndpoint,
+  directRequestErrorCode,
   type RemoteRequestMetadata,
   readBodyWithinLimit,
   type TrustedBrowserEndpoint,

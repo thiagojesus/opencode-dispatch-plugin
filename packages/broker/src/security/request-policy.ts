@@ -62,6 +62,14 @@ function hasProtectedIdentityHeader(headers: Headers): boolean {
   return PROTECTED_IDENTITY_HEADERS.some((header) => headers.has(header))
 }
 
+export function directRequestErrorCode(
+  headers: Headers,
+): "request_identity_spoofed" | "request_transport_rejected" {
+  return hasProtectedIdentityHeader(headers)
+    ? "request_identity_spoofed"
+    : "request_transport_rejected"
+}
+
 function isTrustedOrigin(endpoint: TrustedBrowserEndpoint, origin: string): boolean {
   return origin.toLowerCase() === endpoint.origin
 }
@@ -72,9 +80,7 @@ export function verifyRemoteRequest(
 ): SecurityDecision<TrustedRequest> {
   switch (metadata.ingress) {
     case "direct":
-      return hasProtectedIdentityHeader(metadata.headers)
-        ? securityDenied("request_identity_spoofed", "validate_request")
-        : securityDenied("request_transport_rejected", "validate_request")
+      return securityDenied(directRequestErrorCode(metadata.headers), "validate_request")
     case "trusted_proxy":
       break
     default:

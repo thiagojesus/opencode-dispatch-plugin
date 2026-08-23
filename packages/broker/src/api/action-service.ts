@@ -63,6 +63,7 @@ export class SessionActionService {
     context: SessionAuthorityContext,
     action: Extract<RemoteActionRequest, { readonly type: "prompt" }>,
   ): Promise<RemoteActionResponse> {
+    const process = this.#openCode.forProcess(context.processNonce)
     const key = [
       identity.login,
       context.processNonce,
@@ -73,7 +74,8 @@ export class SessionActionService {
     try {
       cached = await this.#cache.run(key, async () => {
         try {
-          await this.#openCode.promptAsync(context.sessionId, action.text)
+          this.#authority.assertCurrent(context)
+          await process.promptAsync(context.sessionId, action.text)
           this.#authority.assertCurrent(context)
           return {
             ok: true,
@@ -101,7 +103,9 @@ export class SessionActionService {
   }
 
   async #abort(context: SessionAuthorityContext): Promise<RemoteActionResponse> {
-    const accepted = await this.#openCode.abort(context.sessionId)
+    const process = this.#openCode.forProcess(context.processNonce)
+    this.#authority.assertCurrent(context)
+    const accepted = await process.abort(context.sessionId)
     this.#authority.assertCurrent(context)
     if (!accepted) throw new ApiHttpError("PENDING_ACTION_STALE")
     return RemoteActionResponseSchema.parse({
@@ -116,14 +120,16 @@ export class SessionActionService {
     context: SessionAuthorityContext,
     action: Extract<RemoteActionRequest, { readonly type: "permission_reply" }>,
   ): Promise<RemoteActionResponse> {
+    const process = this.#openCode.forProcess(context.processNonce)
     const pending = normalizePermissions(
-      await this.#openCode.permissions(context.sessionId),
+      await process.permissions(context.sessionId),
       context.sessionId,
     )
     if (!pending.some((request) => request.id === action.requestId)) {
       throw new ApiHttpError("PENDING_ACTION_STALE")
     }
-    await this.#openCode.replyPermission(context.sessionId, action.requestId, action.decision)
+    this.#authority.assertCurrent(context)
+    await process.replyPermission(context.sessionId, action.requestId, action.decision)
     this.#authority.assertCurrent(context)
     return RemoteActionResponseSchema.parse({
       type: "permission_reply_accepted",
@@ -138,15 +144,17 @@ export class SessionActionService {
     context: SessionAuthorityContext,
     action: Extract<RemoteActionRequest, { readonly type: "question_reply" }>,
   ): Promise<RemoteActionResponse> {
+    const process = this.#openCode.forProcess(context.processNonce)
     const pending = normalizeQuestions(
-      await this.#openCode.questions(context.sessionId),
+      await process.questions(context.sessionId),
       context.sessionId,
     )
     const request = pending.find((candidate) => candidate.id === action.requestId)
     if (request === undefined || request.questions.length !== action.answers.length) {
       throw new ApiHttpError("PENDING_ACTION_STALE")
     }
-    await this.#openCode.replyQuestion(context.sessionId, action.requestId, action.answers)
+    this.#authority.assertCurrent(context)
+    await process.replyQuestion(context.sessionId, action.requestId, action.answers)
     this.#authority.assertCurrent(context)
     return RemoteActionResponseSchema.parse({
       type: "question_reply_accepted",

@@ -16,7 +16,12 @@ import type { ClusterMemberRecord } from "../cluster/registry.ts"
 import { OpenCodeAdapterError } from "../opencode/index.ts"
 import { HostSecret } from "../security/index.ts"
 import type { TailscaleReadySetup } from "../transport/tailscale/index.ts"
-import type { ApiClusterPort, ApiOpenCodePort, BrokerHttpRouterOptions } from "./ports.ts"
+import type {
+  ApiClusterPort,
+  ApiOpenCodePort,
+  ApiOpenCodeProcessPort,
+  BrokerHttpRouterOptions,
+} from "./ports.ts"
 
 export const NOW = 1_754_352_000_000
 export const SESSION_ID = SessionIdSchema.parse("ses-api-primary")
@@ -95,6 +100,8 @@ export class FakeOpenCode implements ApiOpenCodePort {
   permissionCalls = 0
   questionCalls = 0
   onPrompt: (() => void) | undefined
+  onPermissions: (() => void) | undefined
+  onQuestions: (() => void) | undefined
   promptGate: Promise<void> | undefined
   upstreamFailure = false
 
@@ -105,6 +112,10 @@ export class FakeOpenCode implements ApiOpenCodePort {
   resolveOwner(_sessionId: unknown): ProcessInstanceNonce {
     if (this.ownerFailure !== undefined) throw new OpenCodeAdapterError(this.ownerFailure)
     return this.owner
+  }
+
+  forProcess(): ApiOpenCodeProcessPort {
+    return this
   }
 
   async get(sessionId: unknown): Promise<unknown> {
@@ -142,10 +153,12 @@ export class FakeOpenCode implements ApiOpenCodePort {
   }
 
   async permissions(): Promise<unknown> {
+    this.onPermissions?.()
     return [{ id: "perm-api", sessionID: SESSION_ID, action: "bash", resources: ["bun test"] }]
   }
 
   async questions(): Promise<unknown> {
+    this.onQuestions?.()
     return [
       {
         id: "question-api",

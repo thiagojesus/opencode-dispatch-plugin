@@ -7,11 +7,12 @@ import {
   MAX_PROMPT_BYTES,
   MAX_PUBLIC_PAYLOAD_BYTES,
   PROTOCOL_VERSION,
+  type ProcessInstanceNonce,
   RemoteActionRequestSchema,
   SessionIdSchema,
   type TransportIdentity,
 } from "@opencode-dispatch/contracts"
-
+import type { OpenCodeSessionSignal } from "../opencode/events.ts"
 import {
   createSecurityHeaders,
   directRequestErrorCode,
@@ -22,8 +23,14 @@ import { createTailscaleTransportGuard } from "../transport/tailscale/index.ts"
 import { SessionActionService } from "./action-service.ts"
 import { SessionAuthority } from "./authority.ts"
 import { ApiHttpError, apiErrorFrom, apiErrorResponse, transportErrorFrom } from "./errors.ts"
-import type { ApiRateLimitConfig, BrokerHttpRouterOptions, BrokerRequestIngress } from "./ports.ts"
+import type {
+  ApiEventPort,
+  ApiRateLimitConfig,
+  BrokerHttpRouterOptions,
+  BrokerRequestIngress,
+} from "./ports.ts"
 import { SessionReadService } from "./read-service.ts"
+import { createSignalPublisher } from "./signal-publisher.ts"
 
 const ACTION_BODY_LIMIT = MAX_PROMPT_BYTES + 2_048
 const DEFAULT_RATE_LIMIT = {
@@ -35,6 +42,8 @@ const DEFAULT_RATE_LIMIT = {
 
 type RemoteRouter = {
   handle(request: Request, ingress: BrokerRequestIngress): Promise<Response>
+  prepareEventStream(request: Request, ingress: BrokerRequestIngress): Promise<Response | undefined>
+  publishSignal(processNonce: ProcessInstanceNonce, signal: OpenCodeSessionSignal): Promise<void>
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
@@ -97,11 +106,13 @@ async function parseActionBody(request: Request): Promise<unknown> {
   }
 }
 
-export function createRemoteRouter(options: BrokerHttpRouterOptions): RemoteRouter {
+export function createRemoteRouter(
+  options: BrokerHttpRouterOptions & { readonly events: ApiEventPort },
+): RemoteRouter {
   const authority = new SessionAuthority(options)
   const reads = new SessionReadService({
     authority,
-    cluster: options.cluster,
+    events: options.events,
     openCode: options.openCode,
   })
   const actions = new SessionActionService({
@@ -211,5 +222,21 @@ export function createRemoteRouter(options: BrokerHttpRouterOptions): RemoteRout
       return apiErrorResponse(apiErrorFrom(error))
     }
   }
-  return { handle }
+  const prepareEventStream = async (
+    request: Request,
+    ingress: BrokerRequestIngress,
+  ): Promise<Response | undefined> => {
+    try {
+      const url = new URL(request.url)
+      if (request.method !== "GET") throw new ApiHttpError("METHOD_NOT_ALLOWED")
+      if (url.pathname !== "/api/v1/events") throw new ApiHttpError("ROUTE_NOT_FOUND")
+      requireNoQuery(url)
+      await authenticate(request, ingress)
+      return undefined
+    } catch (error) {
+      return apiErrorResponse(apiErrorFrom(error))
+    }
+  }
+  const publishSignal = createSignalPublisher(options, authority, reads)
+  return { handle, prepareEventStream, publishSignal }
 }

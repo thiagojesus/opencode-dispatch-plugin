@@ -23,11 +23,11 @@ import {
   normalizeTodos,
 } from "./normalize.ts"
 import { normalizeTimeline } from "./normalize-timeline.ts"
-import type { ApiClusterPort, ApiOpenCodePort } from "./ports.ts"
+import type { ApiEventPort, ApiOpenCodePort } from "./ports.ts"
 
 type ReadServiceOptions = {
   readonly authority: SessionAuthority
-  readonly cluster: ApiClusterPort
+  readonly events: ApiEventPort
   readonly openCode: ApiOpenCodePort
 }
 
@@ -52,12 +52,12 @@ function parsePagination(value: unknown): PaginationRequest {
 
 export class SessionReadService {
   readonly #authority: SessionAuthority
-  readonly #cluster: ApiClusterPort
+  readonly #events: ApiEventPort
   readonly #openCode: ApiOpenCodePort
 
   constructor(options: ReadServiceOptions) {
     this.#authority = options.authority
-    this.#cluster = options.cluster
+    this.#events = options.events
     this.#openCode = options.openCode
   }
 
@@ -75,8 +75,7 @@ export class SessionReadService {
     return SessionListResponseSchema.parse({
       type: "session_list",
       version: PROTOCOL_VERSION,
-      brokerEpoch: this.#cluster.snapshot().brokerEpoch,
-      sequence: 0,
+      ...this.#events.position({ type: "sessions" }),
       sessions,
       ...(cursor === undefined ? {} : { nextCursor: cursor }),
     })
@@ -97,8 +96,7 @@ export class SessionReadService {
     return SessionSnapshotSchema.parse({
       type: "session_snapshot",
       version: PROTOCOL_VERSION,
-      brokerEpoch: this.#cluster.snapshot().brokerEpoch,
-      sequence: 0,
+      ...this.#events.position({ type: "session", sessionId: context.sessionId }),
       session: {
         id: context.sessionId,
         title: normalizedSession.title,
@@ -195,6 +193,6 @@ export class SessionReadService {
   }
 
   #position(sessionId: SessionId) {
-    return { brokerEpoch: this.#cluster.snapshot().brokerEpoch, sequence: 0, sessionId }
+    return { ...this.#events.position({ type: "session", sessionId }), sessionId }
   }
 }

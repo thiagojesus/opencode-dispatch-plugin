@@ -6,6 +6,7 @@
   "exports": {
     "./api": "./src/api/index.ts",
     "./cluster": "./src/cluster/index.ts",
+    "./events": "./src/events/index.ts",
     "./opencode": "./src/opencode/index.ts",
     "./security": "./src/security/index.ts"
   },

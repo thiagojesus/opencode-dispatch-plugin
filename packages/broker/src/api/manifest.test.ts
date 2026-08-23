@@ -6,6 +6,7 @@ test("publishes only the versioned least-privilege API and authenticated loopbac
   const expectedApiRoutes = [
     { method: "GET", path: "/api/v1/health" },
     { method: "GET", path: "/api/v1/capabilities" },
+    { method: "WEBSOCKET", path: "/api/v1/events" },
     { method: "GET", path: "/api/v1/sessions" },
     { method: "GET", path: "/api/v1/sessions/:sessionId" },
     { method: "GET", path: "/api/v1/sessions/:sessionId/messages" },

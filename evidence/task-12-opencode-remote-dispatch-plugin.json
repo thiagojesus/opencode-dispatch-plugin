@@ -1,0 +1,69 @@
+{
+  "task": 12,
+  "verdict": "pass_with_shared_worktree_contamination",
+  "implementation": [
+    "The broker normalizes enabled-session invalidations into per-scope monotonic event streams with broker epochs, bounded in-memory replay, explicit resync, and revocation-before-close semantics.",
+    "The Serve-only listener authenticates and upgrades /api/v1/events while direct broker and TUI ingress remains on port 43110.",
+    "The PWA fetches an authoritative snapshot before subscribing, ignores duplicates, resnapshots after sequence gaps or epoch changes, aborts obsolete generations, and never persists transcripts.",
+    "Production session list and detail routes render authoritative status, pending metadata, ordered transcript parts, mid-stream convergence, and user-controlled auto-follow."
+  ],
+  "red": [
+    {
+      "command": "bun test packages/broker/src/api/events.test.ts",
+      "observed": "The event facade test failed because BrokerHttpRouter did not yet provide prepareEventStream."
+    },
+    {
+      "command": "bun test apps/pwa/tests/generated-client.test.ts",
+      "observed": "The PWA client test failed before the generated client accepted the live transport required by the session synchronizer."
+    }
+  ],
+  "green": [
+    {
+      "command": "bun test packages/broker/src/api packages/broker/src/events packages/contracts/src/stream.test.ts apps/pwa/tests/session-synchronizer.test.ts",
+      "observed": "71 passed, 0 failed."
+    },
+    {
+      "command": "bun run --cwd apps/pwa test:components",
+      "observed": "14 passed across four component files, including ordered transcript rendering."
+    },
+    {
+      "command": "serial bun test for events-websocket.test.ts, leader-ingress.test.ts, and runtime.test.ts",
+      "observed": "8 passed, 0 failed in isolated Bun processes on the fixed broker ports."
+    },
+    {
+      "command": "bun run test",
+      "observed": "Root unit, component, fixture, security, and package lanes exited 0; 50 security tests passed with one native-only skip."
+    },
+    {
+      "command": "bun run typecheck && bun run build",
+      "observed": "Strict root and PWA TypeScript passed; production PWA build transformed 1223 modules and exited 0."
+    },
+    {
+      "command": "TODO12_PLAYWRIGHT_PORT=4178 bunx playwright test --config apps/pwa/playwright.todo12.config.ts",
+      "observed": "3 passed in real Chrome at 375-light, 768-dark, and 1280-light."
+    },
+    {
+      "command": "bunx biome check <Todo 12 paths> && bun run check:loc",
+      "observed": "All Todo 12 paths passed Biome and remain below 250 pure LOC; the global LOC command reports only concurrent Todo 13 question-card and action-flow test files."
+    }
+  ],
+  "manualBrowser": {
+    "browser": "Chrome Stable via Playwright",
+    "viewports": [
+      "375-light",
+      "768-dark",
+      "1280-light"
+    ],
+    "observed": [
+      "Enabled session navigation opened the authoritative detail route.",
+      "A mid-stream invalidation triggered one fresh snapshot and replaced partial text with the completed transcript.",
+      "No transcript key appeared in localStorage and no console error was emitted."
+    ]
+  },
+  "contamination": [
+    "Root lint is nonzero only for concurrent Todo 13 formatting plus pre-existing environment-key informational diagnostics outside Todo 12.",
+    "Root LOC is nonzero only for concurrent Todo 13 files apps/pwa/src/features/actions/question-card.tsx and apps/pwa/tests/components/action-flows.test.tsx.",
+    "Port 4173 was occupied by another task, so Todo 12 browser evidence used the configurable isolated port 4178 without terminating the foreign process."
+  ],
+  "diagnostics": "TypeScript LSP is unavailable by prior user choice; strict CLI TypeScript and scoped Biome checks passed."
+}

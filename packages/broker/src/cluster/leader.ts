@@ -1,21 +1,20 @@
 import type { DispatchConfig } from "@opencode-dispatch/contracts"
 import { assertNever, PROTOCOL_VERSION } from "@opencode-dispatch/contracts"
 import type { BrokerHttpRouter } from "../api/index.ts"
+import { SessionEventHub } from "../events/hub.ts"
 import { OpenCodeAdapter } from "../opencode/index.ts"
 import { type HostSecret, InternalAuthVerifier } from "../security/index.ts"
 import { ClusterError, toClusterError } from "./errors.ts"
 import { requireAuthenticated, requireOwner } from "./leader-auth.ts"
+import { handleLeaderDirectHttp } from "./leader-direct-http.ts"
 import {
   type LeaderSocketData,
   sendAcknowledged,
   sendClusterError,
   sendServerFrame,
 } from "./leader-frames.ts"
-import {
-  createLeaderHttpRouter,
-  handleClusterHttp,
-  startTailscaleServeTarget,
-} from "./leader-http.ts"
+import { createLeaderHttpRouter, startTailscaleServeTarget } from "./leader-http.ts"
+import { LeaderLifecycle } from "./leader-lifecycle.ts"
 import { ClusterClientFrameSchema, clusterAuthBinding } from "./protocol.ts"
 import type { ClusterRegistrySnapshot, MembershipRegistry } from "./registry.ts"
 import type { ClusterStateStore } from "./state-store.ts"
@@ -33,40 +32,58 @@ type LeaderServerOptions = {
 export class LeaderServer {
   readonly openCode = new OpenCodeAdapter()
   readonly #authVerifier: InternalAuthVerifier
+  readonly #events: SessionEventHub
   readonly #httpRouter: BrokerHttpRouter
+  readonly #lifecycle: LeaderLifecycle
   readonly #onFailure: (error: ClusterError) => void
-  readonly #onSnapshot: (snapshot: ClusterRegistrySnapshot) => void
   readonly #registry: MembershipRegistry
-  readonly #serveServer: Bun.Server<undefined>
+  readonly #serveServer: ReturnType<typeof startTailscaleServeTarget>
   readonly #server: Bun.Server<LeaderSocketData>
-  readonly #stateStore: ClusterStateStore
   readonly #sweepTimer: ReturnType<typeof setInterval>
   #stopping = false
 
   constructor(options: LeaderServerOptions) {
     this.#onFailure = options.onFailure
-    this.#onSnapshot = options.onSnapshot
     this.#registry = options.registry
-    this.#stateStore = options.stateStore
     this.#authVerifier = new InternalAuthVerifier(options.hostSecret, {
       challengeTtlMs: options.config.registration.ttlMs,
       maxChallenges: 256,
       now: options.now,
     })
+    this.#events = new SessionEventHub({
+      brokerEpoch: this.#registry.snapshot().brokerEpoch,
+      now: options.now,
+      replayLimit: 256,
+    })
     this.#httpRouter = createLeaderHttpRouter({
       config: options.config,
+      events: this.#events,
       hostSecret: options.hostSecret,
       now: options.now,
       openCode: this.openCode,
       persist: () => this.#persist(),
       registry: this.#registry,
     })
+    this.#lifecycle = new LeaderLifecycle({
+      httpRouter: this.#httpRouter,
+      onSnapshot: options.onSnapshot,
+      openCode: this.openCode,
+      registry: this.#registry,
+      stateStore: options.stateStore,
+    })
     this.#serveServer = startTailscaleServeTarget(options.config.broker.host, this.#httpRouter)
     try {
       this.#server = Bun.serve<LeaderSocketData>({
         hostname: options.config.broker.host,
         port: options.config.broker.port,
-        fetch: (request, server) => this.#fetch(request, server),
+        fetch: (request, server) =>
+          handleLeaderDirectHttp({
+            authVerifier: this.#authVerifier,
+            brokerEpoch: this.#registry.snapshot().brokerEpoch,
+            httpRouter: this.#httpRouter,
+            request,
+            server,
+          }),
         websocket: {
           maxPayloadLength: 1_024 * 1_024,
           open: (socket) => this.#open(socket),
@@ -94,27 +111,6 @@ export class LeaderServer {
     clearInterval(this.#sweepTimer)
     await Promise.all([this.#server.stop(true), this.#serveServer.stop(true)])
     this.openCode.dispose()
-  }
-
-  async #fetch(
-    request: Request,
-    server: Bun.Server<LeaderSocketData>,
-  ): Promise<Response | undefined> {
-    const url = new URL(request.url)
-    const clusterRoute = handleClusterHttp({
-      authVerifier: this.#authVerifier,
-      brokerEpoch: this.#registry.snapshot().brokerEpoch,
-      request,
-      server,
-    })
-    if (clusterRoute.matched) return clusterRoute.response
-    if (
-      url.pathname.startsWith("/api/v1") ||
-      url.pathname.startsWith("/.well-known/opencode-dispatch/tui/")
-    ) {
-      return this.#httpRouter.handle(request, "direct")
-    }
-    return Response.json({ error: "cluster_route_not_found" }, { status: 404 })
   }
 
   #open(socket: Bun.ServerWebSocket<LeaderSocketData>): void {
@@ -180,6 +176,7 @@ export class LeaderServer {
           })
           for (const signal of frame.signals) {
             this.openCode.observe(frame.lifecycle.processNonce, signal)
+            await this.#httpRouter.publishSignal(frame.lifecycle.processNonce, signal)
           }
           socket.data.processNonce = frame.lifecycle.processNonce
           await this.#persist()
@@ -201,30 +198,37 @@ export class LeaderServer {
           requireOwner(socket, frame.exposure.processNonce)
           this.#registry.enable(frame.exposure)
           await this.#persist()
+          await this.#httpRouter.publishSignal(frame.exposure.processNonce, {
+            eventType: "session.status",
+            observedAt: frame.exposure.enabledAt,
+            sessionId: frame.exposure.sessionId,
+            source: "seed",
+          })
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
           return
         case "exposure.disable":
           requireOwner(socket, frame.processNonce)
           this.#registry.disable(frame.processNonce, frame.sessionId)
           await this.#persist()
+          this.#httpRouter.revokeSession(frame.sessionId, "disabled")
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
           return
         case "opencode.event":
           requireOwner(socket, frame.processNonce)
           this.openCode.observe(frame.processNonce, frame.signal)
+          await this.#httpRouter.publishSignal(frame.processNonce, frame.signal)
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
           return
-        case "member.unregister":
+        case "member.unregister": {
           requireOwner(socket, frame.lifecycle.processNonce)
           if (frame.lifecycle.type !== "process.unregister") {
             throw new ClusterError("protocol_incompatible")
           }
-          this.#registry.unregister(frame.lifecycle)
-          this.openCode.unregisterProcess(frame.lifecycle.processNonce)
+          await this.#lifecycle.unregister(frame.lifecycle)
           delete socket.data.processNonce
-          await this.#persist()
           sendAcknowledged(socket, frame.brokerEpoch, frame.requestId)
           return
+        }
         default:
           return assertNever(frame)
       }
@@ -238,23 +242,14 @@ export class LeaderServer {
     if (this.#stopping || socket.data.processNonce === undefined) {
       return
     }
-    this.#registry.remove(socket.data.processNonce)
-    this.openCode.unregisterProcess(socket.data.processNonce)
-    await this.#persist()
+    await this.#lifecycle.remove(socket.data.processNonce)
   }
 
   async #persist(): Promise<void> {
-    await this.#stateStore.save(this.#registry.stateForPersistence())
-    this.#onSnapshot(this.#registry.snapshot())
+    await this.#lifecycle.persist()
   }
 
   async #sweep(): Promise<void> {
-    const expired = this.#registry.expire()
-    for (const processNonce of expired) {
-      this.openCode.unregisterProcess(processNonce)
-    }
-    if (expired.length > 0) {
-      await this.#persist()
-    }
+    await this.#lifecycle.expire()
   }
 }

@@ -1,6 +1,7 @@
 import type { DispatchConfig } from "@opencode-dispatch/contracts"
 
 import { type BrokerHttpRouter, createBrokerHttpRouter } from "../api/index.ts"
+import type { SessionEventHub } from "../events/hub.ts"
 import type { OpenCodeAdapter } from "../opencode/index.ts"
 import type { HostSecret, InternalAuthVerifier } from "../security/index.ts"
 import {
@@ -15,6 +16,7 @@ import type { MembershipRegistry } from "./registry.ts"
 
 type LeaderHttpOptions = {
   readonly config: DispatchConfig
+  readonly events: SessionEventHub
   readonly hostSecret: HostSecret
   readonly now: () => number
   readonly openCode: OpenCodeAdapter
@@ -24,35 +26,80 @@ type LeaderHttpOptions = {
 
 export function createLeaderHttpRouter(options: LeaderHttpOptions): BrokerHttpRouter {
   const tailscaleRunner = createTailscaleCliRunner()
-  return createBrokerHttpRouter({
+  let router: BrokerHttpRouter | undefined
+  router = createBrokerHttpRouter({
     backendOrigin: `http://${options.config.broker.host}:${options.config.broker.port}`,
     cluster: {
       snapshot: () => options.registry.snapshot(),
       enable: async (exposure) => {
         options.registry.enable(exposure)
         await options.persist()
+        await router?.publishSignal(exposure.processNonce, {
+          eventType: "session.status",
+          observedAt: exposure.enabledAt,
+          sessionId: exposure.sessionId,
+          source: "seed",
+        })
       },
       disable: async (processNonce, sessionId) => {
         options.registry.disable(processNonce, sessionId)
         await options.persist()
+        options.events.revoke(sessionId, "disabled")
       },
     },
+    events: options.events,
     hostSecret: options.hostSecret,
     inspectTailscale: () => inspectTailscaleSetup(tailscaleRunner),
     now: options.now,
     openCode: options.openCode,
   })
+  return router
+}
+
+type EventSocketData = {
+  readonly router: BrokerHttpRouter
+  unsubscribe?: () => void
 }
 
 export function startTailscaleServeTarget(
   hostname: string,
   router: BrokerHttpRouter,
   assetDirectory = DEFAULT_PWA_ASSET_DIRECTORY,
-): Bun.Server<undefined> {
-  return Bun.serve({
+): Bun.Server<EventSocketData> {
+  return Bun.serve<EventSocketData>({
     hostname,
     port: TAILSCALE_SERVE_TARGET_PORT,
-    fetch: createTailscaleServeFetch(router, assetDirectory),
+    fetch: async (request, server) => {
+      if (new URL(request.url).pathname === "/api/v1/events") {
+        const denial = await router.prepareEventStream(request, "trusted_proxy")
+        if (denial !== undefined) return denial
+        if (server.upgrade(request, { data: { router } })) return undefined
+        return Response.json({ error: "websocket_upgrade_required" }, { status: 426 })
+      }
+      return createTailscaleServeFetch(router, assetDirectory)(request)
+    },
+    websocket: {
+      maxPayloadLength: 1_024 * 1_024,
+      message(socket, message) {
+        if (socket.data.unsubscribe !== undefined) {
+          socket.close(1_008, "duplicate_subscription")
+          return
+        }
+        try {
+          const input: unknown = JSON.parse(String(message))
+          socket.data.unsubscribe = socket.data.router.subscribeEvents(input, {
+            close: (code, reason) => socket.close(code, reason),
+            send: (frame) => socket.send(JSON.stringify(frame)),
+          })
+        } catch {
+          socket.close(1_008, "invalid_subscription")
+        }
+      },
+      close(socket) {
+        socket.data.unsubscribe?.()
+        delete socket.data.unsubscribe
+      },
+    },
   })
 }
 

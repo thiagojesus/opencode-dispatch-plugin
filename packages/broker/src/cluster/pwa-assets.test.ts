@@ -93,6 +93,10 @@ describe("Serve-target PWA assets", () => {
           calls.push(`${ingress}:${new URL(request.url).pathname}`)
           return Promise.resolve(new Response(null, { status: 204 }))
         },
+        prepareEventStream: async () => undefined,
+        publishSignal: async () => undefined,
+        revokeSession: () => undefined,
+        subscribeEvents: () => () => undefined,
       },
       directory,
     )

@@ -1,6 +1,14 @@
-import type { ProcessExposure, ProcessInstanceNonce, SessionId } from "@opencode-dispatch/contracts"
+import type {
+  EventStreamScope,
+  EventStreamServerFrame,
+  NormalizedEvent,
+  ProcessExposure,
+  ProcessInstanceNonce,
+  SessionId,
+} from "@opencode-dispatch/contracts"
 
 import type { ClusterRegistrySnapshot } from "../cluster/registry.ts"
+import type { OpenCodeSessionSignal } from "../opencode/events.ts"
 import type { HostSecret } from "../security/index.ts"
 import type { TailscaleSetupState } from "../transport/tailscale/index.ts"
 
@@ -29,6 +37,25 @@ export interface ApiClusterPort {
   disable(processNonce: ProcessInstanceNonce, sessionId: SessionId): Promise<void>
 }
 
+export interface ApiEventPort {
+  position(scope: EventStreamScope): {
+    readonly brokerEpoch: ReturnType<ApiClusterPort["snapshot"]>["brokerEpoch"]
+    readonly sequence: number
+  }
+  publish(scope: EventStreamScope, sessionId: SessionId, event: NormalizedEvent): unknown
+  revoke(
+    sessionId: SessionId,
+    reason: Extract<NormalizedEvent, { type: "session.revoked" }>["reason"],
+  ): void
+  subscribe(
+    frame: unknown,
+    sink: {
+      readonly close: (code: number, reason: string) => void
+      readonly send: (frame: EventStreamServerFrame) => void
+    },
+  ): () => void
+}
+
 export type ApiRateLimitConfig = {
   readonly maxSubjects: number
   readonly mutationLimit: number
@@ -39,6 +66,7 @@ export type ApiRateLimitConfig = {
 export type BrokerHttpRouterOptions = {
   readonly backendOrigin: string
   readonly cluster: ApiClusterPort
+  readonly events?: ApiEventPort
   readonly hostSecret: HostSecret
   readonly inspectTailscale: () => Promise<TailscaleSetupState>
   readonly now: () => number
@@ -50,4 +78,11 @@ export type BrokerRequestIngress = "direct" | "trusted_proxy"
 
 export interface BrokerHttpRouter {
   handle(request: Request, ingress: BrokerRequestIngress): Promise<Response>
+  prepareEventStream(request: Request, ingress: BrokerRequestIngress): Promise<Response | undefined>
+  publishSignal(processNonce: ProcessInstanceNonce, signal: OpenCodeSessionSignal): Promise<void>
+  revokeSession(
+    sessionId: SessionId,
+    reason: Extract<NormalizedEvent, { type: "session.revoked" }>["reason"],
+  ): void
+  subscribeEvents: ApiEventPort["subscribe"]
 }

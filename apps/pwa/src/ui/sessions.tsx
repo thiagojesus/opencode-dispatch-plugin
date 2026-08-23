@@ -11,6 +11,7 @@ type SessionRowProps = {
   readonly selected?: boolean
   readonly status: SessionStatus
   readonly title: string
+  readonly onSelect?: () => void
 }
 
 type TranscriptKind = "assistant" | "error" | "reasoning" | "system" | "user"
@@ -58,6 +59,7 @@ export function SessionRow(props: SessionRowProps): JSX.Element {
       class="session-row"
       data-status={props.status}
       disabled={props.disabled}
+      {...(props.onSelect === undefined ? {} : { onClick: props.onSelect })}
       type="button"
     >
       <span class="session-row__copy">

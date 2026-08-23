@@ -1,6 +1,7 @@
 export const API_ROUTE_MANIFEST = [
   { method: "GET", path: "/api/v1/health" },
   { method: "GET", path: "/api/v1/capabilities" },
+  { method: "WEBSOCKET", path: "/api/v1/events" },
   { method: "GET", path: "/api/v1/sessions" },
   { method: "GET", path: "/api/v1/sessions/:sessionId" },
   { method: "GET", path: "/api/v1/sessions/:sessionId/messages" },

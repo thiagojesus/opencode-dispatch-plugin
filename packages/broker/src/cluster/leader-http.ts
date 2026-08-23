@@ -10,6 +10,7 @@ import {
 } from "../transport/tailscale/index.ts"
 import type { LeaderSocketData } from "./leader-frames.ts"
 import { CLUSTER_HEALTH_PATH, CLUSTER_MEMBER_PATH, CLUSTER_SERVICE } from "./protocol.ts"
+import { DEFAULT_PWA_ASSET_DIRECTORY, servePwaAsset } from "./pwa-assets.ts"
 import type { MembershipRegistry } from "./registry.ts"
 
 type LeaderHttpOptions = {
@@ -46,17 +47,23 @@ export function createLeaderHttpRouter(options: LeaderHttpOptions): BrokerHttpRo
 export function startTailscaleServeTarget(
   hostname: string,
   router: BrokerHttpRouter,
+  assetDirectory = DEFAULT_PWA_ASSET_DIRECTORY,
 ): Bun.Server<undefined> {
   return Bun.serve({
     hostname,
     port: TAILSCALE_SERVE_TARGET_PORT,
-    fetch(request) {
-      if (new URL(request.url).pathname.startsWith("/api/v1")) {
-        return router.handle(request, "trusted_proxy")
-      }
-      return Response.json({ error: "route_not_found" }, { status: 404 })
-    },
+    fetch: createTailscaleServeFetch(router, assetDirectory),
   })
+}
+
+export function createTailscaleServeFetch(router: BrokerHttpRouter, assetDirectory: string) {
+  return (request: Request): Promise<Response> => {
+    const pathname = new URL(request.url).pathname
+    if (pathname === "/api/v1" || pathname.startsWith("/api/v1/")) {
+      return router.handle(request, "trusted_proxy")
+    }
+    return servePwaAsset(request, assetDirectory)
+  }
 }
 
 type ClusterHttpOptions = {

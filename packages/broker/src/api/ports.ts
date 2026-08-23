@@ -4,19 +4,23 @@ import type { ClusterRegistrySnapshot } from "../cluster/registry.ts"
 import type { HostSecret } from "../security/index.ts"
 import type { TailscaleSetupState } from "../transport/tailscale/index.ts"
 
-export interface ApiOpenCodePort {
-  sessionIds(): readonly SessionId[]
-  resolveOwner(sessionId: unknown): ProcessInstanceNonce
-  get(sessionId: unknown): Promise<unknown>
-  messages(sessionId: unknown): Promise<readonly unknown[]>
-  status(sessionId: unknown): Promise<unknown>
-  todos(sessionId: unknown): Promise<unknown>
+export interface ApiOpenCodeProcessPort {
   permissions(sessionId: unknown): Promise<unknown>
   questions(sessionId: unknown): Promise<unknown>
   promptAsync(sessionId: unknown, text: unknown): Promise<void>
   abort(sessionId: unknown): Promise<boolean>
   replyPermission(sessionId: unknown, requestId: unknown, decision: unknown): Promise<void>
   replyQuestion(sessionId: unknown, requestId: unknown, answers: unknown): Promise<void>
+}
+
+export interface ApiOpenCodePort extends ApiOpenCodeProcessPort {
+  sessionIds(): readonly SessionId[]
+  resolveOwner(sessionId: unknown): ProcessInstanceNonce
+  forProcess(processNonce: ProcessInstanceNonce): ApiOpenCodeProcessPort
+  get(sessionId: unknown): Promise<unknown>
+  messages(sessionId: unknown): Promise<readonly unknown[]>
+  status(sessionId: unknown): Promise<unknown>
+  todos(sessionId: unknown): Promise<unknown>
 }
 
 export interface ApiClusterPort {

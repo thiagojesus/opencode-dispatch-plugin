@@ -127,6 +127,35 @@ export class OpenCodeAdapter {
     return [...this.#claims.keys()].sort()
   }
 
+  forProcess(processNonce: ProcessInstanceNonce) {
+    const parsedNonce = ProcessInstanceNonceSchema.parse(processNonce)
+    return {
+      permissions: (sessionId: unknown) =>
+        this.#target(parsedNonce).permissions(SessionIdSchema.parse(sessionId)),
+      questions: (sessionId: unknown) =>
+        this.#target(parsedNonce).questions(SessionIdSchema.parse(sessionId)),
+      promptAsync: (sessionId: unknown, text: unknown) =>
+        this.#target(parsedNonce).promptAsync(
+          SessionIdSchema.parse(sessionId),
+          PromptTextSchema.parse(text),
+        ),
+      abort: (sessionId: unknown) =>
+        this.#target(parsedNonce).abort(SessionIdSchema.parse(sessionId)),
+      replyPermission: (sessionId: unknown, requestId: unknown, decision: unknown) =>
+        this.#target(parsedNonce).replyPermission(
+          SessionIdSchema.parse(sessionId),
+          PermissionRequestIdSchema.parse(requestId),
+          PermissionDecisionSchema.parse(decision),
+        ),
+      replyQuestion: (sessionId: unknown, requestId: unknown, answers: unknown) =>
+        this.#target(parsedNonce).replyQuestion(
+          SessionIdSchema.parse(sessionId),
+          QuestionRequestIdSchema.parse(requestId),
+          QuestionReplyAnswersSchema.parse(answers),
+        ),
+    }
+  }
+
   get(sessionId: unknown) {
     return this.#clientFor(sessionId).get(SessionIdSchema.parse(sessionId))
   }

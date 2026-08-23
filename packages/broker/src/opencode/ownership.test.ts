@@ -77,6 +77,43 @@ test("does not fall back to an older claim after the current owner unregisters",
   }
 })
 
+test("keeps a captured process target pinned when session ownership changes", async () => {
+  expect(await implementation.exists()).toBe(true)
+  const { createOpenCodeStatusSeed, OpenCodeAdapter } = await import("./index.ts")
+  const { startOpenCodeFixture } = await import("../../../../tests/fixtures/open-code.ts")
+  const first = await startOpenCodeFixture({ compatibility: "1.18.3" })
+  const second = await startOpenCodeFixture({ compatibility: "latest-compatible" })
+  const firstNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000076")
+  const secondNonce = ProcessInstanceNonceSchema.parse("00000000-0000-4000-8000-000000000077")
+  const adapter = new OpenCodeAdapter()
+
+  try {
+    adapter.registerProcess({ processNonce: firstNonce, serverUrl: first.origin })
+    adapter.registerProcess({ processNonce: secondNonce, serverUrl: second.origin })
+    adapter.observe(firstNonce, {
+      ...createOpenCodeStatusSeed(first.scenario.sessionId, 4_000),
+      source: "live",
+    })
+    const capturedProcess = adapter.forProcess(firstNonce)
+    adapter.observe(secondNonce, {
+      ...createOpenCodeStatusSeed(second.scenario.sessionId, 4_001),
+      source: "live",
+    })
+
+    await capturedProcess.replyPermission(
+      first.scenario.sessionId,
+      first.scenario.permissionRequestId,
+      "once",
+    )
+
+    expect(first.requests()).toEqual([{ operation: "permission_reply", reply: "once" }])
+    expect(second.requests()).toEqual([])
+  } finally {
+    adapter.dispose()
+    await Promise.all([first.stop(), second.stop()])
+  }
+})
+
 test("preserves live ownership chronology when an older claim replays later", async () => {
   expect(await implementation.exists()).toBe(true)
   const { createOpenCodeStatusSeed, OpenCodeAdapter } = await import("./index.ts")

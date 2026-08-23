@@ -120,7 +120,7 @@
       "tailscale status --json",
       "tailscale serve status --json"
     ],
-    "confirmedStartCommand": "tailscale serve --bg --accept-app-caps=opencode-dispatch-plugin/cap/control 43110",
+    "confirmedStartCommand": "tailscale serve --bg --accept-app-caps=opencode-dispatch-plugin/cap/control 43111",
     "confirmedStopCommand": "tailscale serve off",
     "stableEndpoint": "derived from the local running node DNSName as an exact HTTPS origin",
     "grantPolicy": {

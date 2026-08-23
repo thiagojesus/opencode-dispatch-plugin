@@ -1,0 +1,59 @@
+{
+  "task": 10,
+  "oracleSession": "ses_fd52b3ad6ffeE3TlVhrNgH2g2S",
+  "verdict": "pass",
+  "remediations": [
+    "Permission and question mutations use the request-context process nonce and revalidate ownership after pending-state reads.",
+    "The dedicated port 43111 listener serves only exact contained prebuilt PWA files with document security headers.",
+    "Authoritative Serve commands target 43111 while port 43110 remains the direct broker and TUI endpoint."
+  ],
+  "red": [
+    {
+      "command": "bun test packages/broker/src/api/mutation-owner-race.test.ts",
+      "observed": "Both owner-flip cases returned 409 but made one stale SDK mutation before remediation."
+    },
+    {
+      "command": "bun test packages/broker/src/transport/tailscale/artifacts.test.ts",
+      "observed": "The artifact test expected 43111 and observed the stale 43110 Serve command."
+    }
+  ],
+  "green": [
+    {
+      "command": "bun test packages/broker/src/api packages/broker/src/security packages/broker/src/transport/tailscale",
+      "observed": "142 passed, 1 native-only skip, 0 failed."
+    },
+    {
+      "command": "bun test packages/broker/src/opencode/ownership.test.ts packages/broker/src/api/mutation-owner-race.test.ts packages/broker/src/cluster/pwa-assets.test.ts packages/broker/src/transport/tailscale/artifacts.test.ts",
+      "observed": "12 passed, including both owner-flip zero-mutation regressions and process-target pinning."
+    },
+    {
+      "command": "serial bun test for all eight packages/broker/src/cluster/*.test.ts files",
+      "observed": "33 passed, 0 failed in isolated Bun processes."
+    },
+    {
+      "command": "bun run check",
+      "observed": "Biome, strict TypeScript, 193-module LOC gate, and root test lanes exited 0."
+    },
+    {
+      "command": "bun run build",
+      "observed": "Production PWA build transformed 1007 modules and exited 0."
+    }
+  ],
+  "manualHttp": {
+    "ownerFlip": {
+      "status": 409,
+      "code": "OWNERSHIP_CONFLICT",
+      "permissionCalls": 0,
+      "questionCalls": 0
+    },
+    "serveTarget": {
+      "root": 200,
+      "csp": true,
+      "nosniff": "nosniff",
+      "source": 404,
+      "traversal": 404,
+      "sourceMap": 404,
+      "apiIngress": "trusted_proxy"
+    }
+  }
+}

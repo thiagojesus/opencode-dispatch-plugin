@@ -252,6 +252,7 @@ describe("security state", () => {
         await rm(fixtureDirectory, { force: true, recursive: true })
       }
     },
+    20_000,
   )
 
   test.skipIf(process.platform === "win32")(

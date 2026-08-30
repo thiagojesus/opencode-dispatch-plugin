@@ -27,6 +27,7 @@ const PackageManifestSchema = z
     }),
     scripts: z.record(z.string(), z.string()).optional(),
     dependencies: z.record(z.string(), z.string()),
+    devDependencies: z.record(z.string(), z.string()),
   })
   .passthrough()
 
@@ -68,6 +69,11 @@ test("declares the publishable dual-target package contract", async () => {
   expect(manifest.scripts).not.toHaveProperty("install")
   expect(manifest.scripts).not.toHaveProperty("postinstall")
   expect(Object.values(manifest.dependencies).every(isExactVersion)).toBe(true)
+  expect(manifest.devDependencies).toEqual({
+    "@opencode-ai/plugin": "1.18.3",
+    "@opencode-dispatch/broker": "workspace:*",
+    "@opencode-dispatch/contracts": "workspace:*",
+  })
 })
 
 test("packs only allowlisted runtime files within explicit budgets", async () => {

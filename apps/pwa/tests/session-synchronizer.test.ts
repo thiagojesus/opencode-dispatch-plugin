@@ -181,6 +181,55 @@ test("keeps revocation terminal when stream close reenters recovery", async () =
   synchronizer.stop()
 })
 
+test("prioritizes revocation over earlier invalidations in a replay batch", async () => {
+  let loadCount = 0
+  let onFrame: ((frame: unknown) => void) | undefined
+  const synchronizer = new SessionSynchronizer({
+    async load() {
+      loadCount += 1
+      return position(0)
+    },
+    openStream(_snapshot, nextFrame) {
+      onFrame = nextFrame
+      return { close: () => undefined }
+    },
+  })
+  synchronizer.start()
+  await Bun.sleep(0)
+
+  onFrame?.({
+    type: "replay",
+    version: PROTOCOL_VERSION,
+    brokerEpoch: EPOCH,
+    sequence: 2,
+    events: [
+      {
+        type: "event",
+        version: PROTOCOL_VERSION,
+        brokerEpoch: EPOCH,
+        sequence: 1,
+        emittedAt: UnixEpochMsSchema.parse(1_754_352_000_001),
+        sessionId: SESSION_ID,
+        event: { type: "status.updated", status: { type: "busy" } },
+      },
+      {
+        type: "event",
+        version: PROTOCOL_VERSION,
+        brokerEpoch: EPOCH,
+        sequence: 2,
+        emittedAt: UnixEpochMsSchema.parse(1_754_352_000_002),
+        sessionId: SESSION_ID,
+        event: { type: "session.revoked", reason: "disabled" },
+      },
+    ],
+  })
+  await Bun.sleep(0)
+
+  expect(synchronizer.state).toEqual({ type: "revoked" })
+  expect(loadCount).toBe(1)
+  synchronizer.stop()
+})
+
 test("ignores a delayed close callback from an obsolete stream generation", async () => {
   const closes: Array<() => void> = []
   const synchronizer = new SessionSynchronizer({

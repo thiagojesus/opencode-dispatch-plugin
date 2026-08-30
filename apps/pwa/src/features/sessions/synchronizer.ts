@@ -167,19 +167,20 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       return
     }
     const events = frame.type === "replay" ? frame.events : [frame]
+    const revocation = events.find((event) => event.event.type === "session.revoked")
+    if (revocation !== undefined) {
+      this.#generation += 1
+      this.#recovery.cancelPending()
+      this.#abort?.abort()
+      this.#abort = undefined
+      const stream = this.#stream
+      this.#stream = undefined
+      this.#snapshot = undefined
+      this.#setState({ type: "revoked" })
+      stream?.close()
+      return
+    }
     for (const event of events) {
-      if (event.event.type === "session.revoked") {
-        this.#generation += 1
-        this.#recovery.cancelPending()
-        this.#abort?.abort()
-        this.#abort = undefined
-        const stream = this.#stream
-        this.#stream = undefined
-        this.#snapshot = undefined
-        this.#setState({ type: "revoked" })
-        stream?.close()
-        return
-      }
       if (event.sequence <= this.#snapshot.sequence) continue
       void this.refresh()
       return

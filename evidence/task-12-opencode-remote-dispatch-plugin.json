@@ -49,11 +49,7 @@
   ],
   "manualBrowser": {
     "browser": "Chrome Stable via Playwright",
-    "viewports": [
-      "375-light",
-      "768-dark",
-      "1280-light"
-    ],
+    "viewports": ["375-light", "768-dark", "1280-light"],
     "observed": [
       "Enabled session navigation opened the authoritative detail route.",
       "A mid-stream invalidation triggered one fresh snapshot and replaced partial text with the completed transcript.",

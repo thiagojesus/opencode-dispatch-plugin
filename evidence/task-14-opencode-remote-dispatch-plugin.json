@@ -1,0 +1,77 @@
+{
+  "task": 14,
+  "verdict": "pass_with_unrelated_dirty_evidence",
+  "implementation": [
+    "The production service worker precaches only index.html and immutable content-hashed JavaScript/CSS shell assets, treats /api/ as NetworkOnly with no-store fetch semantics, and removes outdated precaches on activation.",
+    "The PWA session synchronizer coalesces visibility, pageshow, online, and stream-close signals into bounded jittered recovery, cancels stale generations, fetches an authoritative snapshot before reopening live updates, and stops after five retries.",
+    "The product continuity rail receives owner-scoped synchronizer state so connected, reconnecting, offline, and revoked presentation cannot diverge from the route content.",
+    "Todo 14 production QA runs on an isolated port and records 24 current screenshots across 375, 768, and 1280 widths in light and dark themes for ready, reconnecting, offline, and revoked states."
+  ],
+  "red": [
+    {
+      "observed": "The first stale-cache browser assertion lost its execution context when worker activation reloaded the controlled page.",
+      "resolution": "Activation is initiated from the controlled page and cleanup is polled from a second context page."
+    },
+    {
+      "observed": "The first independent design-system review rejected all non-ready captures because the page state changed while the continuity rail remained Enabled.",
+      "resolution": "An owner-scoped shell channel now publishes synchronizer lifecycle state, and every visual state asserts the rail data-kind before capture."
+    },
+    {
+      "observed": "The first root check reported pages.tsx at 256 pure LOC and an install-icon assertion coupled to the removed includeAssets precache list.",
+      "resolution": "Lifecycle binding moved to a focused hook below the 250-LOC ceiling, and the icon contract now checks manifest sources without requiring those files in the precache."
+    },
+    {
+      "observed": "Required Playwright WebKit and Chromium headless-shell binaries were absent from the local cache.",
+      "resolution": "The exact Playwright 1.62.1 browser binaries were installed, then the unchanged Chromium/WebKit gates passed."
+    }
+  ],
+  "green": [
+    {
+      "command": "bun run check",
+      "observed": "Biome, strict root/PWA TypeScript, the 236-module LOC gate, root unit, 14 component, 19 fixture, integration, 50 security plus one native-only skip, and package lanes exited 0."
+    },
+    {
+      "command": "bun run --cwd apps/pwa test:unit && bun run build",
+      "observed": "32 PWA unit tests passed; the production build transformed 1227 modules and generated 11 precache entries."
+    },
+    {
+      "command": "bun test packages/broker/src/api packages/broker/src/transport/tailscale",
+      "observed": "96 API and Tailscale tests passed with zero failures."
+    },
+    {
+      "command": "serial bun test for all nine packages/broker/src/cluster/*.test.ts files",
+      "observed": "35 cluster tests passed in isolated sequential Bun processes with no listener collision."
+    },
+    {
+      "command": "bun run test:e2e",
+      "observed": "The production fixture passed chromium-mobile, webkit-mobile, tablet, and desktop profiles."
+    },
+    {
+      "command": "bunx playwright test tests/todo14-cache.spec.ts tests/todo14-recovery.spec.ts tests/todo14-visual.spec.ts --config=playwright.todo14.config.ts",
+      "observed": "10 applicable production cases passed with 22 intentional project skips; Chromium proved cache exclusion/upgrade cleanup, Chromium and WebKit proved mobile recovery, and six responsive theme projects produced the visual matrix."
+    },
+    {
+      "command": "bun run scripts/sanitize-playwright-report.ts evidence/task-14-opencode-remote-dispatch-plugin/playwright-results.json",
+      "observed": "The recorded JSON report contains no local user-home path, enforced together with Todo 11 evidence by a unit regression."
+    }
+  ],
+  "manualBrowser": {
+    "browsers": ["Chromium mobile", "WebKit mobile", "Chrome responsive profiles"],
+    "viewports": ["375-light", "375-dark", "768-light", "768-dark", "1280-light", "1280-dark"],
+    "states": ["connected", "reconnecting", "offline", "revoked"],
+    "observed": [
+      "Background resume, online handoff, and stream loss each fetched a fresh authoritative snapshot before returning to connected state.",
+      "Cache Storage contained no API, WebSocket, session, or transcript request and stale Workbox precaches were removed after activation.",
+      "All 24 fresh PNG captures show matching continuity rails with no clipping, horizontal overflow, unreadable contrast, malformed wrapping, missing controls, or theme inconsistency."
+    ]
+  },
+  "reviewers": [
+    "ses_faf2b6ba0ffe52ayjy0F3PNFdq: PASS design-system review, no current findings",
+    "ses_faf2b6b93ffe1dvRLgHdHYQ0z8: PASS visual-fidelity/accessibility review, no current findings"
+  ],
+  "contamination": [
+    "The unrelated modified Todo 11 file apps/pwa/evidence/todo-11/update-toast-375-normal.png remains unstaged and untouched by Todo 14.",
+    "Root Biome emits eight informational environment-key suggestions in committed Todo 5, Todo 7, and Todo 12 files; they do not fail the gate and were not changed."
+  ],
+  "diagnostics": "TypeScript LSP is unavailable by prior user choice; strict CLI TypeScript, Biome, LOC, unit/component/integration/security/cluster tests, production builds, Chromium/WebKit execution, and dual fresh visual review supplied diagnostics."
+}

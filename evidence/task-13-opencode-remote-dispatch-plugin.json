@@ -26,10 +26,7 @@
       "Fresh viewport dialog captures show contained fixed scrims and the expected keyboard-visible focus ring for abort confirmation."
     ]
   },
-  "reviewers": [
-    "ses_faf59f437ffeM58naA7Sx260EM: PASS",
-    "ses_faf59f415ffeSHnzi373hksLnu: PASS"
-  ],
+  "reviewers": ["ses_faf59f437ffeM58naA7Sx260EM: PASS", "ses_faf59f415ffeSHnzi373hksLnu: PASS"],
   "contamination": [
     "Concurrent Todo12 broker/PWA files and the Todo11 evidence screenshot remain in the shared worktree and were not staged or modified by Todo13.",
     "Repository-wide lint reports existing issues in shared Todo12/cluster/plugin files; these remain untouched."

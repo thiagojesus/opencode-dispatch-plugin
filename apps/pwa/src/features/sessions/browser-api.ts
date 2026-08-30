@@ -6,12 +6,18 @@ export const browserApi = createGeneratedApiClient({
       input.path,
       "body" in input
         ? {
+            cache: "no-store",
             method: input.method,
             signal: input.signal,
-            headers: { "content-type": "application/json" },
+            headers: { "cache-control": "no-store", "content-type": "application/json" },
             body: JSON.stringify(input.body),
           }
-        : { method: input.method, signal: input.signal },
+        : {
+            cache: "no-store",
+            method: input.method,
+            signal: input.signal,
+            headers: { "cache-control": "no-store" },
+          },
     )
     return response.json()
   },

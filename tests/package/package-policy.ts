@@ -38,6 +38,10 @@ const SECRET_PATTERNS = [
   /\bgithub_pat_[A-Za-z0-9_]{60,}\b/u,
   /\bnpm_[A-Za-z0-9]{36}\b/u,
   /\bsk-[A-Za-z0-9_-]{32,}\b/u,
+  /\bAKIA[A-Z0-9]{16}\b/u,
+  /\bsb_secret_[A-Za-z0-9_-]{24,}\b/u,
+  /\bBearer [A-Za-z0-9._~-]{32,}\b/u,
+  /\b(?:postgres(?:ql)?|mysql):\/\/[^\s:/]+:[^\s@/]+@[^\s]+/u,
 ] as const
 
 export function isAllowedPackagePath(path: string): boolean {

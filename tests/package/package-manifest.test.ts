@@ -129,4 +129,6 @@ test("rejects planted credential material", () => {
     containsSecret("github_pat_ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz_1234567890"),
   ).toBe(true)
   expect(containsSecret("OPENCODE_SERVER_PASSWORD is an environment variable name")).toBe(false)
+  expect(containsSecret("AKIAIOSFODNN7EXAMPLE")).toBe(true)
+  expect(containsSecret("postgresql://dispatch:secret-value@database.internal/app")).toBe(true)
 })

@@ -4,7 +4,12 @@ import { homedir } from "node:os"
 import { join } from "node:path"
 
 import type { PackageArtifact } from "./package-artifact.ts"
-import { PackageCommandError, requireCommand, runCommand } from "./package-artifact.ts"
+import {
+  type CommandResult,
+  PackageCommandError,
+  requireCommand,
+  runCommand,
+} from "./package-artifact.ts"
 
 export type OpenCodeInstall = {
   readonly configDirectory: string
@@ -70,9 +75,13 @@ function isolatedEnvironment(root: string, configDirectory: string) {
 }
 
 export async function hashLiveConfigs(): Promise<Readonly<Record<string, string>>> {
+  const configRoot =
+    process.platform === "win32"
+      ? (process.env["APPDATA"] ?? join(homedir(), "AppData", "Roaming"))
+      : (process.env["XDG_CONFIG_HOME"] ?? join(homedir(), ".config"))
   const paths = [
-    join(homedir(), ".config", "opencode", "opencode.jsonc"),
-    join(homedir(), ".config", "opencode", "tui.jsonc"),
+    join(configRoot, "opencode", "opencode.jsonc"),
+    join(configRoot, "opencode", "tui.jsonc"),
   ]
   const hashes: Record<string, string> = {}
   for (const path of paths) {
@@ -199,26 +208,31 @@ export async function installWithOpenCode(
     "packages",
     "opencode-dispatch-plugin@0.1.0",
   )
-  await requireCommand({
-    argv: [
-      "npm",
-      "install",
-      "--ignore-scripts",
-      "--no-audit",
-      "--no-fund",
-      "--omit=optional",
-      "--prefix",
-      packageCacheDirectory,
-      "opencode-dispatch-plugin@0.1.0",
-    ],
-    cwd: workingDirectory,
-    env: registryEnvironment,
-  })
-  const result = await runCommand({
-    argv: opencodeCommand("opencode-dispatch-plugin@0.1.0"),
-    cwd: workingDirectory,
-    env: registryEnvironment,
-  }).finally(() => server.stop(true))
+  let result: CommandResult
+  try {
+    await requireCommand({
+      argv: [
+        "npm",
+        "install",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--omit=optional",
+        "--prefix",
+        packageCacheDirectory,
+        "opencode-dispatch-plugin@0.1.0",
+      ],
+      cwd: workingDirectory,
+      env: registryEnvironment,
+    })
+    result = await runCommand({
+      argv: opencodeCommand("opencode-dispatch-plugin@0.1.0"),
+      cwd: workingDirectory,
+      env: registryEnvironment,
+    })
+  } finally {
+    server.stop(true)
+  }
   if (result.exitCode === 0 && options.expectFailure === true) {
     throw new PackageCommandError({ ...result, stderr: "OpenCode install unexpectedly succeeded" })
   }

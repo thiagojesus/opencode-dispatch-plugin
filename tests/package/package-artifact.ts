@@ -32,6 +32,7 @@ type RunCommandInput = {
   readonly argv: readonly string[]
   readonly cwd: string
   readonly env?: Readonly<Record<string, string | undefined>>
+  readonly timeoutMs?: number
 }
 
 export class PackageCommandError extends Error {
@@ -48,12 +49,17 @@ export async function runCommand(input: RunCommandInput): Promise<CommandResult>
     stdout: "pipe",
     stderr: "pipe",
   })
-  const [stdout, stderr, exitCode] = await Promise.all([
-    new Response(subprocess.stdout).text(),
-    new Response(subprocess.stderr).text(),
-    subprocess.exited,
-  ])
-  return { exitCode, stderr, stdout }
+  const timeout = setTimeout(() => subprocess.kill(), input.timeoutMs ?? 120_000)
+  try {
+    const [stdout, stderr, exitCode] = await Promise.all([
+      new Response(subprocess.stdout).text(),
+      new Response(subprocess.stderr).text(),
+      subprocess.exited,
+    ])
+    return { exitCode, stderr, stdout }
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 export async function requireCommand(input: RunCommandInput): Promise<CommandResult> {

@@ -3,9 +3,11 @@
   "verdict": "local_pass_native_matrix_pending",
   "implementation": [
     "The publishable opencode-dispatch-plugin@0.1.0 package exposes only ./server and ./tui, embeds prebuilt PWA assets, declares MIT and engines.opencode >=1.18.3 <2, and has no main, postinstall, workspace runtime dependency, or source map.",
-    "A deterministic pack harness performs two clean builds, proves byte-identical tarball hashes, enforces an explicit path and size allowlist, scans text assets for credentials and local paths, verifies direct dependency licenses, and installs without lifecycle scripts.",
+    "A deterministic pack harness performs two clean builds, proves byte-identical tarball hashes, enforces an explicit path and size allowlist, scans the actual extracted archive for credentials, local paths, and source maps, verifies direct dependency licenses, and installs without lifecycle scripts.",
     "The isolated OpenCode fixture installs the exact generated tarball through a disposable loopback npm registry into OpenCode's disposable package cache, then uses the official global plugin command for server/TUI target detection and JSONC mutation while proving live user config hashes remain unchanged.",
     "Broker configuration now carries an explicit validated port through election, HTTP, and WebSocket paths; a live overridden-port test proves a foreign listener is diagnosed and left serving.",
+    "Packed server and TUI target functions launch from the disposable installation: the server answers cluster health on an isolated overridden port with disposable state, and the TUI registers then disposes its command without optional OpenTUI peers.",
+    "Unsupported OpenCode 1.18.2 and 2.0.0 fixture selections emit an actionable range warning and skip every activation case before artifact creation or config mutation.",
     "The native CI workflow covers macOS 14, Ubuntu 24.04, and Windows 2025 with OpenCode 1.18.3 and current latest 1.18.25, Bun 1.3.14, pinned actions, frozen installs, package verification, typecheck, and Biome."
   ],
   "red": [
@@ -19,21 +21,29 @@
     },
     {
       "observed": "A malformed-JSONC failure-path test exceeded Bun's default five-second test timeout after the real isolated install was added.",
-      "resolution": "The integration case now has an explicit 120-second timeout and passes while proving both config files and live hashes remain unchanged."
+      "resolution": "Package setup and integration cases now have explicit 120-second bounds and pass while proving both config files and live hashes remain unchanged."
+    },
+    {
+      "observed": "Post-implementation review found incomplete registry cleanup, Unix-only live-config hashing, no packed target launch, and no deterministic unsupported-version skip.",
+      "resolution": "The full registry lifetime now uses finally cleanup, subprocesses are bounded, config hashing follows Windows APPDATA or Unix XDG paths, packed targets launch from the installed artifact, and below-minimum/2.x fixtures warn then skip before mutation."
     }
   ],
   "green": [
     {
       "command": "bun run test:package",
-      "observed": "10 tests, 84 assertions, zero failures after production build and deterministic packing."
+      "observed": "13 tests, 132 assertions, zero failures after production build, deterministic packing, actual extracted-archive scanning, and packed target launch."
     },
     {
       "command": "TODO15_OPENCODE_VERSION=1.18.3 bun test tests/package/opencode-install.test.ts",
-      "observed": "4 minimum-version isolated install tests and 13 assertions passed."
+      "observed": "5 minimum-version isolated install tests and 16 assertions passed."
     },
     {
       "command": "TODO15_OPENCODE_VERSION=1.18.25 bun test tests/package/opencode-install.test.ts",
-      "observed": "4 current-latest isolated install tests and 13 assertions passed."
+      "observed": "5 current-latest isolated install tests and 16 assertions passed."
+    },
+    {
+      "command": "TODO15_OPENCODE_VERSION=1.18.2 and 2.0.0 bun test tests/package/opencode-install.test.ts",
+      "observed": "Each unsupported selection produced one passing compatibility assertion, four skipped activation cases, zero failures, and the actionable >=1.18.3 <2 warning."
     },
     {
       "command": "serial bun test for all ten packages/broker/src/cluster/*.test.ts files",
@@ -45,7 +55,7 @@
     },
     {
       "command": "bun run check",
-      "observed": "Biome, strict root/PWA TypeScript, 247-module LOC, unit, 14 component, 19 fixture, integration, 50 security plus one native-only skip, build, and package lanes exited 0."
+      "observed": "Biome, strict root/PWA TypeScript, 248-module LOC, unit, 14 component, 19 fixture, integration, 50 security plus one native-only skip, build, and package lanes exited 0."
     }
   ],
   "nativeMatrix": {

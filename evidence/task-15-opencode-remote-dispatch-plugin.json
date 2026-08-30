@@ -74,6 +74,13 @@
     "status": "pending_push",
     "constraint": "Todo 17 owns the separately confirmed push gate; native success is not inferred from local macOS execution."
   },
+  "reviewers": [
+    "ses_faea30b30ffeF91avsoyzsFswa: PASS goal and constraint review, high confidence",
+    "ses_faea3097bffeakolBdCcp3rJY2: PASS context review, high confidence",
+    "ses_faea30983ffeGsaOEx76fnvM5G: PASS security audit, maximum severity None",
+    "ses_fae9d79caffe5FNDQaKJNDZ7CB: PASS final quality review, high confidence",
+    "ses_fae9d7958ffeWUenyoiOTwVTuK: PASS final hands-on QA, high confidence"
+  ],
   "contamination": [
     "The unrelated modified Todo 11 file apps/pwa/evidence/todo-11/update-toast-375-normal.png remains unstaged and untouched.",
     "Root Biome emits informational environment-key suggestions that do not fail the gate."

@@ -6,6 +6,8 @@ import {
   PROTOCOL_VERSION,
 } from "@opencode-dispatch/contracts"
 
+import { BoundedRecovery, type RecoveryRuntime } from "./bounded-recovery"
+
 export type SnapshotPosition = {
   readonly brokerEpoch: BrokerEpoch
   readonly sequence: MonotonicSequence
@@ -14,6 +16,7 @@ export type SnapshotPosition = {
 export type SynchronizerState<T extends SnapshotPosition> =
   | { readonly type: "loading" }
   | { readonly type: "ready"; readonly snapshot: T }
+  | { readonly type: "reconnecting"; readonly snapshot?: T }
   | { readonly type: "offline"; readonly snapshot?: T }
   | { readonly type: "revoked" }
   | { readonly type: "error" }
@@ -27,19 +30,24 @@ export type SessionSynchronizerOptions<T extends SnapshotPosition> = {
     onFrame: (frame: unknown) => void,
     onClose: () => void,
   ) => StreamConnection
+  readonly recovery?: RecoveryRuntime
 }
 
 export class SessionSynchronizer<T extends SnapshotPosition> {
   readonly #listeners = new Set<(state: SynchronizerState<T>) => void>()
   readonly #options: SessionSynchronizerOptions<T>
+  readonly #recovery: BoundedRecovery
   #abort: AbortController | undefined
   #generation = 0
+  #online = true
   #snapshot: T | undefined
   #state: SynchronizerState<T> = { type: "loading" }
+  #stopped = true
   #stream: StreamConnection | undefined
 
   constructor(options: SessionSynchronizerOptions<T>) {
     this.#options = options
+    this.#recovery = new BoundedRecovery(options.recovery)
   }
 
   get state(): SynchronizerState<T> {
@@ -53,10 +61,38 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
   }
 
   start(): void {
+    this.#stopped = false
     void this.refresh()
   }
 
   async refresh(): Promise<void> {
+    this.#recovery.reset()
+    await this.#loadAndAttach()
+  }
+
+  visibilityChanged(visible: boolean): void {
+    if (visible) this.#requestRecovery()
+  }
+
+  pageShown(): void {
+    this.#requestRecovery()
+  }
+
+  networkChanged(online: boolean): void {
+    this.#online = online
+    if (online) {
+      this.#requestRecovery()
+      return
+    }
+    this.#recovery.cancelPending()
+    this.#setState(
+      this.#snapshot === undefined
+        ? { type: "offline" }
+        : { type: "offline", snapshot: this.#snapshot },
+    )
+  }
+
+  async #loadAndAttach(): Promise<void> {
     const generation = ++this.#generation
     this.#abort?.abort()
     this.#stream?.close()
@@ -68,6 +104,7 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       const snapshot = await this.#options.load(abort.signal)
       if (generation !== this.#generation || abort.signal.aborted) return
       this.#snapshot = snapshot
+      this.#recovery.reset()
       this.#setState({ type: "ready", snapshot })
       this.#stream = this.#options.openStream(
         snapshot,
@@ -85,11 +122,14 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
           ? { type: "error" }
           : { type: "offline", snapshot: this.#snapshot },
       )
+      this.#requestRecovery()
     }
   }
 
   stop(): void {
+    this.#stopped = true
     this.#generation += 1
+    this.#recovery.cancelPending()
     this.#abort?.abort()
     this.#stream?.close()
     this.#abort = undefined
@@ -99,7 +139,7 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
   #onFrame(input: unknown): void {
     const parsed = EventStreamServerFrameSchema.safeParse(input)
     if (!parsed.success || this.#snapshot === undefined) {
-      void this.refresh()
+      this.#requestRecovery()
       return
     }
     const frame = parsed.data
@@ -113,6 +153,7 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       if (event.event.type === "session.revoked") {
         this.#stream?.close()
         this.#stream = undefined
+        this.#recovery.cancelPending()
         this.#snapshot = undefined
         this.#setState({ type: "revoked" })
         return
@@ -130,6 +171,18 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       this.#snapshot === undefined
         ? { type: "offline" }
         : { type: "offline", snapshot: this.#snapshot },
+    )
+    this.#requestRecovery()
+  }
+
+  #requestRecovery(): void {
+    if (this.#stopped || !this.#online || this.#state.type === "revoked") return
+    const request = this.#recovery.request(() => void this.#loadAndAttach())
+    if (request !== "scheduled") return
+    this.#setState(
+      this.#snapshot === undefined
+        ? { type: "reconnecting" }
+        : { type: "reconnecting", snapshot: this.#snapshot },
     )
   }
 

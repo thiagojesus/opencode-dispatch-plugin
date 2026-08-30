@@ -15,6 +15,39 @@ const SESSION_ID = SessionIdSchema.parse("ses-recovery")
 
 type VersionedSnapshot = SnapshotPosition & { readonly revision: number }
 
+type ScheduledRecovery = {
+  cancelled: boolean
+  readonly delayMs: number
+  readonly run: () => void
+  ran: boolean
+}
+
+function recoveryHarness() {
+  const scheduled: ScheduledRecovery[] = []
+  return {
+    delays: () => scheduled.map((task) => task.delayMs),
+    runNext: () => {
+      const next = scheduled.find((task) => !task.cancelled && !task.ran)
+      if (next === undefined) return
+      next.ran = true
+      next.run()
+    },
+    runtime: {
+      random: () => 0,
+      schedule(delayMs: number, run: () => void) {
+        const task: ScheduledRecovery = { cancelled: false, delayMs, run, ran: false }
+        scheduled.push(task)
+        return {
+          cancel: () => {
+            task.cancelled = true
+          },
+        }
+      },
+    },
+    scheduled,
+  }
+}
+
 function snapshot(
   revision: number,
   sequence: number,
@@ -118,4 +151,100 @@ test("attach before, during, and after generation always starts from its snapsho
     expect(opened).toEqual([initial])
     synchronizer.stop()
   }
+})
+
+test("coalesces close, visibility, page, and network recovery into one attempt", async () => {
+  const recovery = recoveryHarness()
+  let loadCount = 0
+  let closeStream: (() => void) | undefined
+  const synchronizer = new SessionSynchronizer({
+    async load() {
+      loadCount += 1
+      return snapshot(loadCount, loadCount)
+    },
+    openStream(_position, _onFrame, onClose) {
+      closeStream = onClose
+      return { close: () => undefined }
+    },
+    recovery: recovery.runtime,
+  })
+  synchronizer.start()
+  await Bun.sleep(0)
+
+  closeStream?.()
+  synchronizer.visibilityChanged(true)
+  synchronizer.pageShown()
+  synchronizer.networkChanged(true)
+
+  expect(synchronizer.state.type).toBe("reconnecting")
+  expect(recovery.delays()).toEqual([250])
+
+  recovery.runNext()
+  await Bun.sleep(0)
+
+  expect(loadCount).toBe(2)
+  expect(synchronizer.state.type).toBe("ready")
+  closeStream?.()
+  expect(recovery.delays()).toEqual([250, 250])
+  synchronizer.stop()
+})
+
+test("bounds exponential recovery after repeated snapshot failures", async () => {
+  const recovery = recoveryHarness()
+  let loadCount = 0
+  const synchronizer = new SessionSynchronizer({
+    async load() {
+      loadCount += 1
+      throw new Error("upstream unavailable")
+    },
+    openStream() {
+      return { close: () => undefined }
+    },
+    recovery: recovery.runtime,
+  })
+  synchronizer.start()
+  await Bun.sleep(0)
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    recovery.runNext()
+    await Bun.sleep(0)
+  }
+
+  expect(loadCount).toBe(6)
+  expect(recovery.delays()).toEqual([250, 500, 1_000, 2_000, 4_000])
+  expect(synchronizer.state.type).toBe("error")
+  synchronizer.stop()
+})
+
+test("cancels pending recovery while offline and after stop", async () => {
+  const recovery = recoveryHarness()
+  let loadCount = 0
+  let closeStream: (() => void) | undefined
+  const synchronizer = new SessionSynchronizer({
+    async load() {
+      loadCount += 1
+      return snapshot(loadCount, loadCount)
+    },
+    openStream(_position, _onFrame, onClose) {
+      closeStream = onClose
+      return { close: () => undefined }
+    },
+    recovery: recovery.runtime,
+  })
+  synchronizer.start()
+  await Bun.sleep(0)
+
+  closeStream?.()
+  synchronizer.networkChanged(false)
+  expect(synchronizer.state.type).toBe("offline")
+  expect(recovery.scheduled[0]?.cancelled).toBe(true)
+
+  synchronizer.networkChanged(true)
+  expect(recovery.delays()).toEqual([250, 250])
+  synchronizer.stop()
+  expect(recovery.scheduled[1]?.cancelled).toBe(true)
+  recovery.runNext()
+  await Bun.sleep(0)
+
+  expect(loadCount).toBe(1)
 })

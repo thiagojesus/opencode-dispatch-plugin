@@ -134,6 +134,53 @@ test("removes transcript state when revocation arrives before stream close", asy
   synchronizer.stop()
 })
 
+test("keeps revocation terminal when stream close reenters recovery", async () => {
+  let loadCount = 0
+  let onFrame: ((frame: unknown) => void) | undefined
+  let reentered = false
+  let releaseReload: ((snapshot: SnapshotPosition) => void) | undefined
+  let synchronizer: SessionSynchronizer<SnapshotPosition>
+  synchronizer = new SessionSynchronizer({
+    async load() {
+      loadCount += 1
+      if (loadCount === 1) return position(0)
+      return new Promise<SnapshotPosition>((resolve) => {
+        releaseReload = resolve
+      })
+    },
+    openStream(_snapshot, nextFrame, onClose) {
+      onFrame = nextFrame
+      return {
+        close: () => {
+          onClose()
+          if (reentered) return
+          reentered = true
+          void synchronizer.refresh()
+        },
+      }
+    },
+  })
+  synchronizer.start()
+  await Bun.sleep(0)
+
+  onFrame?.({
+    type: "event",
+    version: PROTOCOL_VERSION,
+    brokerEpoch: EPOCH,
+    sequence: 1,
+    emittedAt: UnixEpochMsSchema.parse(1_754_352_000_001),
+    sessionId: SESSION_ID,
+    event: { type: "session.revoked", reason: "disabled" },
+  })
+  expect(synchronizer.state).toEqual({ type: "revoked" })
+
+  releaseReload?.(position(1))
+  await Bun.sleep(0)
+  expect(synchronizer.state).toEqual({ type: "revoked" })
+  expect(loadCount).toBe(1)
+  synchronizer.stop()
+})
+
 test("ignores a delayed close callback from an obsolete stream generation", async () => {
   const closes: Array<() => void> = []
   const synchronizer = new SessionSynchronizer({

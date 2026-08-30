@@ -29,20 +29,17 @@ const SERVER_COMMENT = "// preserve server comment"
 const TUI_COMMENT = "// preserve tui comment"
 
 function opencodeCommand(spec: string): readonly string[] {
-  const version = process.env["TODO15_OPENCODE_VERSION"]
-  return version === undefined
-    ? ["opencode", "--print-logs", "--log-level", "DEBUG", "plugin", spec, "--global"]
-    : [
-        "bunx",
-        "--bun",
-        `opencode-ai@${version}`,
-        "--print-logs",
-        "--log-level",
-        "DEBUG",
-        "plugin",
-        spec,
-        "--global",
-      ]
+  return [
+    "bunx",
+    "--bun",
+    `opencode-ai@${opencodeVersion()}`,
+    "--print-logs",
+    "--log-level",
+    "DEBUG",
+    "plugin",
+    spec,
+    "--global",
+  ]
 }
 
 function opencodeVersion(): string {

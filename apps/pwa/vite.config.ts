@@ -7,15 +7,6 @@ const viteConfig = defineConfig({
     solidPlugin(),
     VitePWA({
       devOptions: { enabled: false },
-      includeAssets: [
-        "apple-touch-icon-180x180.png",
-        "favicon.ico",
-        "icon.svg",
-        "maskable-icon-512x512.png",
-        "pwa-64x64.png",
-        "pwa-192x192.png",
-        "pwa-512x512.png",
-      ],
       manifest: {
         name: "OpenCode Dispatch",
         short_name: "Dispatch",
@@ -44,10 +35,24 @@ const viteConfig = defineConfig({
       registerType: "prompt",
       workbox: {
         cleanupOutdatedCaches: true,
-        globPatterns: ["**/*.{js,css,html,png,svg,webmanifest}"],
+        globPatterns: ["index.html", "assets/**/*.{js,css}"],
+        manifestTransforms: [
+          async (entries) => ({
+            manifest: entries.filter(
+              (entry) => entry.url === "index.html" || entry.url.startsWith("assets/"),
+            ),
+            warnings: [],
+          }),
+        ],
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api\//u],
-        runtimeCaching: [],
+        runtimeCaching: [
+          {
+            handler: "NetworkOnly",
+            options: { fetchOptions: { cache: "no-store" } },
+            urlPattern: /\/api\//u,
+          },
+        ],
       },
     }),
   ],

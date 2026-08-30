@@ -22,7 +22,7 @@ type StatePanelProps = {
   readonly actionLabel?: string | undefined
   readonly description: string
   readonly headingLevel?: "h2" | "h3" | undefined
-  readonly kind: "empty" | "error" | "offline" | "revoked"
+  readonly kind: "empty" | "error" | "offline" | "reconnecting" | "revoked"
   readonly onAction?: (() => void) | undefined
   readonly showcaseVariant?: string | undefined
   readonly testId?: string | undefined
@@ -107,6 +107,8 @@ function statePanelIcon(kind: StatePanelProps["kind"]): JSX.Element {
       return <ShieldWarning aria-hidden="true" size={24} weight="bold" />
     case "offline":
       return <WifiSlash aria-hidden="true" size={24} weight="bold" />
+    case "reconnecting":
+      return <ArrowClockwise aria-hidden="true" size={24} weight="bold" />
     case "revoked":
       return <ShieldWarning aria-hidden="true" size={24} weight="bold" />
     default:

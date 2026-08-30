@@ -5,22 +5,14 @@ import {
   type SessionSummary,
 } from "@opencode-dispatch/contracts"
 import { A, useNavigate, useParams } from "@solidjs/router"
-import {
-  createEffect,
-  createSignal,
-  For,
-  type JSX,
-  Match,
-  onCleanup,
-  onMount,
-  Switch,
-} from "solid-js"
+import { createEffect, For, type JSX, Match, onCleanup, onMount, Switch } from "solid-js"
 
 import { StatePanel } from "../../ui/continuity"
 import { SessionRow, SessionSkeleton, ToolSkeleton } from "../../ui/sessions"
 import { browserApi } from "./browser-api"
-import { openBrowserEventStream, SessionSynchronizer, type SynchronizerState } from "./synchronizer"
+import { openBrowserEventStream, SessionSynchronizer } from "./synchronizer"
 import { TimelineEntry } from "./timeline-entry"
+import { useSessionSynchronizer } from "./use-session-synchronizer"
 
 export { TimelineEntry } from "./timeline-entry"
 
@@ -29,35 +21,19 @@ function sessionStatus(session: SessionSummary): "busy" | "idle" | "waiting" {
   return session.status.type === "idle" ? "idle" : "busy"
 }
 
-function useSessionSynchronizer<T extends SessionListResponse | SessionSnapshot>(
-  synchronizer: SessionSynchronizer<T>,
-) {
-  const [state, setState] = createSignal<SynchronizerState<T>>(synchronizer.state)
-  const resume = (): void => {
-    if (document.visibilityState === "visible") void synchronizer.refresh()
-  }
-  onMount(() => {
-    const unsubscribe = synchronizer.subscribe(setState)
-    synchronizer.start()
-    document.addEventListener("visibilitychange", resume)
-    onCleanup(() => {
-      document.removeEventListener("visibilitychange", resume)
-      unsubscribe()
-      synchronizer.stop()
-    })
-  })
-  return state
-}
-
 function StateFailure(props: {
   readonly onRetry: () => void
-  readonly state: "error" | "offline" | "revoked"
+  readonly state: "error" | "offline" | "reconnecting" | "revoked"
 }): JSX.Element {
   const copy = {
     error: ["Could not load sessions", "The authoritative snapshot could not be verified."],
     offline: [
       "Connection offline",
       "The last verified view is paused until the connection returns.",
+    ],
+    reconnecting: [
+      "Reconnecting",
+      "Checking a fresh authoritative snapshot before live updates resume.",
     ],
     revoked: ["Access revoked", "Return to the desktop to enable this session again."],
   } as const
@@ -66,7 +42,9 @@ function StateFailure(props: {
       description={copy[props.state][1]}
       kind={props.state}
       title={copy[props.state][0]}
-      {...(props.state === "revoked" ? {} : { actionLabel: "Try again", onAction: props.onRetry })}
+      {...(props.state === "revoked" || props.state === "reconnecting"
+        ? {}
+        : { actionLabel: "Try again", onAction: props.onRetry })}
     />
   )
 }
@@ -98,7 +76,10 @@ export function SessionsPage(): JSX.Element {
           </Match>
           <Match
             when={
-              state().type === "error" || state().type === "offline" || state().type === "revoked"
+              state().type === "error" ||
+              state().type === "offline" ||
+              state().type === "reconnecting" ||
+              state().type === "revoked"
             }
           >
             <StateFailure
@@ -106,9 +87,11 @@ export function SessionsPage(): JSX.Element {
               state={
                 state().type === "revoked"
                   ? "revoked"
-                  : state().type === "offline"
-                    ? "offline"
-                    : "error"
+                  : state().type === "reconnecting"
+                    ? "reconnecting"
+                    : state().type === "offline"
+                      ? "offline"
+                      : "error"
               }
             />
           </Match>
@@ -198,7 +181,10 @@ export function SessionDetailPage(): JSX.Element {
           </Match>
           <Match
             when={
-              state().type === "error" || state().type === "offline" || state().type === "revoked"
+              state().type === "error" ||
+              state().type === "offline" ||
+              state().type === "reconnecting" ||
+              state().type === "revoked"
             }
           >
             <StateFailure
@@ -206,9 +192,11 @@ export function SessionDetailPage(): JSX.Element {
               state={
                 state().type === "revoked"
                   ? "revoked"
-                  : state().type === "offline"
-                    ? "offline"
-                    : "error"
+                  : state().type === "reconnecting"
+                    ? "reconnecting"
+                    : state().type === "offline"
+                      ? "offline"
+                      : "error"
               }
             />
           </Match>

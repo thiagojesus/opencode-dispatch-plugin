@@ -1,0 +1,1750 @@
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/26.5.1/bin/node",
+      "<repo>/apps/pwa/node_modules/.bin/playwright",
+      "test",
+      "tests/todo14-cache.spec.ts",
+      "tests/todo14-recovery.spec.ts",
+      "tests/todo14-visual.spec.ts",
+      "--config=playwright.todo14.config.ts"
+    ],
+    "configFile": "<repo>/apps/pwa/playwright.todo14.config.ts",
+    "rootDir": "<repo>/apps/pwa/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium-mobile",
+        "name": "chromium-mobile",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "webkit-mobile",
+        "name": "webkit-mobile",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "375-light",
+        "name": "375-light",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "375-dark",
+        "name": "375-dark",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "768-light",
+        "name": "768-light",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "768-dark",
+        "name": "768-dark",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "1280-light",
+        "name": "1280-light",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "<repo>/apps/pwa/evidence/task-14-opencode-remote-dispatch-plugin/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "1280-dark",
+        "name": "1280-dark",
+        "testDir": "<repo>/apps/pwa/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "todo14-*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "evidence/task-14-opencode-remote-dispatch-plugin/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 4,
+    "webServer": {
+      "command": "bun run build && bun run preview --host 127.0.0.1 --port 4175",
+      "reuseExistingServer": false,
+      "timeout": 120000,
+      "url": "http://127.0.0.1:4175"
+    }
+  },
+  "suites": [
+    {
+      "title": "todo14-cache.spec.ts",
+      "file": "todo14-cache.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:53.569Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-f207d1fa1d8eed645af2",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2705,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:58.229Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-51e3a7b510d807e598f0",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 1120,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:53.522Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-fc9df019c19b95c4713d",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 625,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:55.863Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-cbd06a3cd76f640d4db0",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 1419,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:59.469Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-76310fe129eabfeb31fb",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 498,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:01.868Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-71781ae61d19aeb9c24c",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 704,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:02.344Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-ff60f5c085a43b79877e",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 858,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:03.663Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-c3b882852a644e8ebfb8",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 779,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:05.579Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-1277bd0ea4c3a7b2c4f2",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 706,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:06.701Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-c732ca4b38b43a57522b",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 752,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:07.608Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-665d563ab486b8d1a8e6",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 683,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:08.997Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-0e350653c1fed0250cf9",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 928,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:10.617Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-5ab2f3eca3f453bb7c7c",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 331,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:12.162Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-451fd9bf6b2cd6a5b7fa",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "keeps API, WebSocket, session, and transcript traffic out of Cache Storage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 752,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:13.417Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-0f85f4c4de0898745109",
+          "file": "todo14-cache.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "removes stale Workbox precaches when an updated worker activates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Cache Storage inspection uses Chrome",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                    "line": 24,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 372,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:14.653Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Cache Storage inspection uses Chrome",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-cache.spec.ts",
+                        "line": 24,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "90d8d29b4e9c6d8971e2-1f7505fd0218bfe7030d",
+          "file": "todo14-cache.spec.ts",
+          "line": 52,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "todo14-recovery.spec.ts",
+      "file": "todo14-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:53.562Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-5c7f8d23e665b19f587e",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2679,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:56.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-f0adb69f6d47d4dc463f",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 965,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:59.937Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-3698b1151eeff590f9b9",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 956,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:03.090Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-7a5496764316399888bd",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 901,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:05.748Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-d667483bbbf4a76dbe12",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 782,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:08.425Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-244570534b0a90ccce68",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 951,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:10.654Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-47b5e12ec9a944f1e962",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        },
+        {
+          "title": "resnapshots after background resume, network handoff, and stream loss",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Mobile lifecycle projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                    "line": 14,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 746,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:13.375Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Mobile lifecycle projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-recovery.spec.ts",
+                        "line": 14,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "e66f8c7aba1a067fa439-f3d0410fbcaf3992d489",
+          "file": "todo14-recovery.spec.ts",
+          "line": 82,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "todo14-visual.spec.ts",
+      "file": "todo14-visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Responsive theme projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
+                    "line": 18,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 1577,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:53.523Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Responsive theme projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
+                        "line": 18,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-864e5587cc4c1bd86203",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Responsive theme projects only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
+                    "line": 18,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 1050,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:00:58.913Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Responsive theme projects only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
+                        "line": 18,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-db11ecb1171e3ef20cb4",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:02.428Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-38a76a42a71974b67ac8",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1906,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:03.624Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-336c38ae75a344b059f6",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1938,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:06.370Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-da0fd24c4958b5b5d46e",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 1952,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:08.416Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-dbadfa94e9a6f4cd4d57",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 1855,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:10.648Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-53634b6d8c98fe4442c5",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "captures ready, reconnecting, offline, and revoked production states",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 22,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1592,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:01:13.578Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "449c3f51f191a71bb757-3694b5689447a878cd2c",
+          "file": "todo14-visual.spec.ts",
+          "line": 104,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-30T04:00:50.124Z",
+    "duration": 26144.475,
+    "expected": 10,
+    "skipped": 22,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

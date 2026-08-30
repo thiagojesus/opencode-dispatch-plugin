@@ -4,6 +4,7 @@
   "implementation": [
     "The production service worker precaches only index.html and immutable content-hashed JavaScript/CSS shell assets, treats /api/ as NetworkOnly with no-store fetch semantics, and removes outdated precaches on activation.",
     "The PWA session synchronizer coalesces visibility, pageshow, online, and stream-close signals into bounded jittered recovery, cancels stale generations, fetches an authoritative snapshot before reopening live updates, and stops after five retries.",
+    "Validated replay batches select session revocation across the complete batch before ordinary invalidation can refresh, and terminal revocation invalidates all active work before closing the stream.",
     "The product continuity rail receives owner-scoped synchronizer state so connected, reconnecting, offline, and revoked presentation cannot diverge from the route content.",
     "Todo 14 production QA runs on an isolated port and records 24 current screenshots across 375, 768, and 1280 widths in light and dark themes for ready, reconnecting, offline, and revoked states."
   ],
@@ -23,6 +24,10 @@
     {
       "observed": "Required Playwright WebKit and Chromium headless-shell binaries were absent from the local cache.",
       "resolution": "The exact Playwright 1.62.1 browser binaries were installed, then the unchanged Chromium/WebKit gates passed."
+    },
+    {
+      "observed": "Post-implementation review found that refresh, network transitions, and re-entrant stream close could race terminal revocation, and a mixed replay could return on an earlier invalidation before processing session.revoked.",
+      "resolution": "Commits 22bc89d, bb928d0, and d2f0547 made revoked state terminal, invalidated active work before external close, scanned complete replay batches for revocation first, and added focused regressions for every race."
     }
   ],
   "green": [
@@ -53,6 +58,14 @@
     {
       "command": "bun run scripts/sanitize-playwright-report.ts evidence/task-14-opencode-remote-dispatch-plugin/playwright-results.json",
       "observed": "The recorded JSON report contains no local user-home path, enforced together with Todo 11 evidence by a unit regression."
+    },
+    {
+      "command": "bun test apps/pwa/tests/session-synchronizer.test.ts apps/pwa/tests/session-synchronizer-resilience.test.ts apps/pwa/tests/session-synchronizer-recovery.test.ts",
+      "observed": "16 synchronizer tests and 45 assertions passed, including mixed-replay revocation precedence, re-entrant close, refresh/network terminality, bounded recovery, and stale-generation fencing."
+    },
+    {
+      "command": "bunx playwright test --config=playwright.todo14.config.ts",
+      "observed": "The final current-HEAD production matrix passed 13 applicable cases with 43 intentional profile skips and zero failures, then the JSON report was sanitized again."
     }
   ],
   "manualBrowser": {
@@ -67,7 +80,10 @@
   },
   "reviewers": [
     "ses_faf2b6ba0ffe52ayjy0F3PNFdq: PASS design-system review, no current findings",
-    "ses_faf2b6b93ffe1dvRLgHdHYQ0z8: PASS visual-fidelity/accessibility review, no current findings"
+    "ses_faf2b6b93ffe1dvRLgHdHYQ0z8: PASS visual-fidelity/accessibility review, no current findings",
+    "ses_faee76ef6ffe6QIDDjTyx0djQ7: PASS final replay-delta quality review, high confidence, no blockers",
+    "ses_faee76e42ffeGTd57005Om0v0d: PASS final replay security audit, maximum severity None",
+    "ses_faee76d7effeCtN550LP9GfmNb: PASS final goal/evidence review, high confidence, 24 captures confirmed"
   ],
   "contamination": [
     "The unrelated modified Todo 11 file apps/pwa/evidence/todo-11/update-toast-375-normal.png remains unstaged and untouched by Todo 14.",

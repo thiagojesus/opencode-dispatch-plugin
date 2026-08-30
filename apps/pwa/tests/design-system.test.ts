@@ -53,14 +53,19 @@ test("keeps visual source colors behind semantic tokens", async () => {
 
 test("keeps browser evidence free of local home paths", async () => {
   // Given
-  const report = await Bun.file(
-    join(appRoot, "evidence", "todo-11", "playwright-results.json"),
-  ).text()
+  const reports = await Promise.all(
+    ["todo-11", "task-14-opencode-remote-dispatch-plugin"].map((directory) =>
+      Bun.file(join(appRoot, "evidence", directory, "playwright-results.json")).text(),
+    ),
+  )
 
   // When
-  const localPathFindings = report.match(/(?:\/Users\/|[A-Z]:\\Users\\)/gu) ?? []
+  const localPathFindings = reports.flatMap(
+    (report) => report.match(/(?:\/Users\/|[A-Z]:\\Users\\)/gu) ?? [],
+  )
 
   // Then
+  expect(reports.length).toBeGreaterThan(0)
   expect(localPathFindings).toEqual([])
 })
 
@@ -89,8 +94,8 @@ test("publishes every generated install icon with a dedicated maskable asset", a
   )
 
   // Then
-  expect(viteConfig).toContain('"pwa-64x64.png"')
-  expect(viteConfig).toContain('"maskable-icon-512x512.png"')
+  expect(viteConfig).toContain('src: "/pwa-64x64.png"')
+  expect(viteConfig).toContain('src: "/maskable-icon-512x512.png"')
   expect(iconSources).toHaveLength(4)
   expect(viteConfig).not.toContain('purpose: "any maskable"')
 })

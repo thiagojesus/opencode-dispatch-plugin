@@ -4,6 +4,7 @@ import { createSignal, type JSX, onCleanup, onMount, type ParentProps } from "so
 
 import { type ContinuityKind, ContinuityRail } from "../ui/continuity"
 import { ToastViewport } from "../ui/feedback"
+import { type ProductContinuityChannel, ProductContinuityContext } from "./continuity-state"
 import { ThemePreferenceButton } from "./theme-control"
 
 function continuityForPath(pathname: string): ContinuityKind {
@@ -22,14 +23,27 @@ function continuityForPath(pathname: string): ContinuityKind {
 export function ProductShell(props: ParentProps): JSX.Element {
   const location = useLocation()
   const [online, setOnline] = createSignal(navigator.onLine)
+  const [runtimeContinuity, setRuntimeContinuity] = createSignal<
+    { readonly kind: ContinuityKind; readonly source: symbol } | undefined
+  >()
   let dockRegion: HTMLElement | undefined
   let headerRegion: HTMLElement | undefined
   let mainRegion: HTMLElement | undefined
   let shellRegion: HTMLElement | undefined
   let shellResizeObserver: ResizeObserver | undefined
 
-  const continuity = (): ContinuityKind =>
-    online() ? continuityForPath(location.pathname) : "offline"
+  const continuity = (): ContinuityKind => {
+    if (!online()) return "offline"
+    return runtimeContinuity()?.kind ?? continuityForPath(location.pathname)
+  }
+  const continuityChannel: ProductContinuityChannel = {
+    clear: (source) => {
+      setRuntimeContinuity((current) => (current?.source === source ? undefined : current))
+    },
+    publish: (source, kind) => {
+      setRuntimeContinuity({ kind, source })
+    },
+  }
   const markOnline = (): void => {
     setOnline(true)
   }
@@ -102,65 +116,67 @@ export function ProductShell(props: ParentProps): JSX.Element {
   })
 
   return (
-    <div
-      class="product-shell"
-      data-testid="product-shell"
-      ref={(element) => {
-        shellRegion = element
-      }}
-    >
-      <button
-        class="skip-link"
-        data-testid="product-skip-link"
-        onClick={() => mainRegion?.focus()}
-        type="button"
-      >
-        Skip to session workspace
-      </button>
-      <header
-        class="product-shell__header"
+    <ProductContinuityContext.Provider value={continuityChannel}>
+      <div
+        class="product-shell"
+        data-testid="product-shell"
         ref={(element) => {
-          headerRegion = element
+          shellRegion = element
         }}
       >
-        <A class="product-brand" href="/sessions">
-          <span class="icon-well icon-well--small">
-            <DeviceMobile aria-hidden="true" size={20} weight="bold" />
-          </span>
-          <span class="product-brand__copy">
-            <strong>OpenCode Dispatch</strong>
-            <span>Trusted mobile continuation</span>
-          </span>
-        </A>
-        <nav aria-label="Primary" class="product-nav">
-          <A class="product-nav__link" end={true} href="/sessions">
-            <List aria-hidden="true" size={20} weight="bold" />
-            Sessions
+        <button
+          class="skip-link"
+          data-testid="product-skip-link"
+          onClick={() => mainRegion?.focus()}
+          type="button"
+        >
+          Skip to session workspace
+        </button>
+        <header
+          class="product-shell__header"
+          ref={(element) => {
+            headerRegion = element
+          }}
+        >
+          <A class="product-brand" href="/sessions">
+            <span class="icon-well icon-well--small">
+              <DeviceMobile aria-hidden="true" size={20} weight="bold" />
+            </span>
+            <span class="product-brand__copy">
+              <strong>OpenCode Dispatch</strong>
+              <span>Trusted mobile continuation</span>
+            </span>
           </A>
-        </nav>
-        <ThemePreferenceButton />
-      </header>
-      <ContinuityRail kind={continuity()} testId="product-continuity" />
-      <main
-        class="product-shell__body shell-body"
-        data-scroll-owner="true"
-        data-testid="shell-scroll-owner"
-        ref={(element) => {
-          mainRegion = element
-        }}
-        tabindex="-1"
-      >
-        {props.children}
-      </main>
-      <footer
-        class="product-shell__dock cluster"
-        ref={(element) => {
-          dockRegion = element
-        }}
-      >
-        <span>Remote actions appear only after a fresh authoritative snapshot.</span>
-      </footer>
-      <ToastViewport />
-    </div>
+          <nav aria-label="Primary" class="product-nav">
+            <A class="product-nav__link" end={true} href="/sessions">
+              <List aria-hidden="true" size={20} weight="bold" />
+              Sessions
+            </A>
+          </nav>
+          <ThemePreferenceButton />
+        </header>
+        <ContinuityRail kind={continuity()} testId="product-continuity" />
+        <main
+          class="product-shell__body shell-body"
+          data-scroll-owner="true"
+          data-testid="shell-scroll-owner"
+          ref={(element) => {
+            mainRegion = element
+          }}
+          tabindex="-1"
+        >
+          {props.children}
+        </main>
+        <footer
+          class="product-shell__dock cluster"
+          ref={(element) => {
+            dockRegion = element
+          }}
+        >
+          <span>Remote actions appear only after a fresh authoritative snapshot.</span>
+        </footer>
+        <ToastViewport />
+      </div>
+    </ProductContinuityContext.Provider>
   )
 }

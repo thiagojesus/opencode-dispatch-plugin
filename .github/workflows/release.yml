@@ -1,0 +1,60 @@
+name: Trusted npm release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Verify, attest, and publish
+    if: github.ref_protected && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    environment: npm
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+    steps:
+      - name: Preserve LF checkout
+        run: git config --global core.autocrlf false
+      - name: Check out protected tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Install Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.3.14
+      - name: Install dependencies
+        run: bun install --frozen-lockfile --ignore-scripts
+      - name: Verify tag version
+        run: test "$GITHUB_REF_NAME" = "v$(bun -e 'console.log(require("./packages/plugin/package.json").version)')"
+      - name: Run release gates
+        run: bun run check
+      - name: Build and inspect exact package
+        run: bun run test:package
+      - name: Pack release candidate
+        run: mkdir -p artifacts && npm pack --ignore-scripts --pack-destination artifacts ./packages/plugin
+      - name: Generate SPDX SBOM
+        uses: anchore/sbom-action@3ad7283483fc7af8ff2b4ea19663c2d5ca935e26 # v0.24.2
+        with:
+          artifact-name: opencode-dispatch-plugin-sbom
+          format: spdx-json
+          output-file: artifacts/opencode-dispatch-plugin.spdx.json
+          path: artifacts
+      - name: Record release digest
+        run: sha256sum artifacts/*.tgz artifacts/*.spdx.json > artifacts/SHA256SUMS
+      - name: Attest package and SBOM
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: artifacts/*
+      - name: Publish exact verified tarball with provenance
+        run: npm publish artifacts/*.tgz --access public --provenance --ignore-scripts

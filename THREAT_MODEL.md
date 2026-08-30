@@ -1,7 +1,7 @@
 # Threat Model
 
-Status: locked for Todo 3 on 2026-08-04. Later implementation must preserve these
-invariants or update this document and its security tests in the same change.
+Status: updated for Todo 16 on 2026-08-30. Changes to these invariants require a matching update
+to this document and its security tests.
 
 ## Critical Execution Warning
 
@@ -70,7 +70,7 @@ The system does not claim to:
 | Different local OS user | Can probe local files or loopback according to OS policy. | Private state permissions and HMAC challenge authentication fail closed. |
 | Non-loopback upstream | Attempts to make the broker call a LAN, tailnet, or internet OpenCode endpoint. | Upstream URL parsing permits loopback HTTP(S) only. |
 | Stale or replaced broker | Reuses old registration, process nonce, exposure, epoch, or challenge. | TTL, process binding, epochs, and replay consumption reject stale authority. |
-| Package supply-chain attacker | Modifies dependencies, install hooks, packed files, or release credentials. | No lifecycle install script; later package/release gates inspect exact artifacts and provenance. |
+| Package supply-chain attacker | Modifies dependencies, install hooks, packed files, or release credentials. | No lifecycle install script; deterministic package checks, PR-only review and scanning, SBOMs, attestations, and protected-environment OIDC publishing inspect exact artifacts. |
 
 ## Trust Boundaries
 
@@ -88,8 +88,9 @@ The system does not claim to:
    process-bound metadata. Unix uses a mode-0700 directory and mode-0600 files. Windows requires
    drive-absolute Local AppData contained by the current user profile, rejects UNC/device roots,
    and relies on inherited user-profile ACLs; no POSIX-mode claim is made.
-6. **Source to packaged artifact.** Build inputs and package contents are untrusted until later
-   dependency, secret, artifact, and provenance gates pass.
+6. **Source to packaged artifact.** Build inputs and package contents are untrusted until frozen
+   installs, dependency review, secret scanning, package checks, SBOM generation, artifact
+   attestation, and protected-tag provenance gates pass.
 
 ## Remote Action Control Matrix
 
@@ -135,7 +136,7 @@ OpenCode call.
 | Send an oversized/chunked request | Validate declared length and stop streaming reads immediately after the byte limit; bounded rate subjects. | Upstream proxy/runtime resource limits remain defense in depth. |
 | Reuse stale exposure after broker/process restart | Broker epoch, process nonce, registration TTL, live ownership, and no transcript/state authority on disk. | A compromised live process is still authoritative for its own session. |
 | Redirect broker to a remote OpenCode server | Todo 7 accepts only loopback HTTP(S) and derives Basic Auth in memory. | A compromised same-user process can impersonate a loopback OpenCode service. |
-| Poison dependencies or package | Exact dependency locks, no install hook, secret scan, packed allowlist, attestations, protected publish gate. | Registry or toolchain compromise remains possible. |
+| Poison dependencies or package | Exact dependency locks, no install hook, PR-safe review and secret scan, packed allowlist, SBOM, attestations, and protected trusted-publish gate. | Registry or toolchain compromise remains possible. |
 
 ## Local State Contract
 

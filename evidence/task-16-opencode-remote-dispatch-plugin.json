@@ -1,0 +1,56 @@
+{
+  "task": 16,
+  "verdict": "local_pass_remote_ci_and_publish_pending",
+  "implementation": [
+    "README, installation, Tailscale, operations, troubleshooting, protocol, contribution, changelog, and trademark notice documentation describe the implemented narrow remote facade, explicit /dispatch flow, loopback-only topology, revocation, recovery, data deletion, and support boundaries.",
+    "Security and threat-model documentation now identify the repository-owned GitHub private advisory channel, an unconfigured owner-domain email placeholder, supply-chain controls, and the absence of absolute-security or first-party affiliation claims.",
+    "PR-safe CI uses read-only permissions; CodeQL and dependency review use verified immutable action commits; secret scanning checks committed source, reachable history, and the exact deterministic package artifact.",
+    "The trusted release workflow only runs for protected v* tags, requires the protected npm environment, verifies tag and package versions, builds and inspects the package, creates an SPDX SBOM and SHA-256 digest, attests the artifacts, and publishes the exact tarball through npm OIDC provenance. It has no pull-request, branch, manual-dispatch, token, or credential publishing path."
+  ],
+  "verification": [
+    {
+      "command": "bun documentation link and source-contract driver",
+      "observed": "Validated 11 documentation files, all local links, the documented Tailscale Serve command against setup.ts, and package release metadata."
+    },
+    {
+      "command": "ruby YAML parser for .github/workflows/*.yml plus git diff --check",
+      "observed": "All seven workflows parsed and the working diff has no whitespace errors."
+    },
+    {
+      "command": "git grep and git log credential-shape scans",
+      "observed": "Working-tree and reachable-history scans found no static credential-shaped assignments outside excluded generated evidence."
+    },
+    {
+      "command": "bun run test:package",
+      "observed": "13 tests and 137 assertions passed after a production build; deterministic packing, package allowlist, extracted-artifact secret scanning, source-map exclusion, and packed target launch succeeded."
+    },
+    {
+      "command": "bun run check",
+      "observed": "Biome, strict TypeScript, LOC, 3 unit, 14 component, 19 fixture, 1 integration, 50 security plus one platform-only skip, and 13 package tests passed. Biome emitted only pre-existing informational useLiteralKeys suggestions."
+    },
+    {
+      "command": "GITHUB_REF_NAME=v0.1.0 release-version expression and npm pack --ignore-scripts --dry-run --json ./packages/plugin",
+      "observed": "The protected-release version check succeeds for v0.1.0 and npm dry-run packing produces no output artifact or registry mutation."
+    }
+  ],
+  "supplyChain": {
+    "pinnedActions": {
+      "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+      "oven-sh/setup-bun": "0c5077e51419868618aeaa5fe8019c62421857d6",
+      "github/codeql-action": "6f5948dfacef28e207b48d0905cf90c03365536d",
+      "actions/dependency-review-action": "2031cfc080254a8a887f58cffee85186f0e49e48",
+      "anchore/sbom-action": "3ad7283483fc7af8ff2b4ea19663c2d5ca935e26",
+      "actions/attest": "1e69f48acb82d1966a394da916b4c1698aa569d6"
+    },
+    "releaseBoundary": "Only a protected v* tag can enter the npm environment and receive id-token and attestation write permissions. npm publish uses no stored npm token."
+  },
+  "limitations": [
+    "No Tailscale command was executed against a real tailnet; documentation labels all setup as manual and the checked commands as read-only diagnostics.",
+    "No workflow was pushed or remotely executed, no npm environment was configured, no protected tag was created, and no npm registry mutation occurred. Todo 17 owns those explicit release gates.",
+    "The local environment has no syft binary; SBOM generation is pinned in the release workflow and is pending its protected-tag CI execution. Deterministic package tests provide local artifact reproducibility evidence."
+  ],
+  "contamination": [
+    "The unrelated modified apps/pwa/evidence/todo-11/update-toast-375-normal.png remains unstaged and untouched."
+  ],
+  "diagnostics": "Markdown, YAML, and Biome language servers are unavailable by prior user choice. Ruby YAML parsing, strict CLI TypeScript, Biome, package tests, source/history scans, and root checks supplied diagnostics."
+}

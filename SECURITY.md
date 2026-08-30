@@ -18,13 +18,15 @@ processes are outside the guaranteed boundary.
 
 ## Reporting A Vulnerability
 
-Use GitHub's private vulnerability reporting or a private Security Advisory for
-`thiagojesus/opencode-dispatch-plugin`. Include the affected revision, platform, prerequisites,
-minimal safe reproduction, impact, and whether a real secret may have been exposed. Do not place
-credentials, transcripts, private paths, or weaponized details in a public issue.
+Use GitHub's private vulnerability reporting for `thiagojesus/opencode-dispatch-plugin`. This
+repository-owned advisory channel is the disclosure contact until a maintainer publishes a verified
+`security@<repository-owner-domain>` address. Include the affected revision, platform,
+prerequisites, minimal safe reproduction, impact, and whether a real secret may have been exposed.
+Do not place credentials, transcripts, private paths, or weaponized details in a public issue.
 
 If private reporting is unavailable, contact the repository owner through a private channel before
-public disclosure. Do not test destructive payloads against systems you do not own.
+public disclosure. Do not test destructive payloads against systems you do not own. This project
+does not promise response times, absolute security, or security support for unsupported versions.
 
 ## Mandatory Deployment Controls
 

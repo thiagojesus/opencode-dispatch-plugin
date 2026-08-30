@@ -3,6 +3,17 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagojesus/opencode-dispatch-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thiagojesus/opencode-dispatch-plugin/security/advisories/new"
+  },
+  "homepage": "https://github.com/thiagojesus/opencode-dispatch-plugin#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "LICENSE"

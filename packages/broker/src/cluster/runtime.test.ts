@@ -154,7 +154,7 @@ describe("loopback broker runtime", () => {
 
     try {
       const secret = await initializeHostSecret(paths)
-      const first = await openWebSocket(module.clusterWebSocketUrl())
+      const first = await openWebSocket(module.clusterWebSocketUrl(member.brokerUrl))
       const challengeFrame = module.ClusterServerFrameSchema.parse(
         await nextWebSocketMessage(first),
       )
@@ -179,7 +179,7 @@ describe("loopback broker runtime", () => {
       )
       first.close()
 
-      const second = await openWebSocket(module.clusterWebSocketUrl())
+      const second = await openWebSocket(module.clusterWebSocketUrl(member.brokerUrl))
       await nextWebSocketMessage(second)
       second.send(JSON.stringify(authFrame))
       const denial = module.ClusterServerFrameSchema.parse(await nextWebSocketMessage(second))

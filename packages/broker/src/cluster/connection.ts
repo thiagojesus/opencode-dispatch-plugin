@@ -22,6 +22,7 @@ type UnregisterMessage = Extract<ProcessLifecycleMessage, { readonly type: "proc
 type ClusterConnectionOptions = {
   readonly authorization?: BasicAuthorization
   readonly brokerEpoch: BrokerEpoch
+  readonly brokerUrl: string
   readonly exposures: readonly ProcessExposure[]
   readonly hostSecret: HostSecret
   readonly onClose: () => void
@@ -42,6 +43,7 @@ export class ClusterConnection {
   static async connect(options: ClusterConnectionOptions): Promise<ClusterConnection> {
     const channel = await ClusterSocketChannel.open(
       options.brokerEpoch,
+      options.brokerUrl,
       options.onClose,
       options.timeoutMs,
     )

@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto"
 
 import {
-  DEFAULT_BROKER_PORT,
   DispatchConfigSchema,
   LoopbackServerUrlSchema,
   ProcessIdSchema,
@@ -14,7 +13,6 @@ import {
   resolveCurrentSecurityStatePaths,
   type SecurityStatePaths,
 } from "../security/index.ts"
-import { ClusterError } from "./errors.ts"
 import { ClusterMember } from "./member.ts"
 import { ClusterStateStore } from "./state-store.ts"
 
@@ -30,9 +28,6 @@ export type StartClusterMemberInput = {
 
 export async function startClusterMember(input: StartClusterMemberInput): Promise<ClusterMember> {
   const config = DispatchConfigSchema.parse(input.config ?? {})
-  if (config.broker.port !== DEFAULT_BROKER_PORT) {
-    throw new ClusterError("configuration_invalid")
-  }
   const statePaths = input.statePaths ?? resolveCurrentSecurityStatePaths()
   const authorization =
     input.authorization === undefined

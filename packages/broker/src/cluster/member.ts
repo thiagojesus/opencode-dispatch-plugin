@@ -168,6 +168,7 @@ export class ClusterMember {
     }
     const connection = await ClusterConnection.connect({
       brokerEpoch: health.brokerEpoch,
+      brokerUrl: this.brokerUrl,
       exposures: this.#state.exposures(),
       hostSecret: this.#hostSecret,
       onClose: () => this.#scheduleReconnect(),

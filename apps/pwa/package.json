@@ -17,9 +17,9 @@
     "@kobalte/core": "0.13.12",
     "@opencode-dispatch/contracts": "workspace:*",
     "@solidjs/router": "1.0.0",
-    "hast-util-sanitize": "^5.0.2",
-    "mdast-util-from-markdown": "^2.0.3",
-    "mdast-util-to-hast": "^13.2.1",
+    "hast-util-sanitize": "5.0.2",
+    "mdast-util-from-markdown": "2.0.3",
+    "mdast-util-to-hast": "13.2.1",
     "phosphor-solid": "1.1.5",
     "solid-js": "1.9.14"
   },

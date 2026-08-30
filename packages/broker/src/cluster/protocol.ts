@@ -145,6 +145,8 @@ export function clusterAuthBinding(brokerEpoch: BrokerEpoch): string {
   return `cluster.member:v${PROTOCOL_VERSION}:${brokerEpoch}`
 }
 
-export function clusterWebSocketUrl(): string {
-  return `ws://127.0.0.1:43110${CLUSTER_MEMBER_PATH}`
+export function clusterWebSocketUrl(brokerUrl: string): string {
+  const url = new URL(CLUSTER_MEMBER_PATH, brokerUrl)
+  url.protocol = "ws:"
+  return url.toString()
 }

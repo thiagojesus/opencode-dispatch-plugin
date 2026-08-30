@@ -16,9 +16,14 @@ const CONTENT_TYPES = new Map([
   [".webmanifest", "application/manifest+json"],
 ])
 
-export const DEFAULT_PWA_ASSET_DIRECTORY = fileURLToPath(
-  new URL("../../../../apps/pwa/dist/", import.meta.url),
-)
+declare const __OPENCODE_DISPATCH_PACKAGED__: boolean
+
+const pwaAssetUrl =
+  typeof __OPENCODE_DISPATCH_PACKAGED__ !== "undefined" && __OPENCODE_DISPATCH_PACKAGED__
+    ? new URL("./pwa/", import.meta.url)
+    : new URL("../../../../apps/pwa/dist/", import.meta.url)
+
+export const DEFAULT_PWA_ASSET_DIRECTORY = fileURLToPath(pwaAssetUrl)
 
 function isContained(rootDirectory: string, candidate: string): boolean {
   const path = relative(rootDirectory, candidate)

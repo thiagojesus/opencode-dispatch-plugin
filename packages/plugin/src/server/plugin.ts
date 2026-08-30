@@ -12,6 +12,7 @@ import {
 import { LoopbackServerUrlSchema } from "@opencode-dispatch/contracts"
 
 type ServerPluginInput = {
+  readonly config?: unknown
   readonly serverUrl: URL
 }
 
@@ -54,8 +55,15 @@ export async function startOpenCodeServerPlugin(
   const authorization = deriveOpenCodeAuthorization(dependencies.env)
   const memberInput: StartClusterMemberInput =
     authorization === undefined
-      ? { serverUrl: parsedUrl.data }
-      : { authorization, serverUrl: parsedUrl.data }
+      ? {
+          serverUrl: parsedUrl.data,
+          ...(input.config === undefined ? {} : { config: input.config }),
+        }
+      : {
+          authorization,
+          serverUrl: parsedUrl.data,
+          ...(input.config === undefined ? {} : { config: input.config }),
+        }
   const clientInput: OpenCodeProcessClientInput =
     authorization === undefined
       ? { serverUrl: parsedUrl.data }

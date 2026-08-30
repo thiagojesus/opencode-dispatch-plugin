@@ -1,0 +1,68 @@
+{
+  "task": 15,
+  "verdict": "local_pass_native_matrix_pending",
+  "implementation": [
+    "The publishable opencode-dispatch-plugin@0.1.0 package exposes only ./server and ./tui, embeds prebuilt PWA assets, declares MIT and engines.opencode >=1.18.3 <2, and has no main, postinstall, workspace runtime dependency, or source map.",
+    "A deterministic pack harness performs two clean builds, proves byte-identical tarball hashes, enforces an explicit path and size allowlist, scans text assets for credentials and local paths, verifies direct dependency licenses, and installs without lifecycle scripts.",
+    "The isolated OpenCode fixture installs the exact generated tarball through a disposable loopback npm registry into OpenCode's disposable package cache, then uses the official global plugin command for server/TUI target detection and JSONC mutation while proving live user config hashes remain unchanged.",
+    "Broker configuration now carries an explicit validated port through election, HTTP, and WebSocket paths; a live overridden-port test proves a foreign listener is diagnosed and left serving.",
+    "The native CI workflow covers macOS 14, Ubuntu 24.04, and Windows 2025 with OpenCode 1.18.3 and current latest 1.18.25, Bun 1.3.14, pinned actions, frozen installs, package verification, typecheck, and Biome."
+  ],
+  "red": [
+    {
+      "observed": "OpenCode 1.18.x accepts an absolute tarball argument but resolves its manifest beside the archive and exits with Manifest read failed instead of loading package/package.json.",
+      "resolution": "The fixture exposes the exact generated archive through a temporary local registry, installs that archive into the isolated OpenCode cache with scripts disabled, and then runs the official global target command against the exact package version. No workspace source or live config participates."
+    },
+    {
+      "observed": "The initial current-latest fixture was pinned to 1.18.21 after npm had advanced.",
+      "resolution": "npm view opencode-ai version returned 1.18.25; the local fixture default and six-job matrix now pin 1.18.25."
+    },
+    {
+      "observed": "A malformed-JSONC failure-path test exceeded Bun's default five-second test timeout after the real isolated install was added.",
+      "resolution": "The integration case now has an explicit 120-second timeout and passes while proving both config files and live hashes remain unchanged."
+    }
+  ],
+  "green": [
+    {
+      "command": "bun run test:package",
+      "observed": "10 tests, 84 assertions, zero failures after production build and deterministic packing."
+    },
+    {
+      "command": "TODO15_OPENCODE_VERSION=1.18.3 bun test tests/package/opencode-install.test.ts",
+      "observed": "4 minimum-version isolated install tests and 13 assertions passed."
+    },
+    {
+      "command": "TODO15_OPENCODE_VERSION=1.18.25 bun test tests/package/opencode-install.test.ts",
+      "observed": "4 current-latest isolated install tests and 13 assertions passed."
+    },
+    {
+      "command": "serial bun test for all ten packages/broker/src/cluster/*.test.ts files",
+      "observed": "36 cluster tests passed in isolated sequential Bun processes, including live custom-port foreign-listener diagnosis."
+    },
+    {
+      "command": "bun test packages/plugin/src/server/server.test.ts",
+      "observed": "6 server plugin option, registration, and lifecycle tests passed with 21 assertions."
+    },
+    {
+      "command": "bun run check",
+      "observed": "Biome, strict root/PWA TypeScript, 247-module LOC, unit, 14 component, 19 fixture, integration, 50 security plus one native-only skip, build, and package lanes exited 0."
+    }
+  ],
+  "nativeMatrix": {
+    "jobs": [
+      "macos-14 / 1.18.3",
+      "macos-14 / 1.18.25",
+      "ubuntu-24.04 / 1.18.3",
+      "ubuntu-24.04 / 1.18.25",
+      "windows-2025 / 1.18.3",
+      "windows-2025 / 1.18.25"
+    ],
+    "status": "pending_push",
+    "constraint": "Todo 17 owns the separately confirmed push gate; native success is not inferred from local macOS execution."
+  },
+  "contamination": [
+    "The unrelated modified Todo 11 file apps/pwa/evidence/todo-11/update-toast-375-normal.png remains unstaged and untouched.",
+    "Root Biome emits informational environment-key suggestions that do not fail the gate."
+  ],
+  "diagnostics": "TypeScript and YAML LSPs are unavailable by prior user choice; strict CLI TypeScript, Biome, LOC, deterministic package tests, isolated official OpenCode fixtures, serial cluster tests, production builds, and root check supplied diagnostics."
+}

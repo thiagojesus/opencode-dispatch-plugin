@@ -9,7 +9,7 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "bun run --workspaces --if-present build",
+    "build": "bun run --cwd packages/plugin build",
     "lint": "biome check .",
     "typecheck": "tsc --noEmit --project tsconfig.base.json && tsc --noEmit --project apps/pwa/tsconfig.json",
     "test:unit": "bun test tests/unit --pass-with-no-tests",
@@ -18,7 +18,7 @@
     "test:e2e": "bun run --cwd apps/pwa build && playwright test --config tests/fixtures/playwright.config.ts",
     "test:fixtures": "bun test tests/fixtures",
     "test:security": "bun test packages/broker/src/security tests/security --pass-with-no-tests",
-    "test:package": "bun test tests/package --pass-with-no-tests",
+    "test:package": "bun run build && bun test tests/package",
     "test": "bun run test:unit && bun run test:components && bun run test:fixtures && bun run test:integration && bun run test:security && bun run test:package",
     "audit:lighthouse": "bun run --cwd apps/pwa audit:lighthouse",
     "pwa:showcase": "bun run --cwd apps/pwa build",

@@ -37,6 +37,38 @@ test("rejects a non-loopback server URL before broker registration", async () =>
   expect(registrations).toBe(0)
 })
 
+test("forwards an isolated broker port override to cluster registration", async () => {
+  expect(await pluginImplementation.exists()).toBe(true)
+  const { startOpenCodeServerPlugin } = await import("./plugin.ts")
+  const registrations: unknown[] = []
+  const hooks = await Reflect.apply(startOpenCodeServerPlugin, undefined, [
+    {
+      serverUrl: new URL("http://127.0.0.1:40996"),
+      config: { broker: { port: 45_123 } },
+    },
+    {
+      createProcessClient: () => ({ statuses: async () => ({}) }),
+      env: {},
+      now: () => 1_500,
+      startMember: async (input: unknown) => {
+        registrations.push(input)
+        return {
+          dispose: async () => {},
+          publishOpenCodeSignal: async () => {},
+        }
+      },
+    },
+  ])
+
+  expect(registrations).toEqual([
+    {
+      config: { broker: { port: 45_123 } },
+      serverUrl: "http://127.0.0.1:40996/",
+    },
+  ])
+  await hooks.dispose?.()
+})
+
 test("seeds statuses, forwards live events, and disposes registration exactly once", async () => {
   expect(await pluginImplementation.exists()).toBe(true)
   const { startOpenCodeServerPlugin } = await import("./plugin.ts")

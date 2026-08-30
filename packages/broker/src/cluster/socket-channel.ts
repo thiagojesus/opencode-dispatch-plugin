@@ -27,11 +27,16 @@ export class ClusterSocketChannel {
   readonly #timeoutMs: number
   #intentionalClose = false
 
-  private constructor(brokerEpoch: BrokerEpoch, onClose: () => void, timeoutMs: number) {
+  private constructor(
+    brokerEpoch: BrokerEpoch,
+    brokerUrl: string,
+    onClose: () => void,
+    timeoutMs: number,
+  ) {
     this.#brokerEpoch = brokerEpoch
     this.#onClose = onClose
     this.#timeoutMs = timeoutMs
-    this.#socket = new WebSocket(clusterWebSocketUrl())
+    this.#socket = new WebSocket(clusterWebSocketUrl(brokerUrl))
     this.#socket.addEventListener("message", (event) => this.#message(event))
     this.#socket.addEventListener("close", () => this.#closed())
     this.#socket.addEventListener("error", () =>
@@ -41,10 +46,11 @@ export class ClusterSocketChannel {
 
   static async open(
     brokerEpoch: BrokerEpoch,
+    brokerUrl: string,
     onClose: () => void,
     timeoutMs: number,
   ): Promise<ClusterSocketChannel> {
-    const channel = new ClusterSocketChannel(brokerEpoch, onClose, timeoutMs)
+    const channel = new ClusterSocketChannel(brokerEpoch, brokerUrl, onClose, timeoutMs)
     await channel.#opened()
     return channel
   }

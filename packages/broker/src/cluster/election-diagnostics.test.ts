@@ -37,6 +37,32 @@ describe("broker health diagnostics", () => {
     }
   })
 
+  test("diagnoses a foreign listener on an overridden broker port", async () => {
+    const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-cluster-diagnostic-"))
+    const foreign = Bun.serve({
+      hostname: "127.0.0.1",
+      port: 0,
+      fetch: () => new Response("foreign-listener"),
+    })
+    const config = DispatchConfigSchema.parse({ broker: { port: foreign.port } })
+
+    try {
+      await expect(
+        startClusterMember({
+          config,
+          serverUrl: "http://127.0.0.1:41903",
+          statePaths: temporaryStatePaths(fixtureDirectory),
+        }),
+      ).rejects.toMatchObject({ code: "foreign_listener" })
+      await expect(
+        fetch(`http://127.0.0.1:${foreign.port}`).then((result) => result.text()),
+      ).resolves.toBe("foreign-listener")
+    } finally {
+      await foreign.stop(true)
+      await rm(fixtureDirectory, { force: true, recursive: true })
+    }
+  })
+
   test("retries a transport connection failure as internal_failure", async () => {
     const fixtureDirectory = await mkdtemp(join(tmpdir(), "dispatch-cluster-diagnostic-"))
     let connectionCount = 0

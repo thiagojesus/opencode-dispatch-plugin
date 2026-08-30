@@ -1,16 +1,28 @@
 {
   "name": "opencode-dispatch-plugin",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "engines": {
+    "opencode": ">=1.18.3 <2"
+  },
   "exports": {
-    "./server": "./src/server/index.ts",
-    "./tui": "./src/tui/index.ts"
+    "./server": {
+      "import": "./dist/server.js"
+    },
+    "./tui": {
+      "import": "./dist/tui.js"
+    }
+  },
+  "scripts": {
+    "build": "bun run --cwd ../../apps/pwa build && bun run scripts/build.ts"
   },
   "dependencies": {
-    "@opencode-ai/plugin": "1.18.3",
-    "@opencode-dispatch/broker": "workspace:*",
-    "@opencode-dispatch/contracts": "workspace:*",
+    "@opencode-ai/sdk": "1.18.3",
     "qrcode-terminal": "0.12.0",
     "zod": "4.4.3"
   }

@@ -38,6 +38,6 @@ export function createBrokerHttpRouter(options: BrokerHttpRouterOptions): Broker
     revokeSession(sessionId, reason) {
       events.revoke(sessionId, reason)
     },
-    subscribeEvents: (frame, sink) => events.subscribe(frame, sink),
+    subscribeEvents: remote.subscribeEvents,
   }
 }

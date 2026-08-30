@@ -92,4 +92,22 @@ describe("authenticated session event facade", () => {
     })
     expect(frames).toHaveLength(2)
   })
+
+  test("rejects subscriptions for sessions outside the enabled authority set", () => {
+    const cluster = new FakeCluster()
+    const router = createBrokerHttpRouter(routerOptions(cluster, new FakeOpenCode()))
+
+    expect(() =>
+      router.subscribeEvents(
+        {
+          type: "subscribe",
+          version: PROTOCOL_VERSION,
+          brokerEpoch: BrokerEpochSchema.parse(cluster.brokerEpoch),
+          sequence: MonotonicSequenceSchema.parse(0),
+          scope: { type: "session", sessionId: "ses-not-enabled" },
+        },
+        { send: () => undefined, close: () => undefined },
+      ),
+    ).toThrow("The enabled session is no longer available.")
+  })
 })

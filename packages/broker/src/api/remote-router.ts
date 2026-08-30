@@ -2,6 +2,7 @@ import {
   CapabilitiesResponseSchema,
   CONTROL_ACTIONS,
   CONTROL_CAPABILITY,
+  EventStreamSubscribeSchema,
   HealthResponseSchema,
   MAX_PAGE_SIZE,
   MAX_PROMPT_BYTES,
@@ -44,6 +45,7 @@ type RemoteRouter = {
   handle(request: Request, ingress: BrokerRequestIngress): Promise<Response>
   prepareEventStream(request: Request, ingress: BrokerRequestIngress): Promise<Response | undefined>
   publishSignal(processNonce: ProcessInstanceNonce, signal: OpenCodeSessionSignal): Promise<void>
+  subscribeEvents: ApiEventPort["subscribe"]
 }
 
 function jsonResponse(body: unknown, status = 200): Response {
@@ -238,5 +240,10 @@ export function createRemoteRouter(
     }
   }
   const publishSignal = createSignalPublisher(options, authority, reads)
-  return { handle, prepareEventStream, publishSignal }
+  const subscribeEvents: ApiEventPort["subscribe"] = (input, sink) => {
+    const subscription = EventStreamSubscribeSchema.parse(input)
+    if (subscription.scope.type === "session") authority.require(subscription.scope.sessionId)
+    return options.events.subscribe(subscription, sink)
+  }
+  return { handle, prepareEventStream, publishSignal, subscribeEvents }
 }

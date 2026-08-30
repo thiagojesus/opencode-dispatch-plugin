@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.base.json && tsc --noEmit --project apps/pwa/tsconfig.json",
     "test:unit": "bun test tests/unit --pass-with-no-tests",
     "test:components": "bun run --cwd apps/pwa test:components",
-    "test:integration": "bun test tests/integration --pass-with-no-tests",
+    "test:integration": "bun run --cwd apps/pwa build && bun test tests/integration --pass-with-no-tests",
     "test:e2e": "bun run --cwd apps/pwa build && playwright test --config tests/fixtures/playwright.config.ts",
     "test:fixtures": "bun test tests/fixtures",
     "test:security": "bun test packages/broker/src/security tests/security --pass-with-no-tests",

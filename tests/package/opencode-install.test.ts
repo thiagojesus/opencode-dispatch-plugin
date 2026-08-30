@@ -36,7 +36,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (artifact !== undefined) await removePackageArtifact(artifact)
-})
+}, 120_000)
 
 fixtureTest(
   "uses official global target detection inside the isolated config directory",

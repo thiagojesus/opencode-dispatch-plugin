@@ -49,7 +49,7 @@ test("scans the files extracted from the actual tarball", async () => {
 
   expect(files.every(isAllowedPackagePath)).toBe(true)
   for (const path of files.filter((value) =>
-    /(?:^LICENSE$|\.(?:css|html|js|json|webmanifest))$/u.test(value),
+    /(?:^LICENSE$|\.(?:css|html|js|json|txt|webmanifest))$/u.test(value),
   )) {
     const contents = await readFile(join(packageDirectory, path), "utf8")
     expect(containsSecret(contents), path).toBe(false)

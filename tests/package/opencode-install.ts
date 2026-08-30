@@ -231,7 +231,7 @@ export async function installWithOpenCode(
       env: registryEnvironment,
     })
   } finally {
-    server.stop(true)
+    await server.stop(true)
   }
   if (result.exitCode === 0 && options.expectFailure === true) {
     throw new PackageCommandError({ ...result, stderr: "OpenCode install unexpectedly succeeded" })

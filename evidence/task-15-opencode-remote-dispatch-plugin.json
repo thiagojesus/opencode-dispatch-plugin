@@ -26,12 +26,16 @@
     {
       "observed": "Post-implementation review found incomplete registry cleanup, Unix-only live-config hashing, no packed target launch, and no deterministic unsupported-version skip.",
       "resolution": "The full registry lifetime now uses finally cleanup, subprocesses are bounded, config hashing follows Windows APPDATA or Unix XDG paths, packed targets launch from the installed artifact, and below-minimum/2.x fixtures warn then skip before mutation."
+    },
+    {
+      "observed": "Fresh code-quality review found registry shutdown was initiated but not awaited and command timeouts killed only the direct child process.",
+      "resolution": "Registry shutdown is now awaited; POSIX commands run in a detached process group killed as a unit, while Windows uses taskkill /t /f. Timeout diagnostics are explicit, robots.txt joins extracted text scanning, and strict version parsing rejects leading-zero or malformed values."
     }
   ],
   "green": [
     {
       "command": "bun run test:package",
-      "observed": "13 tests, 132 assertions, zero failures after production build, deterministic packing, actual extracted-archive scanning, and packed target launch."
+      "observed": "13 tests, 137 assertions, zero failures after production build, deterministic packing, actual extracted-archive scanning, packed target launch, strict version boundaries, and cleanup hardening."
     },
     {
       "command": "TODO15_OPENCODE_VERSION=1.18.3 bun test tests/package/opencode-install.test.ts",

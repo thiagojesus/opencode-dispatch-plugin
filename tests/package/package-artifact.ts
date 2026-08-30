@@ -45,18 +45,39 @@ export class PackageCommandError extends Error {
 export async function runCommand(input: RunCommandInput): Promise<CommandResult> {
   const subprocess = Bun.spawn([...input.argv], {
     cwd: input.cwd,
+    detached: process.platform !== "win32",
     ...(input.env === undefined ? {} : { env: input.env }),
     stdout: "pipe",
     stderr: "pipe",
   })
-  const timeout = setTimeout(() => subprocess.kill(), input.timeoutMs ?? 120_000)
+  const timeoutMs = input.timeoutMs ?? 120_000
+  let timedOut = false
+  const timeout = setTimeout(() => {
+    timedOut = true
+    if (process.platform === "win32") {
+      Bun.spawnSync(["taskkill", "/pid", String(subprocess.pid), "/t", "/f"], {
+        stderr: "ignore",
+        stdout: "ignore",
+      })
+      return
+    }
+    try {
+      process.kill(-subprocess.pid, "SIGKILL")
+    } catch {
+      subprocess.kill()
+    }
+  }, timeoutMs)
   try {
     const [stdout, stderr, exitCode] = await Promise.all([
       new Response(subprocess.stdout).text(),
       new Response(subprocess.stderr).text(),
       subprocess.exited,
     ])
-    return { exitCode, stderr, stdout }
+    return {
+      exitCode,
+      stderr: timedOut ? `${stderr}\ncommand timed out after ${timeoutMs} ms` : stderr,
+      stdout,
+    }
   } finally {
     clearTimeout(timeout)
   }

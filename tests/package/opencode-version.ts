@@ -4,7 +4,7 @@ export type OpenCodeCompatibility = {
 }
 
 export function checkOpenCodeCompatibility(version: string): OpenCodeCompatibility {
-  const match = /^(\d+)\.(\d+)\.(\d+)$/u.exec(version)
+  const match = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u.exec(version)
   const supported =
     match !== null &&
     match[1] === "1" &&

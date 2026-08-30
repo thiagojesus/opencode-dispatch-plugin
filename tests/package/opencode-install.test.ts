@@ -93,4 +93,6 @@ test("classifies unsupported OpenCode versions with an actionable warning", () =
   })
   expect(checkOpenCodeCompatibility("2.0.0").supported).toBe(false)
   expect(checkOpenCodeCompatibility("1.18.3").supported).toBe(true)
+  expect(checkOpenCodeCompatibility("1.018.3").supported).toBe(false)
+  expect(checkOpenCodeCompatibility("not-a-version").supported).toBe(false)
 })

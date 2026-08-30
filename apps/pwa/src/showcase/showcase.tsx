@@ -1,5 +1,6 @@
 import { createSignal, type JSX, onCleanup, onMount, Show } from "solid-js"
 
+import { ActionFlowShowcasePage } from "../features/actions/action-flow-showcase"
 import { ActionShowcase } from "./actions"
 import { AppShellShowcase } from "./app-shell"
 import { ContinuityRail, StatePanel } from "./continuity"
@@ -26,7 +27,7 @@ function parseStressMode(): StressMode {
   }
 }
 
-export function ShowcaseApp(): JSX.Element {
+function PrimitiveShowcaseApp(): JSX.Element {
   const [online, setOnline] = createSignal(navigator.onLine)
   const stressMode = parseStressMode()
 
@@ -225,5 +226,13 @@ export function ShowcaseApp(): JSX.Element {
         <p>Primitive showcase only. No live session data or remote actions are connected here.</p>
       </footer>
     </div>
+  )
+}
+
+export function ShowcaseApp(): JSX.Element {
+  return new URLSearchParams(window.location.search).get("fixture") === "actions" ? (
+    <ActionFlowShowcasePage />
+  ) : (
+    <PrimitiveShowcaseApp />
   )
 }

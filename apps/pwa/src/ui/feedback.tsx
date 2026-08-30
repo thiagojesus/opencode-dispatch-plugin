@@ -3,10 +3,14 @@ import { Toast } from "@kobalte/core/toast"
 import type { JSX } from "solid-js"
 import { Portal } from "solid-js/web"
 
-export type ConfirmationKind = "abort" | "revoke"
+export type ConfirmationKind = "abort" | "reject" | "revoke"
 
 type ConfirmationDialogProps = {
+  readonly confirmLabel?: string
+  readonly disabled?: boolean
   readonly kind: ConfirmationKind
+  readonly onConfirm?: (() => void) | undefined
+  readonly triggerLabel?: string
 }
 
 const CONFIRMATION_COPY = {
@@ -17,6 +21,14 @@ const CONFIRMATION_COPY = {
     safe: "Keep running",
     title: "Abort active work?",
     trigger: "Open abort confirmation",
+  },
+  reject: {
+    confirm: "Reject request",
+    description:
+      "The local agent will receive a one-time rejection for this pending request. Active work may stop waiting for this decision.",
+    safe: "Keep permission pending",
+    title: "Reject active permission?",
+    trigger: "Reject",
   },
   revoke: {
     confirm: "Revoke access",
@@ -48,7 +60,9 @@ export function ConfirmationDialog(props: ConfirmationDialogProps): JSX.Element 
 
   return (
     <AlertDialog>
-      <AlertDialog.Trigger class="action action--danger">{copy.trigger}</AlertDialog.Trigger>
+      <AlertDialog.Trigger class="action action--danger" disabled={props.disabled === true}>
+        {props.triggerLabel ?? copy.trigger}
+      </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay class="dialog-overlay" />
         <div class="dialog-positioner">
@@ -65,8 +79,12 @@ export function ConfirmationDialog(props: ConfirmationDialogProps): JSX.Element 
               >
                 {copy.safe}
               </AlertDialog.CloseButton>
-              <AlertDialog.CloseButton aria-label={copy.confirm} class="action action--danger">
-                {copy.confirm}
+              <AlertDialog.CloseButton
+                aria-label={props.confirmLabel ?? copy.confirm}
+                class="action action--danger"
+                {...(props.onConfirm === undefined ? {} : { onClick: props.onConfirm })}
+              >
+                {props.confirmLabel ?? copy.confirm}
               </AlertDialog.CloseButton>
             </div>
           </AlertDialog.Content>

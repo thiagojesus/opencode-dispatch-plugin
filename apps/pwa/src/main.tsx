@@ -1,6 +1,7 @@
 import { registerSW } from "virtual:pwa-register"
 import { render } from "solid-js/web"
 
+import "./features/actions/actions.css"
 import { ProductApp } from "./product/app"
 import { applyInitialTheme } from "./product/theme-preference"
 import { PwaUpdatePrompt } from "./pwa-update"

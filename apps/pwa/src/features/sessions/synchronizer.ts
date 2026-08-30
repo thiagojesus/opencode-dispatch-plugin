@@ -67,6 +67,7 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
   }
 
   async refresh(): Promise<void> {
+    if (this.#state.type === "revoked") return
     if (!this.#online) {
       this.#setState(
         this.#snapshot === undefined
@@ -89,6 +90,7 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
 
   networkChanged(online: boolean): void {
     this.#online = online
+    if (this.#state.type === "revoked") return
     if (online) {
       this.#requestRecovery()
       return

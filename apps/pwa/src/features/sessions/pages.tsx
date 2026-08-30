@@ -107,7 +107,7 @@ export function SessionsPage(): JSX.Element {
               }
             />
           </Match>
-          <Match when={snapshot()?.sessions.length === 0}>
+          <Match when={state().type === "ready" && snapshot()?.sessions.length === 0}>
             <StatePanel
               description="Nothing is exposed remotely. Enable a live session from the desktop when you need mobile continuation."
               kind="empty"

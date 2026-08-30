@@ -99,9 +99,11 @@ test("ignores duplicate events but resnapshots on replay gaps and epoch replacem
 })
 
 test("removes transcript state when revocation arrives before stream close", async () => {
+  let loadCount = 0
   let onFrame: ((frame: unknown) => void) | undefined
   const synchronizer = new SessionSynchronizer({
     async load() {
+      loadCount += 1
       return position(0)
     },
     openStream(_snapshot, nextFrame) {
@@ -123,6 +125,12 @@ test("removes transcript state when revocation arrives before stream close", asy
   })
 
   expect(synchronizer.state).toEqual({ type: "revoked" })
+  await synchronizer.refresh()
+  synchronizer.networkChanged(false)
+  synchronizer.networkChanged(true)
+  await Bun.sleep(0)
+  expect(synchronizer.state).toEqual({ type: "revoked" })
+  expect(loadCount).toBe(1)
   synchronizer.stop()
 })
 

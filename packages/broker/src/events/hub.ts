@@ -21,8 +21,10 @@ type EventSink = {
 
 type EventHubOptions = {
   readonly brokerEpoch: BrokerEpoch
+  readonly channelLimit?: number
   readonly now: () => number
   readonly replayLimit: number
+  readonly subscriberLimit?: number
 }
 
 type Channel = {
@@ -37,6 +39,9 @@ export type EventPosition = {
 }
 
 const SESSION_REVOKED_CLOSE_CODE = 4_003
+const DEFAULT_CHANNEL_LIMIT = 2_048
+const DEFAULT_SUBSCRIBER_LIMIT = 64
+const SUBSCRIBER_LIMIT_CLOSE_CODE = 1_013
 
 function scopeKey(scope: EventStreamScope): string {
   switch (scope.type) {
@@ -49,17 +54,29 @@ function scopeKey(scope: EventStreamScope): string {
 
 export class SessionEventHub {
   readonly #brokerEpoch: BrokerEpoch
+  readonly #channelLimit: number
   readonly #channels = new Map<string, Channel>()
   readonly #now: () => number
   readonly #replayLimit: number
+  readonly #subscriberLimit: number
 
   constructor(options: EventHubOptions) {
     if (!Number.isSafeInteger(options.replayLimit) || options.replayLimit < 1) {
       throw new RangeError("Replay limit must be a positive safe integer")
     }
+    const channelLimit = options.channelLimit ?? DEFAULT_CHANNEL_LIMIT
+    const subscriberLimit = options.subscriberLimit ?? DEFAULT_SUBSCRIBER_LIMIT
+    if (!Number.isSafeInteger(channelLimit) || channelLimit < 1) {
+      throw new RangeError("Channel limit must be a positive safe integer")
+    }
+    if (!Number.isSafeInteger(subscriberLimit) || subscriberLimit < 1) {
+      throw new RangeError("Subscriber limit must be a positive safe integer")
+    }
     this.#brokerEpoch = options.brokerEpoch
+    this.#channelLimit = channelLimit
     this.#now = options.now
     this.#replayLimit = options.replayLimit
+    this.#subscriberLimit = subscriberLimit
   }
 
   position(scope: EventStreamScope): EventPosition {
@@ -98,6 +115,10 @@ export class SessionEventHub {
   subscribe(input: unknown, sink: EventSink): () => void {
     const subscription = EventStreamSubscribeSchema.parse(input)
     const channel = this.#channel(subscription.scope)
+    if (channel.subscribers.size >= this.#subscriberLimit) {
+      sink.close(SUBSCRIBER_LIMIT_CLOSE_CODE, "subscriber_limit")
+      return () => undefined
+    }
     const frame = this.#initialFrame(subscription, channel)
     sink.send(frame)
     if (frame.type === "resync") return () => undefined
@@ -110,20 +131,42 @@ export class SessionEventHub {
     reason: Extract<NormalizedEvent, { type: "session.revoked" }>["reason"],
   ): void {
     const event = { type: "session.revoked", reason } as const
-    this.publish({ type: "sessions" }, sessionId, event)
     const scope = { type: "session", sessionId } as const
+    const sessionKey = scopeKey(scope)
+    const sessionChannel = this.#channels.get(sessionKey)
+    const globalChannelKey = scopeKey({ type: "sessions" })
+    if (
+      sessionChannel !== undefined &&
+      !this.#channels.has(globalChannelKey) &&
+      this.#channels.size >= this.#channelLimit
+    ) {
+      this.publish(scope, sessionId, event)
+      this.#retire(scope, sessionChannel)
+      this.publish({ type: "sessions" }, sessionId, event)
+      return
+    }
+
+    this.publish({ type: "sessions" }, sessionId, event)
     const channel = this.#channel(scope)
     this.publish(scope, sessionId, event)
+    this.#retire(scope, channel)
+  }
+
+  #retire(scope: EventStreamScope, channel: Channel): void {
     for (const subscriber of channel.subscribers) {
       subscriber.close(SESSION_REVOKED_CLOSE_CODE, "session_revoked")
     }
     channel.subscribers.clear()
+    this.#channels.delete(scopeKey(scope))
   }
 
   #channel(scope: EventStreamScope): Channel {
     const key = scopeKey(scope)
     const current = this.#channels.get(key)
     if (current !== undefined) return current
+    if (this.#channels.size >= this.#channelLimit) {
+      throw new RangeError("Event channel limit reached")
+    }
     const created: Channel = { replay: [], sequence: 0, subscribers: new Set() }
     this.#channels.set(key, created)
     return created

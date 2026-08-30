@@ -71,6 +71,35 @@ describe("SessionEventHub", () => {
     expect(Number(hub.position({ type: "session", sessionId: FIRST_SESSION }).sequence)).toBe(1)
   })
 
+  test("never delivers one enabled session event to another session subscriber", () => {
+    const hub = new SessionEventHub({
+      brokerEpoch: BROKER_EPOCH,
+      now: () => 1_754_352_000_000,
+      replayLimit: 4,
+    })
+    const firstFrames: EventStreamServerFrame[] = []
+    const secondFrames: EventStreamServerFrame[] = []
+    const subscribe = (sessionId: typeof FIRST_SESSION, frames: EventStreamServerFrame[]) =>
+      hub.subscribe(
+        {
+          type: "subscribe",
+          version: 1,
+          brokerEpoch: BROKER_EPOCH,
+          sequence: MonotonicSequenceSchema.parse(0),
+          scope: { type: "session", sessionId },
+        },
+        { close: () => undefined, send: (frame) => frames.push(frame) },
+      )
+    subscribe(FIRST_SESSION, firstFrames)
+    subscribe(SECOND_SESSION, secondFrames)
+
+    hub.publish({ type: "session", sessionId: FIRST_SESSION }, FIRST_SESSION, statusEvent("busy"))
+
+    expect(firstFrames.at(-1)).toMatchObject({ type: "event", sessionId: FIRST_SESSION })
+    expect(secondFrames).toHaveLength(1)
+    expect(secondFrames[0]).toMatchObject({ type: "ready", sequence: 0 })
+  })
+
   test("requires resynchronization when the bounded replay window overflows", () => {
     // Given
     const hub = new SessionEventHub({
@@ -137,5 +166,71 @@ describe("SessionEventHub", () => {
       event: { type: "session.revoked", reason: "disabled" },
     })
     expect(closeCodes).toEqual([4003])
+    expect(Number(hub.position({ type: "session", sessionId: FIRST_SESSION }).sequence)).toBe(0)
+  })
+
+  test("revokes and retires a session when its channel occupies the final capacity slot", () => {
+    const hub = new SessionEventHub({
+      brokerEpoch: BROKER_EPOCH,
+      channelLimit: 1,
+      now: () => 1_754_352_000_000,
+      replayLimit: 4,
+    })
+    const frames: EventStreamServerFrame[] = []
+    const closeCodes: number[] = []
+    hub.subscribe(
+      {
+        type: "subscribe",
+        version: 1,
+        brokerEpoch: BROKER_EPOCH,
+        sequence: MonotonicSequenceSchema.parse(0),
+        scope: { type: "session", sessionId: FIRST_SESSION },
+      },
+      { close: (code) => closeCodes.push(code), send: (frame) => frames.push(frame) },
+    )
+
+    hub.revoke(FIRST_SESSION, "disabled")
+
+    expect(frames.at(-1)).toMatchObject({ event: { type: "session.revoked" } })
+    expect(closeCodes).toEqual([4003])
+  })
+
+  test("caps subscribers for each event channel", () => {
+    const hub = new SessionEventHub({
+      brokerEpoch: BROKER_EPOCH,
+      now: () => 1_754_352_000_000,
+      replayLimit: 4,
+      subscriberLimit: 1,
+    })
+    const subscription = {
+      type: "subscribe",
+      version: 1,
+      brokerEpoch: BROKER_EPOCH,
+      sequence: MonotonicSequenceSchema.parse(0),
+      scope: { type: "sessions" },
+    } as const
+    const closeCodes: number[] = []
+    hub.subscribe(subscription, { close: () => undefined, send: () => undefined })
+
+    hub.subscribe(subscription, {
+      close: (code) => closeCodes.push(code),
+      send: () => undefined,
+    })
+
+    expect(closeCodes).toEqual([1013])
+  })
+
+  test("bounds the total number of retained event channels", () => {
+    const hub = new SessionEventHub({
+      brokerEpoch: BROKER_EPOCH,
+      channelLimit: 1,
+      now: () => 1_754_352_000_000,
+      replayLimit: 4,
+    })
+    hub.position({ type: "session", sessionId: FIRST_SESSION })
+
+    expect(() => hub.position({ type: "session", sessionId: SECOND_SESSION })).toThrow(
+      "Event channel limit reached",
+    )
   })
 })

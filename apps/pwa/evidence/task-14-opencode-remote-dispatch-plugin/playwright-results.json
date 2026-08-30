@@ -4,9 +4,6 @@
       "/opt/homebrew/Cellar/node/26.5.1/bin/node",
       "<repo>/apps/pwa/node_modules/.bin/playwright",
       "test",
-      "tests/todo14-cache.spec.ts",
-      "tests/todo14-recovery.spec.ts",
-      "tests/todo14-visual.spec.ts",
       "--config=playwright.todo14.config.ts"
     ],
     "configFile": "<repo>/apps/pwa/playwright.todo14.config.ts",
@@ -186,6 +183,1250 @@
   },
   "suites": [
     {
+      "title": "todo14-accessibility.spec.ts",
+      "file": "todo14-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 1267,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:29.083Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-68f2f2ca1a1fe5cca59e",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 705,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:31.431Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-5d080367b98824216261",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 499,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:32.165Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-9c55a870c462c675c733",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 1317,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:32.840Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-0a836c556c64b4819d92",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 353,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:35.473Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-b306fbf0ab31862a2e6a",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 282,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:35.847Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-b0af3c199a9f0cc82321",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:36.396Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-9dfdfd84e8c04e010ba6",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 570,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:41.458Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-ea24dffcde20709014ef",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "375-light",
+              "projectName": "375-light",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:42.044Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-e408666cc5a3731908f3",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 622,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:42.031Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-536c3972726137703778",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 579,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:43.246Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-92658ba40fb154d505d8",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "375-dark",
+              "projectName": "375-dark",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:43.841Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-353387e4a486eabefa70",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 890,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:45.924Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-3386e1f797ad4284c752",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:47.403Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-abe13f6565689d1705a1",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-light",
+              "projectName": "768-light",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 245,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:47.835Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-26d1e43fa1cb4a216aee",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 733,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:48.777Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-f887c17bfa3e7f1e8f20",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 531,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:49.990Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-ff69a491a3be261969e6",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "768-dark",
+              "projectName": "768-dark",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 1,
+                  "status": "skipped",
+                  "duration": 705,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:50.544Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-c16d97f41c0e0bb7d405",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 26,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 750,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:54.517Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-1d65b09be45ed1434a98",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 26,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 479,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:55.903Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-c0d4f236a5e6b8769b2e",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-light",
+              "projectName": "1280-light",
+              "results": [
+                {
+                  "workerIndex": 26,
+                  "parallelIndex": 3,
+                  "status": "skipped",
+                  "duration": 487,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:56.398Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-e370ed7dabd7763ba614",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "keeps lifecycle states operable for keyboard and screen-reader users",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 27,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:56.357Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-ff555083c3a77f5c0f35",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "keeps recovery reachable at browser and text zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 27,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 515,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:57.416Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-7fdbf41345681a02009f",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 23,
+          "column": 1
+        },
+        {
+          "title": "preserves boundaries in forced colors and removes meaningful motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Inclusive lifecycle profile only",
+                  "location": {
+                    "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                    "line": 5,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "1280-dark",
+              "projectName": "1280-dark",
+              "results": [
+                {
+                  "workerIndex": 27,
+                  "parallelIndex": 2,
+                  "status": "skipped",
+                  "duration": 532,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-30T04:41:57.942Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Inclusive lifecycle profile only",
+                      "location": {
+                        "file": "<repo>/apps/pwa/tests/todo14-accessibility.spec.ts",
+                        "line": 5,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "a6f07db34cc207e545b9-763a5cdb969066524019",
+          "file": "todo14-accessibility.spec.ts",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    },
+    {
       "title": "todo14-cache.spec.ts",
       "file": "todo14-cache.spec.ts",
       "column": 0,
@@ -204,15 +1445,15 @@
               "projectName": "chromium-mobile",
               "results": [
                 {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 2801,
+                  "duration": 2372,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:53.569Z",
+                  "startTime": "2026-08-30T04:41:29.047Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -238,15 +1479,15 @@
               "projectName": "chromium-mobile",
               "results": [
                 {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 2705,
+                  "duration": 2514,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:58.229Z",
+                  "startTime": "2026-08-30T04:41:32.547Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -282,15 +1523,15 @@
               "projectName": "webkit-mobile",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 1120,
+                  "duration": 1348,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:53.522Z",
+                  "startTime": "2026-08-30T04:41:33.605Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -336,15 +1577,15 @@
               "projectName": "webkit-mobile",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 625,
+                  "duration": 322,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:55.863Z",
+                  "startTime": "2026-08-30T04:41:35.487Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -390,15 +1631,15 @@
               "projectName": "375-light",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 1,
+                  "workerIndex": 9,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 1419,
+                  "duration": 1069,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:59.469Z",
+                  "startTime": "2026-08-30T04:41:36.626Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -444,15 +1685,15 @@
               "projectName": "375-light",
               "results": [
                 {
-                  "workerIndex": 5,
-                  "parallelIndex": 1,
+                  "workerIndex": 9,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 498,
+                  "duration": 746,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:01.868Z",
+                  "startTime": "2026-08-30T04:41:38.685Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -498,15 +1739,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 7,
-                  "parallelIndex": 2,
+                  "workerIndex": 13,
+                  "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 704,
+                  "duration": 881,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:02.344Z",
+                  "startTime": "2026-08-30T04:41:43.009Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -552,15 +1793,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 7,
-                  "parallelIndex": 2,
+                  "workerIndex": 13,
+                  "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 858,
+                  "duration": 594,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:03.663Z",
+                  "startTime": "2026-08-30T04:41:44.494Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -606,15 +1847,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 2,
+                  "workerIndex": 18,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 779,
+                  "duration": 943,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:05.579Z",
+                  "startTime": "2026-08-30T04:41:45.891Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -660,15 +1901,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 11,
-                  "parallelIndex": 2,
+                  "workerIndex": 18,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 706,
+                  "duration": 403,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:06.701Z",
+                  "startTime": "2026-08-30T04:41:47.438Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -714,15 +1955,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 1,
+                  "workerIndex": 21,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 752,
+                  "duration": 885,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:07.608Z",
+                  "startTime": "2026-08-30T04:41:49.720Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -768,15 +2009,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 14,
-                  "parallelIndex": 1,
+                  "workerIndex": 21,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 683,
+                  "duration": 635,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:08.997Z",
+                  "startTime": "2026-08-30T04:41:51.258Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -822,15 +2063,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 17,
+                  "workerIndex": 25,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 928,
+                  "duration": 761,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:10.617Z",
+                  "startTime": "2026-08-30T04:41:54.472Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -876,15 +2117,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 17,
+                  "workerIndex": 25,
                   "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 331,
+                  "duration": 437,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:12.162Z",
+                  "startTime": "2026-08-30T04:41:55.832Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -930,15 +2171,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 20,
-                  "parallelIndex": 2,
+                  "workerIndex": 28,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 752,
+                  "duration": 665,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:13.417Z",
+                  "startTime": "2026-08-30T04:41:57.441Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -984,15 +2225,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 20,
-                  "parallelIndex": 2,
+                  "workerIndex": 28,
+                  "parallelIndex": 0,
                   "status": "skipped",
-                  "duration": 372,
+                  "duration": 524,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:14.653Z",
+                  "startTime": "2026-08-30T04:41:58.522Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1036,15 +2277,15 @@
               "projectName": "chromium-mobile",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 3023,
+                  "duration": 3008,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:53.562Z",
+                  "startTime": "2026-08-30T04:41:29.025Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1054,7 +2295,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-5c7f8d23e665b19f587e",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1070,15 +2311,15 @@
               "projectName": "webkit-mobile",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
+                  "workerIndex": 6,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 2679,
+                  "duration": 3722,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:56.587Z",
+                  "startTime": "2026-08-30T04:41:33.946Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1088,7 +2329,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-f0adb69f6d47d4dc463f",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1114,15 +2355,15 @@
               "projectName": "375-light",
               "results": [
                 {
-                  "workerIndex": 6,
-                  "parallelIndex": 3,
+                  "workerIndex": 10,
+                  "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 965,
+                  "duration": 834,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:59.937Z",
+                  "startTime": "2026-08-30T04:41:38.489Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1142,7 +2383,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-3698b1151eeff590f9b9",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1168,15 +2409,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 9,
-                  "parallelIndex": 3,
+                  "workerIndex": 14,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 956,
+                  "duration": 899,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:03.090Z",
+                  "startTime": "2026-08-30T04:41:43.029Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1196,7 +2437,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-7a5496764316399888bd",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1222,15 +2463,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 12,
-                  "parallelIndex": 3,
+                  "workerIndex": 16,
+                  "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 901,
+                  "duration": 865,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:05.748Z",
+                  "startTime": "2026-08-30T04:41:45.888Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1250,7 +2491,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-d667483bbbf4a76dbe12",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1276,15 +2517,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 15,
-                  "parallelIndex": 3,
+                  "workerIndex": 22,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 782,
+                  "duration": 1037,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:08.425Z",
+                  "startTime": "2026-08-30T04:41:50.481Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1304,7 +2545,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-244570534b0a90ccce68",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1330,15 +2571,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 19,
-                  "parallelIndex": 1,
+                  "workerIndex": 23,
+                  "parallelIndex": 2,
                   "status": "skipped",
-                  "duration": 951,
+                  "duration": 576,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:10.654Z",
+                  "startTime": "2026-08-30T04:41:53.331Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1358,7 +2599,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-47b5e12ec9a944f1e962",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         },
         {
@@ -1384,15 +2625,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 21,
+                  "workerIndex": 29,
                   "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 746,
+                  "duration": 644,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:13.375Z",
+                  "startTime": "2026-08-30T04:41:58.568Z",
                   "annotations": [
                     {
                       "type": "skip",
@@ -1412,7 +2653,7 @@
           ],
           "id": "e66f8c7aba1a067fa439-f3d0410fbcaf3992d489",
           "file": "todo14-recovery.spec.ts",
-          "line": 82,
+          "line": 95,
           "column": 1
         }
       ]
@@ -1436,7 +2677,7 @@
                   "description": "Responsive theme projects only",
                   "location": {
                     "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
-                    "line": 18,
+                    "line": 20,
                     "column": 8
                   }
                 }
@@ -1446,22 +2687,22 @@
               "projectName": "chromium-mobile",
               "results": [
                 {
-                  "workerIndex": 2,
-                  "parallelIndex": 2,
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
                   "status": "skipped",
-                  "duration": 1577,
+                  "duration": 1424,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:53.523Z",
+                  "startTime": "2026-08-30T04:41:29.066Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Responsive theme projects only",
                       "location": {
                         "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
-                        "line": 18,
+                        "line": 20,
                         "column": 8
                       }
                     }
@@ -1474,7 +2715,7 @@
           ],
           "id": "449c3f51f191a71bb757-864e5587cc4c1bd86203",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1490,7 +2731,7 @@
                   "description": "Responsive theme projects only",
                   "location": {
                     "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
-                    "line": 18,
+                    "line": 20,
                     "column": 8
                   }
                 }
@@ -1500,22 +2741,22 @@
               "projectName": "webkit-mobile",
               "results": [
                 {
-                  "workerIndex": 4,
-                  "parallelIndex": 2,
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
                   "status": "skipped",
-                  "duration": 1050,
+                  "duration": 721,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:00:58.913Z",
+                  "startTime": "2026-08-30T04:41:36.255Z",
                   "annotations": [
                     {
                       "type": "skip",
                       "description": "Responsive theme projects only",
                       "location": {
                         "file": "<repo>/apps/pwa/tests/todo14-visual.spec.ts",
-                        "line": 18,
+                        "line": 20,
                         "column": 8
                       }
                     }
@@ -1528,7 +2769,7 @@
           ],
           "id": "449c3f51f191a71bb757-db11ecb1171e3ef20cb4",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1544,15 +2785,15 @@
               "projectName": "375-light",
               "results": [
                 {
-                  "workerIndex": 8,
-                  "parallelIndex": 0,
+                  "workerIndex": 11,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 2165,
+                  "duration": 2042,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:02.428Z",
+                  "startTime": "2026-08-30T04:41:38.993Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1562,7 +2803,7 @@
           ],
           "id": "449c3f51f191a71bb757-38a76a42a71974b67ac8",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1578,15 +2819,15 @@
               "projectName": "375-dark",
               "results": [
                 {
-                  "workerIndex": 10,
-                  "parallelIndex": 1,
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1906,
+                  "duration": 2211,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:03.624Z",
+                  "startTime": "2026-08-30T04:41:44.080Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1596,7 +2837,7 @@
           ],
           "id": "449c3f51f191a71bb757-336c38ae75a344b059f6",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1612,15 +2853,15 @@
               "projectName": "768-light",
               "results": [
                 {
-                  "workerIndex": 13,
+                  "workerIndex": 20,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1938,
+                  "duration": 2719,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:06.370Z",
+                  "startTime": "2026-08-30T04:41:48.739Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1630,7 +2871,7 @@
           ],
           "id": "449c3f51f191a71bb757-da0fd24c4958b5b5d46e",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1646,15 +2887,15 @@
               "projectName": "768-dark",
               "results": [
                 {
-                  "workerIndex": 16,
-                  "parallelIndex": 2,
+                  "workerIndex": 19,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1952,
+                  "duration": 1908,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:08.416Z",
+                  "startTime": "2026-08-30T04:41:51.280Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1664,7 +2905,7 @@
           ],
           "id": "449c3f51f191a71bb757-dbadfa94e9a6f4cd4d57",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1680,15 +2921,15 @@
               "projectName": "1280-light",
               "results": [
                 {
-                  "workerIndex": 18,
-                  "parallelIndex": 3,
+                  "workerIndex": 24,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 1855,
+                  "duration": 2132,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:10.648Z",
+                  "startTime": "2026-08-30T04:41:54.001Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1698,7 +2939,7 @@
           ],
           "id": "449c3f51f191a71bb757-53634b6d8c98fe4442c5",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         },
         {
@@ -1714,15 +2955,15 @@
               "projectName": "1280-dark",
               "results": [
                 {
-                  "workerIndex": 22,
-                  "parallelIndex": 0,
+                  "workerIndex": 30,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 1592,
+                  "duration": 1796,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-08-30T04:01:13.578Z",
+                  "startTime": "2026-08-30T04:41:58.554Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1732,7 +2973,7 @@
           ],
           "id": "449c3f51f191a71bb757-3694b5689447a878cd2c",
           "file": "todo14-visual.spec.ts",
-          "line": 104,
+          "line": 117,
           "column": 1
         }
       ]
@@ -1740,10 +2981,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-30T04:00:50.124Z",
-    "duration": 26144.475,
-    "expected": 10,
-    "skipped": 22,
+    "startTime": "2026-08-30T04:41:25.682Z",
+    "duration": 35570.238,
+    "expected": 13,
+    "skipped": 43,
     "unexpected": 0,
     "flaky": 0
   }

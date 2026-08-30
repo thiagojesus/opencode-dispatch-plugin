@@ -53,10 +53,15 @@ test("removes stale Workbox precaches when an updated worker activates", async (
   context,
   page,
 }) => {
-  const staleCache = await page.evaluate(async () => {
+  const cacheNames = await page.evaluate(async () => {
     const registration = await navigator.serviceWorker.ready
-    const cacheName = `todo-precache-stale-${registration.scope}`
-    await caches.open(cacheName)
+    const currentPrecache = (await caches.keys()).find(
+      (cacheName) => cacheName.includes("-precache-") && cacheName.includes(registration.scope),
+    )
+    if (currentPrecache === undefined) throw new Error("Current Workbox precache was not found")
+    const stalePrecache = currentPrecache.replace("-precache-", "-precache-obsolete-")
+    const cache = await caches.open(stalePrecache)
+    await cache.put("/assets/todo14-obsolete.js", new Response("obsolete shell asset"))
     const updated = await navigator.serviceWorker.register(`/sw.js?todo14=${Date.now()}`, {
       scope: "/",
     })
@@ -73,13 +78,20 @@ test("removes stale Workbox precaches when an updated worker activates", async (
     }
     const activationWorker = updated.waiting ?? waiting
     activationWorker?.postMessage({ type: "SKIP_WAITING" })
-    return cacheName
+    return { currentPrecache, stalePrecache }
   })
 
   const probe = await context.newPage()
   await probe.goto("/")
   await expect
-    .poll(async () => (await probe.evaluate(() => caches.keys())).includes(staleCache))
+    .poll(async () =>
+      (await probe.evaluate(() => caches.keys())).includes(cacheNames.stalePrecache),
+    )
     .toBe(false)
+  await expect
+    .poll(async () =>
+      (await probe.evaluate(() => caches.keys())).includes(cacheNames.currentPrecache),
+    )
+    .toBe(true)
   await probe.close()
 })

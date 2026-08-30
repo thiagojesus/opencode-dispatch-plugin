@@ -33,7 +33,20 @@ test.beforeEach(async ({ page }, testInfo) => {
           sockets.push(this)
           queueMicrotask(() => this.dispatchEvent(new Event("open")))
         }
-        send(): void {}
+        send(): void {
+          queueMicrotask(() =>
+            this.dispatchEvent(
+              new MessageEvent("message", {
+                data: JSON.stringify({
+                  type: "ready",
+                  version: 1,
+                  brokerEpoch,
+                  sequence: requestCount,
+                }),
+              }),
+            ),
+          )
+        }
         close(): void {
           this.dispatchEvent(new CloseEvent("close"))
         }
@@ -82,26 +95,45 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("resnapshots after background resume, network handoff, and stream loss", async ({ page }) => {
   await page.goto("/sessions")
   await expect(page.getByRole("button", { name: /Background verification/u })).toBeVisible()
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Lifecycle.requests()))
+    .toBeGreaterThanOrEqual(1)
 
+  const backgroundRequestCount = await page.evaluate(() => globalThis.__todo14Lifecycle.requests())
   await page.evaluate(() => {
     globalThis.__todo14Lifecycle.setVisible(false)
     globalThis.__todo14Lifecycle.setVisible(true)
   })
   await expect(page.getByRole("heading", { name: "Reconnecting" })).toBeVisible()
-  await expect(page.getByRole("button", { name: /Background verification/u })).toBeVisible()
+  await expect(page.getByRole("button", { name: /Background verification/u })).toBeDisabled()
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Lifecycle.requests()))
+    .toBe(backgroundRequestCount + 1)
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
 
   await page.evaluate(() => window.dispatchEvent(new Event("offline")))
   await expect(page.getByRole("heading", { name: "Connection offline" })).toBeVisible()
+  await expect(page.getByRole("button", { name: /Background verification/u })).toBeDisabled()
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "offline")
+  const onlineRequestCount = await page.evaluate(() => globalThis.__todo14Lifecycle.requests())
   await page.evaluate(() => window.dispatchEvent(new Event("online")))
   await expect(page.getByRole("heading", { name: "Reconnecting" })).toBeVisible()
   await expect(page.getByRole("button", { name: /Background verification/u })).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Lifecycle.requests()))
+    .toBe(onlineRequestCount + 1)
+  await expect(page.getByRole("button", { name: /Background verification/u })).toBeEnabled()
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
 
+  const streamRequestCount = await page.evaluate(() => globalThis.__todo14Lifecycle.requests())
   await page.evaluate(() => {
     globalThis.__todo14Lifecycle.dropStream()
   })
   await expect(page.getByRole("heading", { name: "Reconnecting" })).toBeVisible()
-  await expect(page.getByRole("button", { name: /Background verification/u })).toBeVisible()
-  expect(await page.evaluate(() => globalThis.__todo14Lifecycle.requests())).toBeGreaterThanOrEqual(
-    4,
-  )
+  await expect(page.getByRole("button", { name: /Background verification/u })).toBeDisabled()
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Lifecycle.requests()))
+    .toBe(streamRequestCount + 1)
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
 })

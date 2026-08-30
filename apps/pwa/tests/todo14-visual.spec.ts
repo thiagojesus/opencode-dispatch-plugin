@@ -10,7 +10,9 @@ declare global {
   var __todo14Visual: {
     readonly dropStream: () => void
     readonly releaseRecovery: () => void
+    readonly requests: () => number
     readonly revoke: () => void
+    readonly streams: () => number
   }
 }
 
@@ -34,7 +36,16 @@ test.beforeEach(async ({ page }, testInfo) => {
           sockets.push(this)
           queueMicrotask(() => this.dispatchEvent(new Event("open")))
         }
-        send(): void {}
+        send(): void {
+          queueMicrotask(() =>
+            this.emit({
+              type: "ready",
+              version: 1,
+              brokerEpoch,
+              sequence: requestCount,
+            }),
+          )
+        }
         close(): void {
           this.dispatchEvent(new CloseEvent("close"))
         }
@@ -83,6 +94,7 @@ test.beforeEach(async ({ page }, testInfo) => {
             holdRecovery = false
             releaseRecovery?.()
           },
+          requests: () => requestCount,
           revoke: () => {
             sockets.at(-1)?.emit({
               type: "event",
@@ -94,6 +106,7 @@ test.beforeEach(async ({ page }, testInfo) => {
               event: { type: "session.revoked", reason: "disabled" },
             })
           },
+          streams: () => sockets.length,
         },
       })
     },
@@ -116,25 +129,32 @@ test("captures ready, reconnecting, offline, and revoked production states", asy
     page.getByRole("button", { name: /Production resilience verification/u }),
   ).toBeVisible()
   await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
+  await expect.poll(() => page.evaluate(() => globalThis.__todo14Visual.streams())).toBe(1)
   await screenshot("ready")
 
+  const recoveryRequestCount = await page.evaluate(() => globalThis.__todo14Visual.requests())
   await page.evaluate(() => globalThis.__todo14Visual.dropStream())
   await expect(page.getByRole("heading", { name: "Reconnecting" })).toBeVisible()
   await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "reconnecting")
   await screenshot("reconnecting")
   await page.evaluate(() => globalThis.__todo14Visual.releaseRecovery())
-  await expect(
-    page.getByRole("button", { name: /Production resilience verification/u }),
-  ).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Visual.requests()))
+    .toBe(recoveryRequestCount + 1)
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
+  await expect.poll(() => page.evaluate(() => globalThis.__todo14Visual.streams())).toBe(2)
 
   await page.evaluate(() => window.dispatchEvent(new Event("offline")))
   await expect(page.getByRole("heading", { name: "Connection offline" })).toBeVisible()
   await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "offline")
   await screenshot("offline")
+  const onlineRequestCount = await page.evaluate(() => globalThis.__todo14Visual.requests())
   await page.evaluate(() => window.dispatchEvent(new Event("online")))
-  await expect(
-    page.getByRole("button", { name: /Production resilience verification/u }),
-  ).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => globalThis.__todo14Visual.requests()))
+    .toBe(onlineRequestCount + 1)
+  await expect(page.getByTestId("product-continuity")).toHaveAttribute("data-kind", "connected")
+  await expect.poll(() => page.evaluate(() => globalThis.__todo14Visual.streams())).toBe(3)
 
   await page.evaluate(() => globalThis.__todo14Visual.revoke())
   await expect(page.getByRole("heading", { name: "Access revoked" })).toBeVisible()

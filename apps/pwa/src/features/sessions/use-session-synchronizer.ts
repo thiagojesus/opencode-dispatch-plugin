@@ -36,6 +36,7 @@ export function useSessionSynchronizer<T extends SessionListResponse | SessionSn
   createEffect(() => continuity.publish(continuitySource, continuityKind(state())))
   onMount(() => {
     const unsubscribe = synchronizer.subscribe(setState)
+    synchronizer.networkChanged(navigator.onLine)
     synchronizer.start()
     document.addEventListener("visibilitychange", visibilityChanged)
     window.addEventListener("pageshow", pageShown)

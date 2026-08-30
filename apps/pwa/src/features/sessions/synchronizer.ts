@@ -62,10 +62,19 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
 
   start(): void {
     this.#stopped = false
+    if (!this.#online) return
     void this.refresh()
   }
 
   async refresh(): Promise<void> {
+    if (!this.#online) {
+      this.#setState(
+        this.#snapshot === undefined
+          ? { type: "offline" }
+          : { type: "offline", snapshot: this.#snapshot },
+      )
+      return
+    }
     this.#recovery.reset()
     await this.#loadAndAttach()
   }
@@ -85,6 +94,11 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       return
     }
     this.#recovery.cancelPending()
+    this.#generation += 1
+    this.#abort?.abort()
+    this.#stream?.close()
+    this.#abort = undefined
+    this.#stream = undefined
     this.#setState(
       this.#snapshot === undefined
         ? { type: "offline" }
@@ -104,7 +118,6 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       const snapshot = await this.#options.load(abort.signal)
       if (generation !== this.#generation || abort.signal.aborted) return
       this.#snapshot = snapshot
-      this.#recovery.reset()
       this.#setState({ type: "ready", snapshot })
       this.#stream = this.#options.openStream(
         snapshot,
@@ -143,7 +156,10 @@ export class SessionSynchronizer<T extends SnapshotPosition> {
       return
     }
     const frame = parsed.data
-    if (frame.type === "ready") return
+    if (frame.type === "ready") {
+      this.#recovery.reset()
+      return
+    }
     if (frame.type === "resync" || frame.brokerEpoch !== this.#snapshot.brokerEpoch) {
       void this.refresh()
       return

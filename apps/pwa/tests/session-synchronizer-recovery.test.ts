@@ -157,12 +157,14 @@ test("coalesces close, visibility, page, and network recovery into one attempt",
   const recovery = recoveryHarness()
   let loadCount = 0
   let closeStream: (() => void) | undefined
+  let streamFrame: ((frame: unknown) => void) | undefined
   const synchronizer = new SessionSynchronizer({
     async load() {
       loadCount += 1
       return snapshot(loadCount, loadCount)
     },
-    openStream(_position, _onFrame, onClose) {
+    openStream(_position, onFrame, onClose) {
+      streamFrame = onFrame
       closeStream = onClose
       return { close: () => undefined }
     },
@@ -184,6 +186,12 @@ test("coalesces close, visibility, page, and network recovery into one attempt",
 
   expect(loadCount).toBe(2)
   expect(synchronizer.state.type).toBe("ready")
+  streamFrame?.({
+    type: "ready",
+    version: PROTOCOL_VERSION,
+    brokerEpoch: FIRST_EPOCH,
+    sequence: MonotonicSequenceSchema.parse(2),
+  })
   closeStream?.()
   expect(recovery.delays()).toEqual([250, 250])
   synchronizer.stop()

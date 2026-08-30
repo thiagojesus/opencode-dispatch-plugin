@@ -5,12 +5,12 @@ import {
   type SessionSummary,
 } from "@opencode-dispatch/contracts"
 import { A, useNavigate, useParams } from "@solidjs/router"
-import { createEffect, For, type JSX, Match, onCleanup, onMount, Switch } from "solid-js"
+import { createEffect, For, type JSX, Match, onCleanup, onMount, Show, Switch } from "solid-js"
 
 import { StatePanel } from "../../ui/continuity"
 import { SessionRow, SessionSkeleton, ToolSkeleton } from "../../ui/sessions"
 import { browserApi } from "./browser-api"
-import { openBrowserEventStream, SessionSynchronizer } from "./synchronizer"
+import { openBrowserEventStream, SessionSynchronizer, type SynchronizerState } from "./synchronizer"
 import { TimelineEntry } from "./timeline-entry"
 import { useSessionSynchronizer } from "./use-session-synchronizer"
 
@@ -19,6 +19,21 @@ export { TimelineEntry } from "./timeline-entry"
 function sessionStatus(session: SessionSummary): "busy" | "idle" | "waiting" {
   if (session.pendingPermissionCount + session.pendingQuestionCount > 0) return "waiting"
   return session.status.type === "idle" ? "idle" : "busy"
+}
+
+function retainedSnapshot<T extends SessionListResponse | SessionSnapshot>(
+  state: SynchronizerState<T>,
+): T | undefined {
+  switch (state.type) {
+    case "ready":
+    case "offline":
+    case "reconnecting":
+      return state.snapshot
+    case "error":
+    case "loading":
+    case "revoked":
+      return undefined
+  }
 }
 
 function StateFailure(props: {
@@ -57,10 +72,7 @@ export function SessionsPage(): JSX.Element {
       openBrowserEventStream({ type: "sessions" }, position, onFrame, onClose),
   })
   const state = useSessionSynchronizer(synchronizer)
-  const snapshot = (): SessionListResponse | undefined => {
-    const current = state()
-    return current.type === "ready" ? current.snapshot : undefined
-  }
+  const snapshot = (): SessionListResponse | undefined => retainedSnapshot(state())
   return (
     <section class="product-route product-list-detail" data-mobile-route="list">
       <section class="session-pane session-pane--list stack" data-testid="session-list-pane">
@@ -77,9 +89,9 @@ export function SessionsPage(): JSX.Element {
           <Match
             when={
               state().type === "error" ||
-              state().type === "offline" ||
-              state().type === "reconnecting" ||
-              state().type === "revoked"
+              state().type === "revoked" ||
+              ((state().type === "offline" || state().type === "reconnecting") &&
+                snapshot() === undefined)
             }
           >
             <StateFailure
@@ -104,15 +116,24 @@ export function SessionsPage(): JSX.Element {
           </Match>
           <Match when={snapshot()}>
             {(snapshot) => (
-              <For each={snapshot().sessions}>
-                {(session) => (
-                  <SessionRow
-                    onSelect={() => navigate(`/sessions/${encodeURIComponent(session.id)}`)}
-                    status={sessionStatus(session)}
-                    title={session.title}
+              <>
+                <Show when={state().type === "offline" || state().type === "reconnecting"}>
+                  <StateFailure
+                    onRetry={() => void synchronizer.refresh()}
+                    state={state().type === "offline" ? "offline" : "reconnecting"}
                   />
-                )}
-              </For>
+                </Show>
+                <For each={snapshot().sessions}>
+                  {(session) => (
+                    <SessionRow
+                      disabled={state().type !== "ready"}
+                      onSelect={() => navigate(`/sessions/${encodeURIComponent(session.id)}`)}
+                      status={state().type === "offline" ? "offline" : sessionStatus(session)}
+                      title={session.title}
+                    />
+                  )}
+                </For>
+              </>
             )}
           </Match>
         </Switch>
@@ -141,10 +162,7 @@ export function SessionDetailPage(): JSX.Element {
       ),
   })
   const state = useSessionSynchronizer(synchronizer)
-  const snapshot = (): SessionSnapshot | undefined => {
-    const current = state()
-    return current.type === "ready" ? current.snapshot : undefined
-  }
+  const snapshot = (): SessionSnapshot | undefined => retainedSnapshot(state())
   let transcript: HTMLElement | undefined
   let autoFollow = true
   const updateFollow = (): void => {
@@ -182,9 +200,9 @@ export function SessionDetailPage(): JSX.Element {
           <Match
             when={
               state().type === "error" ||
-              state().type === "offline" ||
-              state().type === "reconnecting" ||
-              state().type === "revoked"
+              state().type === "revoked" ||
+              ((state().type === "offline" || state().type === "reconnecting") &&
+                snapshot() === undefined)
             }
           >
             <StateFailure
@@ -203,6 +221,12 @@ export function SessionDetailPage(): JSX.Element {
           <Match when={snapshot()}>
             {(snapshot) => (
               <>
+                <Show when={state().type === "offline" || state().type === "reconnecting"}>
+                  <StateFailure
+                    onRetry={() => void synchronizer.refresh()}
+                    state={state().type === "offline" ? "offline" : "reconnecting"}
+                  />
+                </Show>
                 <header class="product-route__heading stack">
                   <p class="product-kicker">Authoritative snapshot</p>
                   <h1>{snapshot().session.title}</h1>

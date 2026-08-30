@@ -45,6 +45,7 @@ These values are the sole color source. Implementation maps them to CSS custom p
 | `--color-text-primary` | `#211E1A` | `oklch(24.6% 0.012 68)` | `#F3EEE5` | `oklch(95.3% 0.014 78)` | Main text and icons |
 | `--color-text-secondary` | `#5E554B` | `oklch(45.5% 0.020 71)` | `#C4BAAC` | `oklch(78.7% 0.023 73)` | Supporting text and metadata |
 | `--color-text-disabled` | `#847C71` | `oklch(59.3% 0.020 72)` | `#92887C` | `oklch(62.4% 0.024 70)` | Disabled labels only |
+| `--color-text-accent` | `#8D351B` | `oklch(44.4% 0.142 39)` | `#E48A65` | `oklch(72.1% 0.132 42)` | Kicker and static accent text |
 | `--color-border-subtle` | `#D5CCBE` | `oklch(84.1% 0.022 75)` | `#4B433B` | `oklch(40.8% 0.022 67)` | Passive dividers and rings |
 | `--color-border-strong` | `#A99E8E` | `oklch(70.6% 0.028 73)` | `#6B6055` | `oklch(50.7% 0.027 68)` | Inputs and interactive boundaries |
 | `--color-action-primary` | `#A74324` | `oklch(50.6% 0.151 40)` | `#E48A65` | `oklch(72.1% 0.132 42)` | Primary action and selected emphasis |

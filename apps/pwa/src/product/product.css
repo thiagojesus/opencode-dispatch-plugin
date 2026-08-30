@@ -185,9 +185,9 @@ body[data-surface="product"] {
 }
 
 .product-kicker {
-  color: var(--color-action-primary);
+  color: var(--color-text-accent);
   font-size: var(--font-label);
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: 0.01em;
 }
 
@@ -244,5 +244,20 @@ body[data-surface="product"] {
     animation-duration: 0.001s;
     animation-iteration-count: 1;
     transition-duration: 0.001s;
+  }
+}
+
+@media (forced-colors: active) {
+  .product-shell .continuity-rail,
+  .product-shell .session-pane,
+  .product-shell .session-row,
+  .product-shell .state-panel {
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+
+  .product-shell .product-nav__link[aria-current="page"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
   }
 }
